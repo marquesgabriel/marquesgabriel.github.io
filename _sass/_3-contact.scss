@@ -42,12 +42,12 @@
 
     input.error,
     textarea.error {
-      border-color: $red;
+      border-color: $tom-thumb;
 
       + .error-message {
         display: block;
         font-size: em(12px);
-        color: $red;
+        color: $tom-thumb;
       }
     }
 

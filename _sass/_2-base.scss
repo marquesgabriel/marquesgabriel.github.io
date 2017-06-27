@@ -47,7 +47,7 @@ img {
 }
 
 a {
-  color: $red;
+  color: $tom-thumb;
   text-decoration: none;
 
   &:active,
@@ -215,7 +215,7 @@ code {
 	  $icon-size: 30px;
 
 	  .icon {
-		  width: $icon-size; 
+		  width: $icon-size;
 		  height: $icon-size;
 	  }
     }
@@ -231,7 +231,7 @@ code {
     }
 
     .icon-favorite {
-      color: $red;
+      color: $tom-thumb;
 
 	  .icon {
 		  width: 10px;

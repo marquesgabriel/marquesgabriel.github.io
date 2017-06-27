@@ -9,7 +9,7 @@ type: home
       <div class="avatar">{% include avatar.html %}</div>
 
       <h1 class="tc">Orange is a free and open source Jekyll theme with a minimal approach</h1>
-      
+
         <div class="intro-text">
           <h3 class="title">Features</h3>
           <div class="row">
@@ -45,7 +45,7 @@ type: home
 <section id="work" class="section section-work">
 	<div class="row">
 		<h2 class="heading">Previous Projects</h2>
-		
+
 		<div class="work-container">
 			<!-- Insert project -->
 		</div>
@@ -63,7 +63,7 @@ type: home
 				</li>
 				{% assign projects_count = forloop.length %}
 			{% endfor %}
-			
+
 			{% if projects_count < 4 %}
 				<li class="work-tile-placeholder row work-tile-{{ projects_count }}">
 				<!-- <li class="work-tile-placeholder row" style="width: {{ projects_count | times: 25 | minus: 100 | times: -1 }}%;"> -->
@@ -99,20 +99,20 @@ type: home
 					<input type="email" name="_replyto" id="contact-email" class="form-input" placeholder="e.g. chuck.norris@mail.com">
 					<span class="error-message"></span>
 				</li>
-				
+
 				<li>
 					<label for="contact-subject">You'd like to talk about</label>
 					<input type="text" name="_subject" id="contact-subject" class="form-input" placeholder="e.g. A new project">
 					<span class="error-message"></span>
 				</li>
-				
+
 				<li>
 					<label for="contact-message">Tell me more about it here</label>
 					<textarea name="contact-message" id="contact-message" class="form-input" rows="5" placeholder="I'll be reading this, be nice :)"></textarea>
 					<span class="error-message"></span>
 				</li>
 				<li>
-					<input type="submit" class="button" value="All done? Submit">	
+					<input type="submit" class="button" value="All done? Submit">
 				</li>
 				<li class="form-result row">
 					<span class="form-message success"><svg class="icon icon-check"><use xlink:href="#icon-check"></use></svg>Thank you! I'll get back to you soon.</span>
