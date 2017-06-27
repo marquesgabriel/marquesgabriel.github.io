@@ -14,26 +14,26 @@ avatar_path: "/assets/img/avatar.png"
 # Url: Your hosting url
 # Change this to your hosting url e.g. http://[your_name].github.io OR http://localhost:4000
 # ===========
-url: "http://talentedunicorn.com/orange"
+url: "http://talentedunicorn.github.io/orange"
 
 # Google Tag manager ID: Use Google Tag manager to easily manage your tracking scripts.  
 # Create a new container and add your container ID here
 # ==========
-tagManagerID: GTM-PZNT26 # Your tag manager container ID
+# tagManagerID: GTM-[ID] # Your tag manager container ID
 
 # Disqus settings: For comment support
 # ==========
-disqus_shortname: orangejekylltheme # Disqus shortname
+# disqus_shortname: [shortname] # Disqus shortname
 
 # Contact form post url - Where the form gets posted - Check out formspree.io for free form posts http://formspree.io/
 # ==========
-formpost: http://formspree.io/orangetheme.50.talentedunicorn@spamgourmet.com
+# formpost: http://formspree.io/[email address]
 
 env: production # - Set 'development' or 'production'
 exclude: [node_modules/, .sass-cache/]
 
 # Adding gems
-plugins: [jekyll-paginate]
+gems: [jekyll-paginate]
 
 sass:
  sass_dir: _sass

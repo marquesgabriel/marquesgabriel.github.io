@@ -1,0 +1,216 @@
+$work-icon-size: 30px;
+
+.section-work {
+  background-color: $red;
+  overflow: auto;
+
+  .heading {
+    color: $white;
+  }
+}
+
+.work-container {
+  background-color: $white;
+  position: relative;
+
+  .work {
+    padding-bottom: em(100px);
+
+    .work-header-container {
+      padding: em(30px) em(20px);
+    }
+
+    .work-title,
+    .work-client {
+      display: block;
+    }
+
+    .work-title {
+      // font-family: $fontFamilySecondary;
+      font-size: 2em;
+      font-weight: bold;
+      padding-right: em(10px);
+      color: $black;
+    }
+
+    .work-client {
+      color: darken($grey, 20%);
+      font-weight: normal;
+      // font-size: 1rem;
+    }
+
+    .work-link {
+      @extend .button;
+      font-size: 14px;
+      text-align: center;
+      display: block;
+      max-width: 50%;
+      margin: auto;
+      text-transform: uppercase;
+      font-weight: bold;
+    }
+
+    .image-figure {
+      margin: em(10px) 0;
+    }
+
+    .close {
+      display: block;
+	  text-align: center;
+      cursor: pointer;
+	  background: $black;
+
+	  .icon {
+		  width: 2em;
+		  height: 2em;
+		  fill: $white;
+		  padding: 5px;
+	  }
+
+    }
+  }
+}
+
+.work-grid {
+  padding: 0;
+
+  @include clearfix;
+
+  .work-tile {
+    background-color: $black;
+    display: inline-block;
+    position: relative;
+    vertical-align: top;
+    width: 100%;
+    height: em(200px);
+    margin: 0;
+    margin-right: em(-4px);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    overflow: hidden;
+
+    @media screen and (min-width: $medium-screen) {
+      width: 50%;
+    }
+
+    @media screen and (min-width: $large-screen) {
+      width: 25%;
+    }
+
+    &:before,
+    .tile-text,
+    .work-tile-link {
+      position: absolute;
+      // opacity: 0;
+      // visibility: hidden;
+
+      @include transition(all 800ms);
+    }
+
+    // On item hover
+    &:hover {
+      &:before,
+      .tile-text {
+      // .work-tile-link {
+        opacity: 0;
+        visibility: hidden;
+      }
+    }
+
+    &:before {
+      content: "";
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(0, 0, 0, 0.5);
+    }
+
+    .tile-text {
+      top: 0;
+      left: 0;
+      right: 0;
+      color: $white;
+
+      .work-item-title,
+      .work-item-client {
+        display: block;
+        text-align: center;
+      }
+
+      .work-item-title {
+        // font-family: $fontFamilySecondary;
+        padding: em(5px);
+        border-bottom: 3px solid $white;
+        background: $white;
+        color: $black;
+      }
+
+      .work-item-client {
+        font-size: em(14px);
+        font-style: italic;
+      }
+    }
+
+    .work-tile-link {
+      color: black;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      background-color: transparent;
+      border: none;
+
+      .icon {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 2em;
+        fill: $white;
+      }
+
+    }
+  }
+
+  .work-tile-1,
+  .work-tile-2,
+  .work-tile-full {
+    width: 100%;
+  }
+
+  @media screen and (min-width: $medium-screen) {
+    .work-tile-1 {
+      width: 50%;
+    }
+  }
+
+  @media screen and (min-width: $large-screen) {
+    .work-tile-1 {
+      width: 75%;
+    }
+
+    .work-tile-2 {
+      width: 50%;
+    }
+  }
+
+  .work-tile-placeholder {
+    @extend .work-tile;
+
+    padding: em(20px);
+
+    .placeholder {
+      color: $white;
+      display: block;
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+
+    .small {
+      font-size: 1em;
+      font-weight: normal;
+    }
+  }
+}
