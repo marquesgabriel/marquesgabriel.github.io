@@ -1,0 +1,12 @@
+# Temporary files
+*.swp
+
+# Jekyll site files
+_site
+
+# npm installed files
+node_modules
+
+# Sass generated output
+**/**/.sass-cache
+/assets/css/*.css*
