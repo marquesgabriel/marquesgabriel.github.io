@@ -35,8 +35,8 @@
       &:focus {
         outline: none;
         border: none;
-        background-color: $black;
-        color: $white;
+        background-color: darken($grey, 3%);
+        color: $black;
       }
     }
 

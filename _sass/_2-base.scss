@@ -272,8 +272,17 @@ code {
 // == end Alignment ==
 
 // == Helpers ==
-#proj1{
+#proj1,#proj2{
   .wide-img{
     width: 50vw;
+  }
+}
+.feature{
+  a.link-home{
+    outline: 0;
+    :active {
+      outline: 0;
+      outline-style: none;
+    }
   }
 }
