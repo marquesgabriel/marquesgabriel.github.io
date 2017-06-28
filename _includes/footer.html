@@ -5,7 +5,9 @@
 				{% if account.name == 'twitter' %}<li><a href="{{ account.link }}" class="icon-twitter" target="_blank"><svg class="icon icon-twitter"><use xlink:href="#icon-twitter"></use></svg></a></li> {% endif %}
 				{% if account.name == 'github' %}<li><a href="{{ account.link }}" class="icon-github" target="_blank"><svg class="icon icon-social-github"><use xlink:href="#icon-social-github"></use></svg></a></li> {% endif %}
 				{% if account.name == 'google' %}<li><a href="{{ account.link }}" class="icon-google-plus-square" target="_blank"><svg class="icon icon-google-plus"><use xlink:href="#icon-google-plus"></use></svg></a></li> {% endif %}
-				{% if account.name == 'facebook' %}<li><a href="{{ account.link }}" class="icon-facebook" target="_blank"><svg class="icon icon-social-facebook-circular"><use xlink:href="#icon-social-facebook-circular"></use></svg></a></li> {% endif %}
+				{% if account.name == 'facebook' %}<li><a href="{{ account.link }}" class="icon-facebook" target="_blank"><svg class="icon icon-social-facebook-circular"><use xlink:href="#icon-social-facebook-circular"></use></svg></a></li>
+				{% if account.name == 'linkedin' %}<li><a href="{{ account.link }}" class="icon-linkedin" target="_blank"><svg class="icon icon-social-linkedin-circular"><use xlink:href="#icon-social-linkedin-circular"></use></svg></a></li>
+				{% endif %}
 			{% endfor %}
 		</ul>
 

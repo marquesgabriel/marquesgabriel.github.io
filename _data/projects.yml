@@ -8,3 +8,13 @@
   client: Pivoting startup Inc
   url: http://pivot-not-really-a-website.io
   cover-img: assets/img/projects/proj2/cover.png
+- id: proj3
+  title: Cheep app
+  client: Guenka Desenvolvimento de Software
+  url: http://cheep-app.com.br
+  cover-img: assets/img/projects/proj2/cover.png
+- id: proj4
+  title: Gres - Avaliacão física
+  client: Danilo Souza
+  url: https://play.google.com/store/apps/details?id=ga.marques.gres
+  cover-img: assets/img/projects/proj2/cover.png

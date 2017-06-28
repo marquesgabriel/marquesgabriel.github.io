@@ -7,6 +7,7 @@ footer:
  - { name: twitter, link: 'http://twitter.com/gfpms', via: '@gfpms' }
  # - { name: google, link: 'https://plus.google.com/u/0/[google_plus_id]/posts' }
  - { name: facebook, link: 'https://www.facebook.com/naturallis' }
+ - { name: linkedin, link: 'https://www.linkedin.com/in/gabriel-felipe-marques-a9606510b' }
 
 
 # Social sharing options
