@@ -63,15 +63,15 @@ type: home
 			{% if projects_count < 4 %}
 				<li class="work-tile-placeholder row work-tile-{{ projects_count }}">
 				<!-- <li class="work-tile-placeholder row" style="width: {{ projects_count | times: 25 | minus: 100 | times: -1 }}%;"> -->
-					<span class="placeholder">Want to see your project here?</span>
-					<p class="placeholder small">Drop me a line <a href="#contact">below</a></p>
+					<span class="placeholder">Quer ver um projeto seu aqui?</span>
+					<p class="placeholder small">Preencha os dados <a href="#contact">abaixo</a></p>
 				</li>
 			{% endif %}
 
 		{% else %}
 			<li class="work-tile-placeholder row work-tile-full">
-				<span class="placeholder">Want to see your project here?</span>
-				<p class="placeholder small">Drop me a line <a href="#contact">below</a></p>
+				<span class="placeholder">Quer ver um projeto seu aqui?</span>
+				<p class="placeholder small">Preencha os dados <a href="#contact">abaixo</a></p>
 			</li>
 		{% endif %}
 		</ul>
@@ -82,36 +82,36 @@ type: home
 {% if site.formpost %}
 <section id="contact" class="section section-contact">
 	<div class="row">
-		<h2 class="heading">Let's Communicate</h2>
+		<h2 class="heading">Vamos comunicar</h2>
 		<form id="contact-form" method="post" action="{{ site.formpost }}">
 			<ul class="form-items">
 				<li>
-					<label for="contact-name">Your name is</label>
-					<input type="text" name="contact-name" id="contact-name" class="form-input" placeholder="e.g. Chuck Norris">
+					<label for="contact-name">Seu nome é</label>
+					<input type="text" name="contact-name" id="contact-name" class="form-input" placeholder="Ex: Fulano de Tal">
 					<span class="error-message"></span>
 				</li>
 				<li>
-					<label for="contact-email">Your email address is</label>
-					<input type="email" name="_replyto" id="contact-email" class="form-input" placeholder="e.g. chuck.norris@mail.com">
-					<span class="error-message"></span>
-				</li>
-
-				<li>
-					<label for="contact-subject">You'd like to talk about</label>
-					<input type="text" name="_subject" id="contact-subject" class="form-input" placeholder="e.g. A new project">
+					<label for="contact-email">Seu e-mail é</label>
+					<input type="email" name="_replyto" id="contact-email" class="form-input" placeholder="Ex: fulano@gmail.com">
 					<span class="error-message"></span>
 				</li>
 
 				<li>
-					<label for="contact-message">Tell me more about it here</label>
-					<textarea name="contact-message" id="contact-message" class="form-input" rows="5" placeholder="I'll be reading this, be nice :)"></textarea>
+					<label for="contact-subject">Qual sua ideia?</label>
+					<input type="text" name="_subject" id="contact-subject" class="form-input" placeholder="Ex: Site institucional">
+					<span class="error-message"></span>
+				</li>
+
+				<li>
+					<label for="contact-message">Descreva melhor a ideia</label>
+					<textarea name="contact-message" id="contact-message" class="form-input" rows="5"></textarea>
 					<span class="error-message"></span>
 				</li>
 				<li>
-					<input type="submit" class="button" value="All done? Submit">
+					<input type="submit" class="button" value="Tudo pronto? Enviar">
 				</li>
 				<li class="form-result row">
-					<span class="form-message success"><svg class="icon icon-check"><use xlink:href="#icon-check"></use></svg>Thank you! I'll get back to you soon.</span>
+					<span class="form-message success"><svg class="icon icon-check"><use xlink:href="#icon-check"></use></svg>Obrigado! Em breve entrarei em contato.</span>
 				</li>
 			</ul>
 		</form>
