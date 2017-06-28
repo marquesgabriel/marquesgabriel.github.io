@@ -19,7 +19,7 @@ url: "http://marques.ga"
 # Google Tag manager ID: Use Google Tag manager to easily manage your tracking scripts.
 # Create a new container and add your container ID here
 # ==========
-# tagManagerID: GTM-PZNT26 # Your tag manager container ID
+tagManagerID: GTM-WXDLQS6 # Your tag manager container ID
 
 # Disqus settings: For comment support
 # ==========
@@ -27,7 +27,7 @@ url: "http://marques.ga"
 
 # Contact form post url - Where the form gets posted - Check out formspree.io for free form posts http://formspree.io/
 # ==========
-# formpost: http://formspree.io/orangetheme.50.talentedunicorn@spamgourmet.com
+formpost: http://formspree.io/gabrielf.pmarques@gmail.com
 
 env: production # - Set 'development' or 'production'
 exclude: [node_modules/, .sass-cache/]
