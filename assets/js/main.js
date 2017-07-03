@@ -2,17 +2,15 @@ $(function() {
 	smoothScroll(500);
 	activateMenu();
 	work_toggle();
+	about_toggle();
 	handle_form_submit();
 });
 
-
 function smoothScroll (duration) {
-	$('a[href^="#"]').on('click', function(event)
-	{
+	$('a[href^="#"]').on('click', function(event){
 		var target =  $( $(this).attr('href') );
 
-		if (target.length)
-		{
+		if (target.length){
 			event.preventDefault();
 			// Animate scroll
 			$('html, body').animate({
@@ -24,8 +22,8 @@ function smoothScroll (duration) {
 
 function activateMenu() {
 	var nav = $('.nav'),
-		links_list = $('.nav > ul');	
-	
+		links_list = $('.nav > ul');
+
 	nav.headroom({
 		"offset": 205,
 		"tolerance": 5,
@@ -45,8 +43,7 @@ function activateMenu() {
 		$(event.data.menu).slideToggle();
 	});
 
-	$('.nav ul a').on('click', {menu: links_list} , function(event)
-	{
+	$('.nav ul a').on('click', {menu: links_list} , function(event){
 
 		$(this).parent('li').addClass('active')
 			.siblings('li').removeClass('active');
@@ -57,24 +54,74 @@ function activateMenu() {
 	});
 }
 
-function work_toggle()
-  {
-    $('.work-tile-link').on('click', function(e){
-      e.preventDefault();
-      var $this = $(this),
-      linkTo = $this.attr('href'),
-      site_url = $this.attr('data-siteurl');
-      console.log("Getting projects...", linkTo, site_url);
+function about_toggle(){
+  $('.about-link').on('click', function(e){
+    e.preventDefault();
+    var $this = $(this),
+    linkTo = $this.attr('href'),
+    site_url = $this.attr('data-siteurl');
 
-      // Get projects
-      get_project(site_url, linkTo.substr(1));
+		console.log("linkTo");
+		console.log(linkTo);
+		console.log("site_url");
+		console.log(site_url);
 
-      open_work(linkTo);
-    });
-  }
-  
+    // Get about-page
+    get_about(site_url, linkTo.substr(1));
+    open_about(linkTo);
+  });
+}
+function get_about(url, name){
+	var loader = '<div class="loader"><div class="innerLoader"></div></div>',
+		project = url + "/" + name + ".html";
+	$('.about-container').html(loader);
+	$.ajax({
+		cache: true,
+		url: project,
+	}).done(function() {
+		console.log("Project", project);
+		$('.about-container').load(project, function() {
+			close_about(); // Preferably run this once
+		});
+	}).fail(function() {
+		console.error(project, "not found");
+		// Remove ajax loader
+		$('.loader').remove();
+		// open grid
+		$('.intro-text').slideDown('slow');
+	});
+}
+function open_about(id){
+	var res = $('.about-container').find(id).slideDown('slow');
+	$('.intro-text').slideUp('slow');
+}
+function close_about(){
+	once(
+		$('.about-container .close').on('click', function(e){
+			console.log("Closing...");
+			e.preventDefault();
+		    $(this).parent('.work').slideUp();
+		    $('.intro-text').slideDown('slow');
+		})
+	);
+}
+
+function work_toggle(){
+  $('.work-tile-link').on('click', function(e){
+    e.preventDefault();
+    var $this = $(this),
+    linkTo = $this.attr('href'),
+    site_url = $this.attr('data-siteurl');
+    console.log("Getting projects...", linkTo, site_url);
+
+    // Get projects
+    get_project(site_url, linkTo.substr(1));
+
+    open_work(linkTo);
+  });
+}
 function get_project(url, name) {
-	
+
 	var loader = '<div class="loader"><div class="innerLoader"></div></div>',
 		project = url + "/projects/" + name + ".html";
 
@@ -98,15 +145,13 @@ function get_project(url, name) {
 
 }
 
-function open_work(id)
-{
+function open_work(id){
 	var res = $('.work-container').find(id).slideDown('slow');
 
 	$('.work-grid').slideUp('slow');
 }
-  
-function close_work()
-{
+
+function close_work(){
 
 	once(
 		$('.work-container .close').on('click', function(e){
@@ -119,8 +164,7 @@ function close_work()
 
 }
 
-function handle_form_submit()
-{
+function handle_form_submit(){
 	var form = $('#contact-form'),
 		action = form.attr('action'),
 		submit = form.find("[type='submit']"),
@@ -129,7 +173,7 @@ function handle_form_submit()
 		form_subject = form.find('#contact-subject'),
 		form_message = form.find('#contact-message'),
 		form_result = form.find('.form-result');
-	
+
 	// Honeypot trap for bots
 	submit.before('<input type="text" name="isBot" id="isBot"/>');
 	honeyPot = form.find('#isBot');
@@ -141,29 +185,24 @@ function handle_form_submit()
 		form_subject.removeClass('error');
 		form_message.removeClass('error');
 
-		if(!validate(form_name, 'text'))
-		{
+		if(!validate(form_name, 'text')){
 			form_name.addClass('error').next('.error-message').text('What do I call you');
 		}
 
-		if(!validate(form_email, 'email'))
-		{
+		if(!validate(form_email, 'email')){
 			form_email.addClass('error').next('.error-message').text('The email is not valid');
 		}
 
-		if(!validate(form_subject, 'text'))
-		{
+		if(!validate(form_subject, 'text')){
 			form_subject.addClass('error').next('.error-message').text('The subject is required');
 		}
 
-		if(!validate(form_message, 'text'))
-		{
+		if(!validate(form_message, 'text')){
 			form_message.addClass('error').next('.error-message').text('Please write something');
 		}
 
 		// If validation no errors
-		if(!form.find('input, textarea').hasClass('error') && honeyPot.val() === '')
-		{
+		if(!form.find('input, textarea').hasClass('error') && honeyPot.val() === ''){
 			// Disable submit (prevent double-submission)
 			submit.attr('disabled', 'disabled');
 			submit_test = submit.val();
@@ -193,8 +232,7 @@ function handle_form_submit()
 	});
 }
 
-function validate(elem, type)
-{
+function validate(elem, type){
 	// Validation
 		switch (type) {
 			case 'email':
@@ -211,18 +249,18 @@ function validate(elem, type)
 		return result;
 }
 
-function validateEmail(email) { 
+function validateEmail(email) {
   // http://stackoverflow.com/a/46181/11236
-  
+
     var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(email);
 }
 
 // David Walsh 'Once' function - run a function once
-function once(fn, context) { 
+function once(fn, context) {
 	var result;
 
-	return function() { 
+	return function() {
 		if(fn) {
 			result = fn.apply(context || this, arguments);
 			fn = null;
