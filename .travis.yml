@@ -3,9 +3,6 @@ language: ruby
 rvm:
   - 2.3.1
 
-before_script:
- -  bundle install
-
 script: ./script/cibuild
 
 env:
