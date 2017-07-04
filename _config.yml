@@ -33,7 +33,7 @@ env: production # - Set 'development' or 'production'
 exclude: [node_modules/, .sass-cache/]
 
 # Adding gems
-plugins: [jekyll-paginate]
+plugins: [jekyll-paginate, html-proofer]
 
 sass:
  sass_dir: _sass
