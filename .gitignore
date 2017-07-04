@@ -10,3 +10,5 @@ node_modules
 # Sass generated output
 **/**/.sass-cache
 /assets/css/*.css*
+
+Gemfile.lock
