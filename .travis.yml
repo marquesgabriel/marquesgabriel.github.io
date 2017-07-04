@@ -3,7 +3,7 @@ language: ruby
 rvm:
   - 2.3.1
 
-script: ./scirpt/cibuild
+script: ./script/cibuild
 
 env:
   global:
