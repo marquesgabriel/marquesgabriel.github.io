@@ -4,7 +4,7 @@
 # Footer links
 footer:
  - { name: github, link: 'https://github.com/marquesgabriel' }
- - { name: gitlab, link: 'https://gitlab.com/marquesgabriel' }
+ # - { name: gitlab, link: 'https://gitlab.com/marquesgabriel' }
  # - { name: twitter, link: 'http://twitter.com/gfpms', via: '@gfpms' }
  # - { name: google, link: 'https://plus.google.com/u/0/[google_plus_id]/posts' }
  - { name: facebook, link: 'https://www.facebook.com/naturallis' }
