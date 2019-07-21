@@ -1,0 +1,97 @@
+// @import 'https://fonts.googleapis.com/css?family=Damion|Work+Sans:900';
+
+body, html {
+	width: 100%;
+	height: 100%;
+  overflow: hidden;
+  .main-bg-gradient{
+    width: 100%;
+    height: 100vh;
+    background: rgb(146,0,117);
+    background: linear-gradient(0deg, rgba(146,0,117,1) 0%, rgba(101,13,137,1) 50%, rgba(146,0,117,1) 100%);
+    p{
+      margin: 0px;
+    }
+  }
+  .moving-grid {
+    position: absolute;
+    top: 52%;
+    left: 0;
+    width: 100%;
+    height: 70%;
+    perspective: 1000px;
+    z-index: 1;
+    &:before {
+      content: '';
+      position: absolute;
+      top: 8px;
+      // left:;
+      width: 100%;
+      height: 10px;
+      box-shadow: -2px 0 21px -3px #f706cf;
+    }
+    .container {
+      position: relative;
+      width: 100%;
+      height: 300%;
+      border: 2px solid #f706cf;
+      box-sizing: border-box;
+      background-color: #2e2157;
+      transform-origin: top ;
+      transform: rotateX(70deg) translateY(10%);
+      overflow: hidden;
+      .static-lines {
+        display: inline-block;
+        width: 100%;
+        height: 100%;
+        .vert {
+          display: inline-block;
+          height: 100%;
+          width: 2px;
+          background-color: #f706cf;
+          margin-left: 4.5%;
+          box-shadow: 0 2px 21px #f706cf;
+        }
+      }
+      .moving-lines {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 300%;
+        .horz {
+          display: inline-block;
+          width: 100%;
+          height: 3px;
+          margin-top: 4.8%;
+          background-color: #f706cf;
+          box-shadow: 2px 0 21px #f706cf;
+          animation: lines 600ms linear infinite;
+        }
+      }
+    }
+  }
+}
+// @keyframes lines {
+// 	from {
+// 		transform: translateY(-65px);
+// 	}
+// 	to {
+// 		transform: translateY(65px);
+// 	}
+// }
+
+// @keyframes shine1 {
+// 	0% {
+// 		transform: rotate(0) scale(0);
+// 		opacity: 0;
+// 	}
+// 	50% {
+// 		transform: rotate(360deg) scale(1);
+// 		opacity: 1;
+// 	}
+// 	100% {
+// 		transform: rotate(720deg) scale(0);
+// 		opacity: 0;
+// 	}
+// }
