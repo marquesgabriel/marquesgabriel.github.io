@@ -1,5 +1,34 @@
 // @import 'https://fonts.googleapis.com/css?family=Damion|Work+Sans:900';
 
+// $gridLine: #fceffa;
+// $gridLine: #f3a4e2;
+// $gridTile: #421245;
+$gridLine: #f706cf;
+$gridTile: #2e2157;
+
+.name-section{
+  width: 100%;
+  height: 50%;
+  display: flex;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  #gabriel{
+    width: 40%;
+    height: auto;
+    position: relative;
+    opacity: 0;
+  }
+  #dev{
+    width: 20%;
+    position: absolute;
+    left: 53%;
+    top: 50%;
+    transform: rotate(-26deg);
+    opacity: 0;
+  }
+}
+
 body, html {
 	width: 100%;
 	height: 100%;
@@ -7,8 +36,11 @@ body, html {
   .main-bg-gradient{
     width: 100%;
     height: 100vh;
-    background: rgb(146,0,117);
-    background: linear-gradient(0deg, rgba(146,0,117,1) 0%, rgba(101,13,137,1) 50%, rgba(146,0,117,1) 100%);
+    background: #030303;
+    // background: linear-gradient(0deg, #030303 0%, #171361 85%, #2c26b4 100%);
+    background: linear-gradient(0deg, #030303 0%, #450045 95%, #6a006a 100%);
+    // background: rgb(146,0,117);
+    // background: linear-gradient(0deg, rgba(146,0,117,1) 0%, rgba(101,13,137,1) 50%, rgba(146,0,117,1) 100%);
     p{
       margin: 0px;
     }
@@ -28,15 +60,15 @@ body, html {
       // left:;
       width: 100%;
       height: 10px;
-      box-shadow: -2px 0 21px -3px #f706cf;
+      box-shadow: -2px 0 21px -3px $gridLine;
     }
     .container {
       position: relative;
       width: 100%;
       height: 300%;
-      border: 2px solid #f706cf;
+      border: 2px solid $gridLine;
       box-sizing: border-box;
-      background-color: #2e2157;
+      background-color: $gridTile;
       transform-origin: top ;
       transform: rotateX(70deg) translateY(10%);
       overflow: hidden;
@@ -48,9 +80,9 @@ body, html {
           display: inline-block;
           height: 100%;
           width: 2px;
-          background-color: #f706cf;
+          background-color: $gridLine;
           margin-left: 4.5%;
-          box-shadow: 0 2px 21px #f706cf;
+          box-shadow: 0 2px 21px $gridLine;
         }
       }
       .moving-lines {
@@ -64,8 +96,8 @@ body, html {
           width: 100%;
           height: 3px;
           margin-top: 4.8%;
-          background-color: #f706cf;
-          box-shadow: 2px 0 21px #f706cf;
+          background-color: $gridLine;
+          box-shadow: 2px 0 21px $gridLine;
           animation: lines 600ms linear infinite;
         }
       }
