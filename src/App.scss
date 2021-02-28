@@ -1,0 +1,143 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+// @import 'https://fonts.googleapis.com/css?family=Damion|Work+Sans:900';
+
+// $gridLine: #fceffa;
+// $gridLine: #f3a4e2;
+// $gridTile: #421245;
+$gridLine: #f706cf;
+$gridTile: #2e2157;
+
+.name-section{
+  width: 100%;
+  height: 50%;
+  display: flex;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  #gabriel{
+    width: 40%;
+    height: auto;
+    position: relative;
+    opacity: 0;
+  }
+  #dev{
+    width: 20%;
+    position: absolute;
+    left: 53%;
+    top: 50%;
+    transform: rotate(-26deg);
+    opacity: 0;
+  }
+}
+
+body, html {
+	width: 100%;
+	height: 100%;
+  overflow: hidden;
+  .main-bg-gradient{
+    width: 100%;
+    height: 100vh;
+    background: #030303;
+    // background: linear-gradient(0deg, #030303 0%, #171361 85%, #2c26b4 100%);
+    background: linear-gradient(0deg, #030303 0%, #450045 95%, #6a006a 100%);
+    // background: rgb(146,0,117);
+    // background: linear-gradient(0deg, rgba(146,0,117,1) 0%, rgba(101,13,137,1) 50%, rgba(146,0,117,1) 100%);
+    p{
+      margin: 0px;
+    }
+  }
+  .moving-grid {
+    position: absolute;
+    top: 52%;
+    left: 0;
+    width: 100%;
+    height: 70%;
+    perspective: 1000px;
+    z-index: 1;
+    &:before {
+      content: '';
+      position: absolute;
+      top: 8px;
+      // left:;
+      width: 100%;
+      height: 10px;
+      box-shadow: -2px 0 21px -3px $gridLine;
+    }
+    .container {
+      position: relative;
+      width: 100%;
+      height: 300%;
+      border: 2px solid $gridLine;
+      box-sizing: border-box;
+      background-color: $gridTile;
+      transform-origin: top ;
+      transform: rotateX(70deg) translateY(10%);
+      overflow: hidden;
+      .static-lines {
+        display: inline-block;
+        width: 100%;
+        height: 100%;
+        .vert {
+          display: inline-block;
+          height: 100%;
+          width: 2px;
+          background-color: $gridLine;
+          margin-left: 4.5%;
+          box-shadow: 0 2px 21px $gridLine;
+        }
+      }
+      .moving-lines {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 300%;
+        .horz {
+          display: inline-block;
+          width: 100%;
+          height: 3px;
+          margin-top: 4.8%;
+          background-color: $gridLine;
+          box-shadow: 2px 0 21px $gridLine;
+          animation: lines 600ms linear infinite;
+        }
+      }
+    }
+  }
+}
+// @keyframes lines {
+// 	from {
+// 		transform: translateY(-65px);
+// 	}
+// 	to {
+// 		transform: translateY(65px);
+// 	}
+// }
+
+// @keyframes shine1 {
+// 	0% {
+// 		transform: rotate(0) scale(0);
+// 		opacity: 0;
+// 	}
+// 	50% {
+// 		transform: rotate(360deg) scale(1);
+// 		opacity: 1;
+// 	}
+// 	100% {
+// 		transform: rotate(720deg) scale(0);
+// 		opacity: 0;
+// 	}
+// }
