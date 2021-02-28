@@ -46,6 +46,7 @@
     ]
   },
   "devDependencies": {
+    "@types/animejs": "^3.1.2",
     "commitizen": "^4.2.3",
     "cz-conventional-changelog": "3.3.0"
   },

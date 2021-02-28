@@ -1,11 +1,8 @@
 import React, {useEffect} from 'react';
-import './App.scss';
 import anime from "animejs";
 import devSvg from './Dev2.svg';
 
-// componentDidUpdate() {
-//   this.animate();
-// }
+import './App.scss';
 
 const animate = () => {
   anime({
