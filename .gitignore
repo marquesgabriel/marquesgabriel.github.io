@@ -11,6 +11,9 @@
 # production
 /build
 
+#code-coverage
+coverage-ts
+
 # misc
 .DS_Store
 .env.local
