@@ -1,0 +1,140 @@
+body {
+  background-color: lightgray;
+}
+
+.heading-section{
+  position: relative;
+}
+
+.portfolio-content{
+  background-color: #008689;
+}
+
+div.container-wrapper {
+  margin: 1em .5em;
+  border: outset 3px gray;
+  border-top: outset 3px white;
+  border-left: outset 3px white;
+  background: lightgray;
+  box-shadow: 1px 1px #535050;
+  &>.title {
+    padding: .25em;
+    font-weight: bold;
+    background: linear-gradient(90deg, navy, skyblue);
+    color: white;
+    position: relative;
+    .minimize-btn {
+      position: absolute;
+      right: 3.15em;
+      top: 2px;
+      background: lightgray;
+      border: outset 2px gray;
+      border-top: outset 2px white;
+      border-left: outset 2px white;
+      height: 18px;
+      width: 18px;
+      text-align: center;
+      color: black;
+      &:before {
+        content: '__';
+        bottom: 2px;
+        position: relative;
+      }
+    }
+    .maximize-btn {
+      position: absolute;
+      right: 1.7em;
+      top: 2px;
+      background: lightgray;
+      border: outset 2px gray;
+      border-top: outset 2px white;
+      border-left: outset 2px white;
+      height: 18px;
+      width: 18px;
+      text-align: center;
+      color: black;
+      &:before {
+        content: '◻';
+        bottom: 2px;
+        position: relative;
+      }
+    }
+    .close-btn {
+      position: absolute;
+      right: .25em;
+      top: 2px;
+      background: lightgray;
+      border: outset 2px gray;
+      border-top: outset 2px white;
+      border-left: outset 2px white;
+      height: 18px;
+      width: 18px;
+      text-align: center;
+      color: black;
+      &:before {
+        content: '✕';
+        bottom: 2px;
+        position: relative;
+      }
+    }
+  }
+  &.image{
+    float: left;
+    margin-top: -2em;
+    margin-left: -.25em;
+    display: block;
+    width: 200px;
+    height: auto;
+    position: relative;
+    img{
+      width: 100%;
+    }
+  }
+  .c-container {
+    padding: .5em;
+  }
+}
+
+.timeline-item{
+  border-bottom: solid 1px black;
+  &:last-child{
+    border-bottom: none;
+  }
+  &:first-child{
+    margin-top: 0em;
+  }
+  margin-top: .5em;
+  padding: 0px 1em 0px 0.5em;
+  .title{
+    text-align: left;
+    font-weight: bolder;
+    font-size: larger;
+  }
+  .date-range{
+    font-size: small;
+    font-style: italic;
+  }
+  .role{
+    font-weight: bold;
+    font-size: large;
+    text-align: left;
+  }
+  .description{
+    margin: .15em 0;
+    text-align: justify;
+  }
+}
+
+.abt-me{
+  p{
+    padding: 0 .5em;
+    margin-top: 0;
+  }
+}
+
+.skill-list{
+  dt{
+    margin-left: 1em;
+    font-weight: 600;
+  }
+}

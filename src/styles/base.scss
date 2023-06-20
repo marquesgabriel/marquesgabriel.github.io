@@ -1,0 +1,24 @@
+div.control-wrapper{
+  position: fixed;
+  z-index: 15;
+  background-color: #333532;
+  padding-right: 1em !important;
+  padding-left: 1em !important;
+  .row{
+    width: inherit;
+  }
+  span, a{
+    color: white;
+    text-align: right;
+    a{
+      padding-left: .75em;
+      color: white;
+    }
+  }
+}
+.portfolio-content{
+  padding-top: 3.25em;
+  div.container{
+    width: fit-content;
+  }
+}
