@@ -1,8 +1,12 @@
 import moment from "moment";
+import 'moment/locale/pt';
+
+import { translateTime } from "../i18n/babel";
 
 interface PropTypes{
   item: any;
   dateFormat?: string;
+  lang?: string;
 }
 
 const TextOrList = ({value}: {value: any}) =>{
@@ -17,15 +21,16 @@ const TextOrList = ({value}: {value: any}) =>{
   }
 }
 
-export const TimelineItem = ({item, dateFormat}: PropTypes)=>{
+export const TimelineItem = ({item, dateFormat, lang="PT"}: PropTypes)=>{
   const format = dateFormat? dateFormat: "MMM YYYY";
+  moment.locale(lang);
   return (
   <div className="timeline-item">
     <div className="title">
       {item.subTitle? `${item.subTitle}, `: null}{item.title}
     </div>
     <div className="date-range">
-      {item.location}, {moment(item.startDate).format(format)} ~ {item.endDate? moment(item.endDate).format(format) : "today"}
+      {item.location}, {moment(item.startDate).format(format)} ~ {item.endDate? moment(item.endDate).format(format) : translateTime(lang)}
     </div>
     <div className="description">
       <TextOrList value={item.description}/>

@@ -24,17 +24,17 @@ function App() {
 
   return (<>
     <LanguageSelect languages={LANGUAGES} value={language} switchLanguage={switchLanguage}/>
-    {/* <div className="portfolio-content">
+    {verbiages && <div className="portfolio-content">
       <div className="container">
         <div className="row align-items-center justify-content-center">
           <div className="col align-self-center p-0 col-12 col-sm-12 col-md-9 col-lg-8 col-xl-8">
             <div className="heading-section">
-              <Container classes="abt-me" title="About me">
+              <Container classes="abt-me" title={verbiages.aboutMe.title}>
                 <>
                 <Container classes="image" title="portrait.jpg" barButtons="close-only">
                 <img src={profilePic} alt="portrait of Gabriel"/>
               </Container>
-                  {verbiages.aboutMe.map((paragraph: string)=>(
+                  {verbiages.aboutMe.data.map((paragraph: string)=>(
                     <p>
                       {paragraph}
                     </p>
@@ -46,23 +46,23 @@ function App() {
         </div>
         <div className="row align-items-center justify-content-center">
           <div className="col align-self-center p-0 col-12 col-sm-12 col-md-9 col-lg-8 col-xl-8">
-            <Container classes="list-ctnr" title="Work Experience">
-              <Timeline list={verbiages.work} sortingProp="startDate"/>
+            <Container classes="list-ctnr" title={verbiages.work.title}>
+              <Timeline lang={language} list={verbiages.work.data} sortingProp="startDate"/>
             </Container>
           </div>
         </div>
         <div className="row align-items-center justify-content-center">
           <div className="col align-self-center p-0 col-12 col-sm-12 col-md-9 col-lg-8 col-xl-8">
-            <Container classes="text-ctnr" title="Education">
-              <Timeline list={verbiages.study} sortingProp="startDate" dateFormat="YYYY" />
+            <Container classes="text-ctnr" title={verbiages.study.title}>
+              <Timeline lang={language} list={verbiages.study.data} sortingProp="startDate" dateFormat="YYYY" />
             </Container>
           </div>
         </div>
         <div className="row align-items-center justify-content-center">
           <div className="col align-self-center p-0 col-12 col-sm-12 col-md-9 col-lg-8 col-xl-8">
-            <Container classes="text-ctnr skill-list" title="Skills">
+            <Container classes="text-ctnr skill-list" title={verbiages.skills.title}>
               <dl>
-                {verbiages.skills.map((skill: Skill)=>{
+                {verbiages.skills.data.map((skill: Skill)=>{
                   const subItem = typeof skill.description === "object"? skill.description.map((subSkill)=> (<dd>{subSkill}</dd>)): <dd>{skill.description}</dd>
                   return (<><dt>
                     {skill.name}
@@ -74,9 +74,9 @@ function App() {
         </div>
         <div className="row align-items-center justify-content-center">
           <div className="col align-self-center p-0 col-12 col-sm-12 col-md-9 col-lg-8 col-xl-8">
-            <Container classes="text-ctnr" title="Contact">
+            <Container classes="text-ctnr" title={verbiages.links.title}>
               <ul>
-                {verbiages.links.map((link: Link)=>(
+                {verbiages.links.data.map((link: Link)=>(
                   <li>
                     <a href={link.type === "email" ? `mailto:${link.url}`: link.url} target="_blank" rel="noreferrer">{link.description}</a>
                   </li>
@@ -86,7 +86,7 @@ function App() {
           </div>
         </div>
       </div>
-    </div> */}
+    </div>}
         {/* <Container classes="text-ctnr gamer" title="Gamer">
           <ul>
             <li>
