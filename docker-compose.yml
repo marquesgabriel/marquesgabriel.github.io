@@ -1,0 +1,12 @@
+version: '3'
+services:
+  react-ui:
+    build:
+      context: ./app
+    ports:
+      - "3069:3069"
+    container_name: react-ui
+    stdin_open: true
+    volumes:
+       - ./app:/app
+       - /app/node_modules
