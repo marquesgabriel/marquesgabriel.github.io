@@ -12,4 +12,4 @@ ENV NODE_ENV production
 
 EXPOSE 3069
 
-CMD [ "npx", "serve", "build" ]
+CMD [ "npx", "serve", "-l 3069", "build" ]
