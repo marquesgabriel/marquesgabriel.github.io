@@ -2,11 +2,10 @@ version: '3'
 services:
   react-ui:
     build:
-      context: ./
+      context: .
     ports:
       - "3069:3069"
     container_name: react-ui
     stdin_open: true
     volumes:
-       - /app:/app
-       - /app/node_modules
+       - /home/marquesgabriel/home-page:/app
