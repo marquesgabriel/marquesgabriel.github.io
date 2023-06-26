@@ -8,5 +8,5 @@ services:
     container_name: react-ui
     stdin_open: true
     volumes:
-       - ./app:/app
+       - ./react-ui:/app
        - /app/node_modules
