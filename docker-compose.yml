@@ -7,6 +7,3 @@ services:
       - "3069:3069"
     container_name: react-ui
     stdin_open: true
-    volumes:
-       - /react-ui:/app
-       - /app/node_modules
