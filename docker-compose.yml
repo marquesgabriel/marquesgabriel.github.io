@@ -1,9 +1,11 @@
 version: '3'
 services:
-  react-ui:
+  personal-page:
+    image: ghcr.io/marquesgabriel/marquesgabriel.github.io:latest
     build:
       context: ./app
     ports:
       - "3069:3000"
-    container_name: react-ui
+    container_name: personal-page
     stdin_open: true
+    restart: always
