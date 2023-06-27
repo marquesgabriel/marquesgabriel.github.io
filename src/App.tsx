@@ -3,7 +3,7 @@ import {useState, useEffect} from "react";
 import { Container, LanguageSelect, Timeline } from "./components";
 import { LANGUAGES } from './i18n';
 
-import profilePic from "./data/styles/win98/profile.png"
+import profilePic from "./data/styles/win98/profile.jpg"
 import { getVerbiages } from "./i18n/babel";
 import { Link, Skill } from "./types";
 
