@@ -1,9 +1,0 @@
-version: '3'
-services:
-  personal-page:
-    image: ghcr.io/marquesgabriel/marquesgabriel.github.io:latest
-    ports:
-      - "3069:3000"
-    container_name: personal-page
-    stdin_open: true
-    restart: always
