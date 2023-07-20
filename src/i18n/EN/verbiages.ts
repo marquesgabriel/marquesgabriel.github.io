@@ -6,7 +6,7 @@ export const verbiages = {
       "Hi. I'm Gabriel Marques",
       "I'm Brazilian, 28 years old. I am a software developer specialized on Web and its techonologies, more specifically, Javascript.",
       "I have worked as a fullstack developer in the past, but currently i work as a Scrum Master for a UI development team",
-      "As a side activity, i also like to do some 3D modelling. You can check more about this on the instagram @gabrielgoes3D",
+      "As a side activity, i also like to do some 3D modelling. You can check more about this on the instagram @artificialis_",
       "As leisure, i enjoy reading books, playing games and watching anime/ TV series. I am also a Dungeon Master, hosting and creating tabletop roleplaying adventures since 2021."
     ]
   },

@@ -6,7 +6,7 @@ export const verbiages = {
       "Olá! Me chamo Gabriel Marques",
       "Sou brasileiro, tenho 28 anos e sou um desenvolvedor especializado em tecnologias para a Web, mais especificamente Javascript e suas bibliotecas.",
       "Já trabalhei como desenvolvedor full stack no passado, porém atualmente estou atuando como Scrum Master para uma equipe especializada em desenvolvimento front end.",
-      "Como atividade paralela, gosto de experimentar e brincar com modelagem 3D. caso queira conferir sobre este tipo de trabalho, veja o instagram @gabrielgoes3D",
+      "Como atividade paralela, gosto de experimentar e brincar com modelagem 3D. caso queira conferir sobre este tipo de trabalho, veja o instagram @artificialis_",
       "Como lazer, eu gosto de ler livros, assistir animes e séries, além de jogar jogos. Também adoro jogar RPG de mesa, sendo DM desde 2021."
     ]
   },
