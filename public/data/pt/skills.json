@@ -1,0 +1,46 @@
+[
+  {
+    "name": "Idiomas",
+    "description": [
+      "Portuguese - nativo",
+      "Inglês - fluente",
+      "Francês - iniciante"
+    ]
+  },
+  {
+    "name": "Desenvolvimento Web - Camada cliente",
+    "description": "HTML, CSS, SVG, Flexbox, Bootstrap, Javascript"
+  },
+  {
+    "name": "Desevolvimento Mobile",
+    "description": "Android, Ionic Framework"
+  },
+  {
+    "name": "Javascript",
+    "description": "Typescript, AngularJs, Angular 2+, React, Vue, JQuery, NodeJs. MeteorJs, Express, Websockets, Sequelize ORM, Alexa Skills Kit"
+  },
+  {
+    "name": "Java",
+    "description": "JSP, JSF, PrimeFaces, Hibernate ORM"
+  },
+  {
+    "name": "Banco de Dados",
+    "description": "MySQL, PostgreSQL, Microsoft SQL server, MongoDB"
+  },
+  {
+    "name": "Versionamento de Código",
+    "description": "GIT, TFS"
+  },
+  {
+    "name": "Testes/ Qualidade de código",
+    "description": "Jasmine, Karma, Mocha, Istanbul, Travis CI, TypeDoc, JSDoc"
+  },
+  {
+    "name": "Outras skills relacionadas",
+    "description": "Linux systems, Shell, Python, Nginx, Docker"
+  },
+  {
+    "name": "Outros",
+    "description": "Arduino, CAD, CAM, G-Code, Spark AR"
+  }
+]

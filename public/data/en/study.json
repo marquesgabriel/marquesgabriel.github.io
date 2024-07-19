@@ -1,0 +1,23 @@
+[
+  {
+    "_id": "bf792bf3-fa53-4450-ade5-54b5f41ec02e",
+    "title": "Serviço Nacional de Aprendizagem industrial - SENAI, Londrina",
+    "location": "Electromechanical Technician",
+    "startDate": "2016-01-01",
+    "endDate": "2017-12-31",
+    "description": "Worked on a multidisciplinary project to create a biodegradable lotion vial, with the role of 3D modelling the vial"
+  },
+  {
+    "_id": "9f08a886-0b0d-48cf-b198-15720476bbac",
+    "title": "Instituto Federal do Paraná - IFPR, Londrina",
+    "location": "Technologist in System Analysis",
+    "startDate": "2013-01-01",
+    "endDate": "2015-12-31",
+    "description": [
+      "Developed a virtual learning environment for a nursing technical course;",
+      "Adopted incremental development cycle;",
+      "Interviewed clients, gathered system requirements;",
+      "Used Java, JSF, PrimeFaces, Hibernate and MySQL"
+    ]
+  }
+]

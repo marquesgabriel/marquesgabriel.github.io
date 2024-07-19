@@ -1,0 +1,75 @@
+[
+  {
+    "_id": "3b5c9ccf-d3f7-4ebd-b1de-d4fd629ff7ca",
+    "title": "Atos Brasil",
+    "subTitle": "Senior Software Analyst Developer",
+    "location": "Londrina",
+    "startDate": "2021-01-01",
+    "endDate": null,
+    "description": null
+  },
+  {
+    "_id": "e42fc253-bf59-4057-8418-ac4d2a1a372e",
+    "title": "Atos Brasil",
+    "subTitle": "Software Analyst Developer",
+    "location": "Londrina",
+    "startDate": "2019-07-01",
+    "endDate": "2020-12-31",
+    "description": [
+      "Currently working as dev lead, supporting the team on different tasks, such as delegating tasks to the team, discussing and analyzing system requirements with business users, supporting and patching applications, documenting processes and onboarding new members to our team;",
+      "Created and established a document with simple good oding practices for the team;",
+      "Performed job interviews applicants for developer job positions on the team;",
+      "Web applications for international Health Insurance company. UI prototyping, development with React, Mobx, Reactstrap, Sass, AngularJS, SQL;",
+      "Hybrid mobile development using Ionic 4;",
+      "Brazilian stock exchange core application. Angular framework with DevExtreme and PrimeNg;",
+      "Java library improvements;"
+    ]
+  },
+  {
+    "_id": "f20641e1-af98-4bee-b4f1-2db0622916b9",
+    "title": "Guenka Desenvolvimento de Software LTDA",
+    "subTitle": "Fullstack Developer",
+    "location": "Londrina",
+    "startDate": "2016-10-01",
+    "endDate": "2019-06-30",
+    "description": [
+      "Hybrid mobile development using Ionic 3 framework, Cordova and Angular 2+;",
+      "Back-end development with Meteor + MongoDB;",
+      "Educational social network. Vue, Axios, ChartJs;",
+      "Food ordering mobile and web application development. Ionic Framework, Angular, Material-UI, Websockets, Express, PostgresSQL;",
+      "Sports social network application development. Angular, Express, Postgres SQL;",
+      "Legal process management application development. React-Admin, Express, Sequelize and PostgresSQL;",
+      "Clinical application development. React-Admin, Express, Sequelize and PostgresSQL;",
+      "Inventory control mobile application using barcodes as input/output. Ionic Framework;",
+      "Maintenance and implementation of new features in ASPX .NET system;",
+      "Private Cloud (AWS) configuration and maintenance;",
+      "Technical team leadership;",
+      "Settings automation;",
+      "Agile methodology;",
+      "Projects' business requirements;"
+    ]
+  },
+  {
+    "_id": "d46b1172-2170-4d09-ab46-ba7625b431fa",
+    "title": "Primage Agência Digital",
+    "subTitle": "Fullstack Developer",
+    "location": "Londrina",
+    "startDate": "2016-01-01",
+    "endDate": "2016-09-30",
+    "description": [
+      "Developed full solution that displayed product prices in stores nearby to users;",
+      "Ionic Framework, Cordova, AngularJS, push notifications, geolocation;",
+      "Dashboard and backend Application development. Data analytics, MeteorJS, ChartJs, File parser, MongoDB, GeoJSON;",
+      "Unit testing. Jasmine, Karma"
+    ]
+  },
+  {
+    "_id": "10b740c9-49fe-4e46-9324-ab7229814b10",
+    "title": "IFPR Campus Londrina",
+    "subTitle": "Intern",
+    "location": "Londrina",
+    "startDate": "2015-01-01",
+    "endDate": "2015-12-20",
+    "description": "Campus' equipment configuration and maintenance;"
+  }
+]

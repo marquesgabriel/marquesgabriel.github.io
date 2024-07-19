@@ -1,0 +1,21 @@
+[
+  {
+    "_id": "56c032ae-fa00-4f08-b14c-3dc8da4483fa",
+    "title": "Serviço Nacional de Aprendizagem industrial - SENAI, Londrina",
+    "location": "Eletromecânica",
+    "startDate": "2016-01-01",
+    "endDate": "2017-12-31",
+    "description": "Atuação em um projeto multidisciplinar com o intuito de criar um frasco biodegradável para loções hidratantes. Depois o projeto passou a englobar o desenvolvimento do mesmo material mas em formatto de filamento para impressoras 3D"
+  },
+  {
+    "_id": "0c5384b5-1c61-4f0d-9d8f-68d66e9dddc5",
+    "title": "Instituto Federal do Paraná - IFPR, Londrina",
+    "location": "Tecnólogia em Análise e desenvolvimento de Sistemas",
+    "startDate": "2013-01-01",
+    "endDate": "2015-12-31",
+    "description": [
+      "Membro do Projeto de pesquisa DeVOA - Desenvolvimento e Validação de Objetos de Aprendizagem, desenvolvendo um ambiente virtual de aprendizagem, utilizando Java, JSF, primefaces, MySQL e Hibernate",
+      "Bolsista Jovens Talentos para a Ciência, trabalhando em um projeto de robótica educacional, desempenhando modelagem e impressões 3D."
+    ]
+  }
+]

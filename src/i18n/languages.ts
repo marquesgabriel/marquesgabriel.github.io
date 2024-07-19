@@ -1,3 +1,6 @@
+import languages from './languages.json';
+
+
 export interface LanguageObj{
   name: string;
   description: string;
@@ -5,29 +8,4 @@ export interface LanguageObj{
   active:boolean;
 }
 
-export const LANGUAGES = [
-  {
-    name: "PT",
-    description: "Português",
-    flag: "",
-    active: true
-  },
-  {
-    name: "EN",
-    description: "English",
-    flag: "",
-    active: true
-  },
-  {
-    name: "FR",
-    description: "Français",
-    flag: "",
-    active: false
-  },
-  {
-    name: "RU",
-    description: "Pусский",
-    flag: "",
-    active: false
-  }
-]
+export const LANGUAGES = (languages as LanguageObj[])

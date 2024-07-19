@@ -5,10 +5,9 @@ interface PropTypes{
   sortingProp: string;
   direction?: 'ASC' | 'DESC';
   dateFormat?: string;
-  lang?: string;
 }
 
-export const Timeline = ({list, sortingProp, direction='DESC', dateFormat, lang = "PT"}:PropTypes)=>{
+export const Timeline = ({list, sortingProp, direction='DESC', dateFormat}:PropTypes)=>{
   const ordered = list.sort((a, b)=>{
     if(a[sortingProp] < b[sortingProp]){
       return direction === 'ASC' ? - 1 : 1;
@@ -18,5 +17,5 @@ export const Timeline = ({list, sortingProp, direction='DESC', dateFormat, lang 
       return 0;
     }
   });
-  return (<>{ordered.map((item)=>(<TimelineItem key={item._id} item={item} lang={lang} dateFormat={dateFormat}/>))}</>)
+  return (<>{ordered.map((item)=>(<TimelineItem key={item._id} item={item} dateFormat={dateFormat}/>))}</>)
 }

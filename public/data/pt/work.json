@@ -1,0 +1,75 @@
+[
+  {
+    "_id": "14fa2e48-e393-4699-8e90-e9f99ed0a9ed",
+    "title": "Atos Brasil",
+    "subTitle": "Analista desenvolvedor sênior",
+    "location": "Londrina",
+    "startDate": "2021-01-01",
+    "endDate": null,
+    "description": null
+  },
+  {
+    "_id": "d97327d9-f1e6-4cc2-b9a2-2bdde7824460",
+    "title": "Atos Brasil",
+    "subTitle": "Analista desenvolvedor pleno",
+    "location": "Londrina",
+    "startDate": "2019-07-01",
+    "endDate": "2020-12-31",
+    "description": [
+      "Atualmente atuando como líder de desenvolvimento, apoiando a equipe em diversas atividades, como delegar tarefas para os membros da equipe, discutir e analisar os requisitos/regra de negócios com os clientes, dando suporte e corrigindo as aplicações, documentando processos e preparando novos membros para a equipe;",
+      "Criação e manutenção de documentos contendo instruções para novos membros e definições de padrões de nomes e boas práticas do time;",
+      "Realização de entrevistas e avaliação de candidatos para a equipe;",
+      "Criação de aplicações web para empresa estrangeira de seguros de saúde. Prototipação de UI, desenvolvimento com React, Mobx, Reactstrap, Sass, AngularJS, SQL;",
+      "Desenvolvimento mobile híbrido utilizando Ionic 4;",
+      "Desenvolvimento de aplicação para empresa brasileira da bolsa de valores. Framework Angular com DevExtreme e PrimeNg;",
+      "Melhorias em biblioteca Java;"
+    ]
+  },
+  {
+    "_id": "643d7e43-373f-4267-97e4-a1a447ec1990",
+    "title": "Guenka Desenvolvimento de Software LTDA",
+    "subTitle": "Desenvolvedor Fullstack",
+    "location": "Londrina",
+    "startDate": "2016-10-01",
+    "endDate": "2019-06-30",
+    "description": [
+      "Desenvolvimento móvel utilizando Ionic 3 framework, Cordova e Angular 2+;",
+      "Desenvolvimento Back-end with Meteor + MongoDB;",
+      "Rede social educacional, utilizando Vue, Axios, ChartJs;",
+      "Desenvolvikento de aplicativo para pedidos de comida em restaurantes. Ionic Framework, Angular, Material-UI, Websockets, Express, PostgresSQL;",
+      "Desenvolvimento de rede social esportiva. Angular, Express, Postgres SQL;",
+      "Desenvolvimento de aplicação para gerência de processos legais. React-Admin, Express, Sequelize e PostgresSQL;",
+      "Desenvolvimento de aplicação para uma clinica de saúde. React-Admin, Express, Sequelize e PostgresSQL;",
+      "Criação de aplicação de controle de estoque utilizando códigos de barra. Ionic Framework;",
+      "Manutenção e implementação de novas funcionalidades em sistemas feitos em ASPX .NET;",
+      "Configuração e manutenção de nuvem privada (AWS);",
+      "Liderança de time técnico;",
+      "Automação de configurações;",
+      "Metodologia ágil;",
+      "Análise de regras de negócio;"
+    ]
+  },
+  {
+    "_id": "15901fd2-3ff1-41fb-a267-c97976237e34",
+    "title": "Primage Agência Digital",
+    "subTitle": "Desenvolvedor Fullstack",
+    "location": "Londrina",
+    "startDate": "2016-01-01",
+    "endDate": "2016-09-30",
+    "description": [
+      "Desenvolvimento de um aplicativo móvel que exibia os preços de produtos mais próximos do usuário;",
+      "Ionic Framework, Cordova, AngularJS, push notifications, geolocation;",
+      "Criação do backend e dashboard que gerenciava as informações geradas e disponibilizadas para o aplicativo. Análise de dados, MeteorJS, ChartJs, File parser, MongoDB, GeoJSON;",
+      "Unit testing. Jasmine, Karma"
+    ]
+  },
+  {
+    "_id": "8396386a-b789-468f-bf7c-ab090a35fb0f",
+    "title": "IFPR Campus Londrina",
+    "subTitle": "Estagiário",
+    "location": "Londrina",
+    "startDate": "2015-01-01",
+    "endDate": "2015-12-20",
+    "description": "Suporte e manutenção de diversos equipamentos do Campus"
+  }
+]
