@@ -22,10 +22,10 @@ export const TimelineItem = ({ item, dateFormat }: PropTypes) => {
   return (
     <div className="timeline-item">
       <div className="title">
-        {item.subTitle ? `${item.subTitle}, ` : null}{item.title}
+        {item.subTitle ? `${item.subTitle}, ` : null}{(item.title)}
       </div>
       <div className="date-range">
-        {item.location}, {moment(item.startDate).format(format)} ~ {item.endDate ? moment(item.endDate).format(format) : "today"}
+        {item.location || item.course}, {moment(item.startDate).format(format)} ~ {item.endDate ? moment(item.endDate).format(format) : "today"}
       </div>
       <div className="description">
         <TextOrList value={item.description} />

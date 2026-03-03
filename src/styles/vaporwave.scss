@@ -1,0 +1,208 @@
+body.vaporwave {
+  /* pastel vaporwave palette */
+  --pv-pink: #ffd0ea;
+  --pv-rose: #ffb3d9;
+  --pv-lilac: #e6d9ff;
+  --pv-lilac-dark: #c3a2ff;
+  --pv-cyan: #cff9ff;
+  --pv-cream: #fff7f9;
+  --pv-sky: #e8f7ff;
+  position: relative;
+
+  /* main layered background: soft gradient + subtle noise */
+  background:
+    linear-gradient(180deg, var(--pv-cream) 0%, var(--pv-pink) 35%, var(--pv-lilac) 70%, var(--pv-sky) 100%);
+
+  /* square grid (soft, low-contrast) */
+  &::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+
+    /* soft tiled square grid */
+    background-image:
+      linear-gradient(rgba(0, 0, 0, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
+    background-size: 80px 80px, 80px 80px;
+    opacity: 0.06;
+    mix-blend-mode: screen;
+  }
+
+  &::after {
+    content: "";
+    position: fixed;
+    left: 50%;
+    bottom: -6vh;
+    transform: translateX(-50%);
+    width: 150vmin;
+    height: 70vmin;
+    z-index: 0;
+    pointer-events: none;
+
+    background-image:
+      radial-gradient(circle at 50% 20%, rgba(255, 215, 235, 0.45) 0%, rgba(255, 183, 217, 0.18) 20%, transparent 40%);
+    opacity: 0.95;
+    filter: blur(.6px);
+    mix-blend-mode: screen;
+  }
+
+  .lang-select {
+    z-index: 5;
+    display: inline-block;
+    padding: 6px;
+    border-radius: 8px;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.00));
+    border: 1px solid rgba(255, 255, 255, 0.04);
+
+    select {
+      background: var(--pv-cream);
+      color: #221;
+      padding: 6px 10px;
+      border-radius: 6px;
+      border: 1px solid rgba(0, 0, 0, 0.06);
+      font-weight: 600;
+      outline: none;
+      box-shadow: none;
+    }
+
+    .change-style {
+      span {
+        color: #221;
+        font-size: 0.9rem;
+      }
+
+      a {
+        color: var(--pv-rose);
+        text-decoration: underline;
+        transition: color .12s ease;
+
+        &:hover {
+          color: var(--pv-lilac-dark);
+        }
+      }
+    }
+  }
+
+  .heading-section {
+    position: relative;
+    z-index: 5;
+
+    h1,
+    h2,
+    h3 {
+      color: var(--pv-rose);
+      letter-spacing: 0.4px;
+      font-weight: 700;
+      text-shadow: none;
+    }
+  }
+
+  .portfolio-content {
+    position: relative;
+    z-index: 5;
+    backdrop-filter: blur(2px);
+  }
+
+  div.container-wrapper {
+    margin: 1em .5em;
+    border-radius: 0;
+    background: linear-gradient(0deg, var(--pv-sky), var(--pv-cream), var(--pv-sky));
+
+    &>.title {
+      padding: .6em;
+      font-weight: 700;
+      background: linear-gradient(0deg, var(--pv-cyan), var(--pv-lilac));
+      color: #120617;
+      position: relative;
+      text-align: center;
+    }
+
+
+    &.image {
+      float: right;
+      display: block;
+      width: 220px;
+      height: auto;
+      position: relative;
+      border-radius: 0;
+      overflow: hidden;
+
+      .title {
+        display: none;
+      }
+
+      img {
+        width: 100%;
+        display: block;
+        border-radius: 0;
+      }
+    }
+
+    .c-container {
+      padding: .8em;
+    }
+  }
+
+  .timeline-item {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+    margin-top: .6em;
+    padding: .35em .6em;
+
+    .title {
+      text-align: left;
+      font-weight: 800;
+      font-size: 1.02rem;
+      color: var(--pv-rose);
+    }
+
+    .date-range {
+      font-size: small;
+      color: var(--pv-lilac-dark);
+      opacity: 0.85;
+    }
+
+    .role {
+      font-weight: 700;
+      color: #111;
+    }
+
+    .description {
+      margin: .2em 0;
+      text-align: left;
+      color: rgba(17, 17, 17, 0.9);
+    }
+  }
+
+  .abt-me {
+    p {
+      padding: 0 .6em;
+      margin-top: 0;
+      color: rgba(17, 17, 17, 0.95);
+    }
+  }
+
+  .skill-list {
+    dt {
+      margin-left: 1em;
+      font-weight: 700;
+      color: var(--pv-lilac-dark);
+    }
+
+    dd {
+      margin-left: 1.4em;
+      color: rgba(17, 17, 17, 0.9);
+    }
+  }
+
+  a {
+    color: var(--pv-rose);
+    text-decoration: underline;
+    transition: color .12s ease;
+
+    &:hover {
+      color: var(--pv-lilac-dark);
+    }
+  }
+}

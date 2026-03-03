@@ -1,33 +1,129 @@
 
 import { useState, useEffect } from "react";
 import { Container, LanguageSelect, Timeline } from "./components";
-import { LANGUAGES } from './i18n';
 
-import { Resume, getVerbiages } from "./i18n/babel";
-import { Link, Skill } from "./types";
+import { LanguageObj, Resume, Link, Skill, Study, Work } from "./types";
+import { supabase } from './utils';
 
 function App() {
-  const [language, setSelectedLanguage] = useState("EN")
+  const [languages, setLanguages] = useState<LanguageObj[]>([]);
+  const [styles, setStyles] = useState<any[]>([]);
+  const [activeStyle, setActiveStyle] = useState<string>("");
+  const [language, setSelectedLanguage] = useState<string>("EN");
   const [verbiages, setVerbiages] = useState<Resume>()
 
   useEffect(() => {
-    const lang = navigator.languages[0].split("-")[0].toUpperCase()
-    setSelectedLanguage(lang);
-    getVerbiages(lang).then((res) => {
-      setVerbiages(res);
-    })
+    async function loadLanguages() {
+      const { data: langs } = await supabase.from('languages').select().eq('active', 'true')
+
+      if (langs && langs.length > 0) {
+        setLanguages(langs)
+      }
+    }
+    async function loadStyles() {
+      const { data: styleList } = await supabase.from('styles').select().eq('isActive', 'true')
+      if (styleList && styleList.length > 0) {
+        setStyles(styleList)
+        // pick a random style and derive a class name
+        const chosen = styleList[Math.floor(Math.random() * styleList.length)];
+        const className = chosen.name;
+        setActiveStyle(className);
+      }
+    }
+
+    loadLanguages()
+    loadStyles()
   }, [])
+
+  useEffect(() => {
+    if (!activeStyle || styles.length === 0) return;
+    // compute possible style classes from loaded styles
+    const possible = styles.map(s => s.name || s.class || s.cssClass || `style-${s.id}`);
+    // remove any previously-applied style classes, then add the active one
+    document.body.classList.remove(...possible);
+    document.body.classList.add(activeStyle);
+
+    return () => {
+      document.body.classList.remove(activeStyle);
+    }
+  }, [activeStyle, styles]);
+
+  useEffect(() => {
+    const lang = navigator.languages[0].split("-")[0].toUpperCase();
+    console.log(lang);
+    console.log(languages);
+    const selLang = languages.filter((l => l.name === lang))[0]
+    setSelectedLanguage(selLang?.name || "EN");
+
+    async function getVerbiages(lang: number) {
+      const { data: resTitles } = await supabase.from('titles').select().eq('lang_id', lang)
+      const { data: abtMe } = await supabase.from('about_me').select().eq('lang_id', lang)
+      const { data: resLinks } = await supabase.from('links').select().eq('lang_id', lang)
+      const { data: skillsXp } = await supabase.from('skills').select().eq('lang_id', lang)
+      const { data: studyXp } = await supabase.from('study_experience').select().eq('lang_id', lang)
+      const { data: workXp } = await supabase.from('work_experience').select().eq('lang_id', lang)
+
+      setVerbiages({
+        titles: resTitles && resTitles[0],
+        aboutMe: abtMe && abtMe[0],
+        links: resLinks as Link[],
+        skills: skillsXp as Skill[],
+        study: studyXp as Study[],
+        work: workXp as Work[]
+      })
+    }
+    getVerbiages(languages.filter((l => l.name === language))[0]?.id || 2)
+  }, [language, languages])
 
   const switchLanguage = async (event: any) => {
     setSelectedLanguage(event.target.value);
-    const langObj = await getVerbiages(event.target.value)
-    setVerbiages(langObj);
+    const lang = languages.filter((l => l.name === event.target.value))[0]
+    const { data: resTitles } = await supabase.from('titles').select().eq('lang_id', lang.id)
+    const { data: abtMe } = await supabase.from('about_me').select().eq('lang_id', lang.id)
+    const { data: resLinks } = await supabase.from('links').select().eq('lang_id', lang.id)
+    const { data: skillsXp } = await supabase.from('skills').select().eq('lang_id', lang.id)
+    const { data: studyXp } = await supabase.from('study_experience').select().eq('lang_id', lang.id)
+    const { data: workXp } = await supabase.from('work_experience').select().eq('lang_id', lang.id)
+
+    setVerbiages({
+      titles: resTitles && resTitles[0],
+      aboutMe: abtMe && abtMe[0],
+      links: resLinks as Link[],
+      skills: skillsXp as Skill[],
+      study: studyXp as Study[],
+      work: workXp as Work[]
+    })
   }
 
+  const switchStyle = () => {
+    if (!styles || styles.length === 0) return;
+
+    const deriveName = (s: any) => s.name || s.class || s.cssClass || `style-${s.id}`;
+
+    // compute all possible class names
+    const possible = styles.map(deriveName);
+
+    // filter out the current active style
+    const candidates = styles.filter(s => deriveName(s) !== activeStyle);
+
+    // if no other candidate, just keep current (or pick the only one)
+    const chosen = candidates.length > 0
+      ? candidates[Math.floor(Math.random() * candidates.length)]
+      : styles[Math.floor(Math.random() * styles.length)];
+
+    const className = deriveName(chosen);
+
+    // remove other possible classes and add the chosen one immediately
+    document.body.classList.remove(...possible);
+    document.body.classList.add(className);
+
+    // update state so effect and UI stay in sync
+    setActiveStyle(className);
+  }
 
   return (<>
-    <LanguageSelect languages={LANGUAGES} value={language} switchLanguage={switchLanguage} />
     {verbiages && <div className="portfolio-content">
+      <LanguageSelect languages={languages} value={language} switchLanguage={switchLanguage} switchStyle={switchStyle} />
       <div className="container">
         <div className="row align-items-center justify-content-center">
           <div className="col align-self-center p-0 col-12 col-sm-12 col-md-9 col-lg-8 col-xl-8">
@@ -35,9 +131,9 @@ function App() {
               <Container classes="abt-me" title={verbiages.titles.aboutMe}>
                 <>
                   <Container classes="image" title="portrait.jpg" barButtons="close-only">
-                    <img src="/data/img/styles/win98/profile.png" alt="portrait of Gabriel" />
+                    <img src={`/data/img/styles/${activeStyle}/profile.png`} alt="portrait of Gabriel" />
                   </Container>
-                  {verbiages?.aboutMe.map((paragraph: string) => (
+                  {verbiages?.aboutMe.content.map((paragraph: string) => (
                     <p>
                       {paragraph}
                     </p>

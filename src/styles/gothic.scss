@@ -1,0 +1,379 @@
+body.gothic {
+  // palette
+  --goth-bg-1: #030203;
+  --goth-bg-2: #0b0b0c;
+  --goth-ink: #f7f7f7;
+  --goth-gray: #9a9a9a;
+  --goth-muted: rgba(247, 247, 247, 0.06);
+  --goth-accent: #e6e6e6;
+  --goth-blood: #a82b3b;
+  --goth-metal: #6f6f75;
+
+  min-height: 100vh;
+  color: var(--goth-ink);
+  font-family: "Playfair Display", "Georgia", serif;
+  -webkit-font-smoothing: antialiased;
+  position: relative;
+  // overflow-x: hidden;
+  background:
+    radial-gradient(1200px 600px at 10% 10%, rgba(255, 255, 255, 0.02), transparent 6%),
+    linear-gradient(180deg, var(--goth-bg-1) 0%, var(--goth-bg-2) 100%);
+
+  // rough paper / scratch texture + harsh vignette for edge
+  &::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background-image:
+      repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.012) 0 1px, transparent 1px 6px),
+      linear-gradient(135deg, rgba(255, 255, 255, 0.02), transparent 18%);
+    mix-blend-mode: overlay;
+    opacity: 0.95;
+    filter: contrast(1.02) saturate(.9);
+  }
+
+  // sharp vignette + diagonal slash highlight
+  &::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background:
+      radial-gradient(60vmax 40vmax at 50% 10%, rgba(255, 255, 255, 0.02), transparent 25%),
+      linear-gradient(120deg, rgba(0, 0, 0, 0.55), transparent 20%),
+      repeating-linear-gradient(120deg, rgba(255, 255, 255, 0.012) 0 2px, transparent 2px 40px);
+    mix-blend-mode: multiply;
+    opacity: 0.95;
+    mask-image: linear-gradient(180deg, black 0%, transparent 100%);
+  }
+
+  // ornament: jagged emblem at corner (CSS glyph + transform) for aggressive edge
+  .goth-emblem {
+    position: fixed;
+    left: 2rem;
+    top: 2rem;
+    z-index: 1;
+    pointer-events: none;
+    font-size: 3.2rem;
+    color: var(--goth-accent);
+    transform: rotate(-8deg);
+    text-shadow:
+      0 2px 0 rgba(0, 0, 0, 0.8),
+      0 8px 22px rgba(0, 0, 0, 0.65);
+    opacity: 0.12;
+    letter-spacing: .02em;
+    filter: drop-shadow(0 6px 18px rgba(0, 0, 0, 0.7));
+  }
+
+  >* {
+    position: relative;
+    z-index: 2;
+  }
+
+  // controls — sharpened with metallic accent lines and harsh shadows
+  .lang-select {
+    z-index: 3;
+    display: inline-flex;
+    gap: .5rem;
+    align-items: center;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(0, 0, 0, 0.02));
+    border-radius: 6px;
+    padding: .25rem .35rem;
+    border: 1px solid rgba(255, 255, 255, 0.03);
+    box-shadow:
+      0 6px 18px rgba(0, 0, 0, 0.6),
+      inset 0 1px 0 rgba(255, 255, 255, 0.02);
+
+    select {
+      background: transparent;
+      color: var(--goth-ink);
+      border: 0;
+      border-bottom: 2px solid transparent;
+      padding: .35rem .6rem;
+      font-family: inherit;
+      font-weight: 700;
+      outline: none;
+      -webkit-appearance: none;
+      position: relative;
+      transition: color .12s ease, transform .12s ease;
+
+      &:hover {
+        transform: translateY(-2px);
+        color: var(--goth-blood);
+      }
+
+      &:focus {
+        border-bottom-color: var(--goth-metal);
+        color: var(--goth-accent);
+      }
+    }
+
+    .change-style {
+      display: inline-flex;
+      align-items: center;
+      border-left: 1px solid rgba(255, 255, 255, 0.02);
+      padding-left: .5rem;
+      margin-left: .5rem;
+
+      button {
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(0, 0, 0, 0.06));
+        color: var(--goth-ink);
+        border: 0;
+        padding: .3rem .5rem;
+        border-radius: 4px;
+        font-weight: 700;
+        box-shadow:
+          0 6px 20px rgba(0, 0, 0, 0.6),
+          0 1px 0 rgba(255, 255, 255, 0.03) inset;
+        transform-origin: center;
+        transition: transform .12s ease, box-shadow .12s ease, color .12s ease;
+
+        &:hover {
+          transform: translateY(-3px) rotate(-1deg);
+          color: var(--goth-blood);
+          box-shadow: 0 14px 34px rgba(0, 0, 0, 0.7);
+        }
+      }
+    }
+  }
+
+  // headings — oversized, sharp contrast, rough edge shadow
+  .heading-section {
+
+    h1,
+    h2,
+    h3 {
+      font-family: "Playfair Display", serif;
+      font-weight: 900;
+      color: var(--goth-ink);
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      margin: 0 0 .4rem 0;
+      -webkit-text-stroke: .6px rgba(0, 0, 0, 0.6);
+      text-shadow:
+        0 2px 0 rgba(0, 0, 0, 0.75),
+        0 10px 28px rgba(0, 0, 0, 0.7),
+        0 0 8px rgba(166, 43, 59, 0.06);
+    }
+
+    .lead {
+      color: var(--goth-gray);
+      font-style: italic;
+      margin-bottom: .6rem;
+      text-shadow: 0 2px 0 rgba(0, 0, 0, 0.6);
+    }
+  }
+
+  // main panel: deep inset, beveled left accent and metallic sheen
+  .portfolio-content {
+    background:
+      linear-gradient(160deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.01));
+    border-left: 6px solid rgba(166, 43, 59, 0.12);
+    box-shadow:
+      0 30px 80px rgba(2, 2, 2, 0.75),
+      inset 0 4px 14px rgba(255, 255, 255, 0.02);
+    transform: translateZ(0);
+    transition: transform .18s cubic-bezier(.2, .9, .2, 1);
+
+    &:hover {
+      transform: translateY(-6px) rotate(-.6deg);
+      box-shadow: 0 40px 110px rgba(0, 0, 0, 0.78);
+    }
+  }
+
+  // containers: gothic ornaments, stronger borders
+  div.container-wrapper {
+    margin: 1rem .5rem;
+    border-radius: 6px;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.012), rgba(0, 0, 0, 0.02));
+    border: 1px solid var(--goth-muted);
+    padding: .6rem 0;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.65);
+
+    &>.title {
+      padding: .6rem;
+      font-weight: 900;
+      color: var(--goth-ink);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background:
+        linear-gradient(90deg, rgba(255, 255, 255, 0.015), rgba(255, 255, 255, 0.01));
+      border-bottom: 1px solid rgba(255, 255, 255, 0.02);
+      position: relative;
+      overflow: visible;
+
+      &:before {
+        content: "";
+        position: absolute;
+        left: -6px;
+        top: 0;
+        bottom: 0;
+        width: 6px;
+        background: linear-gradient(180deg, var(--goth-metal), rgba(0, 0, 0, 0.2));
+        transform: skewY(-3deg);
+      }
+
+      .title-orn {
+        color: var(--goth-muted);
+        font-size: 1.05rem;
+        opacity: 0.9;
+      }
+    }
+
+    &.image {
+      float: right;
+      width: 220px;
+      overflow: hidden;
+      margin-left: 1rem;
+      padding: 0;
+
+      .title {
+        display: none;
+      }
+
+      img {
+        width: 100%;
+        display: block;
+        filter: grayscale(100%) contrast(1.08) brightness(.92);
+        border-radius: 4px;
+
+        transition: transform .18s ease;
+      }
+
+      .c-container {
+        padding: 0
+      }
+
+      &:hover img {
+        transform: scale(1.03) rotate(-.6deg);
+      }
+    }
+
+    .c-container {
+      padding: .8rem;
+    }
+  }
+
+  // timeline with aggressive separators and accent line
+  .timeline-item {
+    border-bottom: 1px dashed rgba(255, 255, 255, 0.04);
+    margin-top: .6rem;
+    padding: .45rem .6rem;
+    position: relative;
+    overflow: visible;
+
+    &:before {
+      content: "";
+      position: absolute;
+      left: -1.2rem;
+      top: 0.6rem;
+      width: 4px;
+      height: calc(100% - .8rem);
+      background: linear-gradient(180deg, var(--goth-blood), var(--goth-metal));
+      border-radius: 2px;
+      box-shadow: 0 8px 18px rgba(166, 43, 59, 0.12);
+    }
+
+    .title {
+      font-weight: 900;
+      color: var(--goth-ink);
+      font-size: 1.04rem;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+      text-shadow: 0 4px 18px rgba(0, 0, 0, 0.6);
+    }
+
+    .date-range {
+      font-size: .9rem;
+      color: var(--goth-gray);
+    }
+
+    .role {
+      color: var(--goth-accent);
+      font-weight: 800;
+      margin-top: .15rem;
+    }
+
+    .description {
+      color: rgba(255, 255, 255, 0.92);
+      margin-top: .25rem;
+      line-height: 1.45;
+    }
+  }
+
+  .abt-me p {
+    color: rgba(255, 255, 255, 0.92);
+  }
+
+  .skill-list {
+    dt {
+      margin-left: 1em;
+      font-weight: 800;
+      color: var(--goth-accent);
+    }
+
+    dd {
+      margin-left: 1.4em;
+      color: var(--goth-gray);
+    }
+  }
+
+  a {
+    color: var(--goth-ink);
+    text-decoration: none;
+    position: relative;
+    padding-bottom: .06rem;
+    transition: color .12s ease, transform .12s ease;
+
+    &:after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -2px;
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(90deg, var(--goth-blood), var(--goth-metal));
+      transform-origin: left center;
+      transform: scaleX(0);
+      transition: transform .18s cubic-bezier(.2, .9, .2, 1);
+    }
+
+    &:hover {
+      color: var(--goth-blood);
+      transform: translateY(-2px) rotate(-.6deg);
+    }
+
+    &:hover:after {
+      transform: scaleX(1);
+    }
+  }
+
+  // small ornament class with jagged edges for markup usage
+  .goth-ornament {
+    display: inline-block;
+    color: var(--goth-muted);
+    margin: 0 .4rem;
+    font-size: 1.1rem;
+    opacity: .95;
+    transform: translateY(-2px);
+    text-shadow: 0 6px 18px rgba(0, 0, 0, 0.6);
+  }
+
+  // subtle "glitch" accent for headings (pseudo-element)
+  .heading-section h1::after {
+    content: "";
+    position: absolute;
+    left: 2px;
+    top: 0.12em;
+    width: 100%;
+    height: 12%;
+    background: linear-gradient(90deg, rgba(166, 43, 59, 0.06), transparent 40%);
+    mix-blend-mode: screen;
+    transform: skewX(-8deg);
+    pointer-events: none;
+  }
+}

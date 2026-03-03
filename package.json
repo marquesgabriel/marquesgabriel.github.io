@@ -4,6 +4,7 @@
   "private": true,
   "homepage": "https://marquesgabriel.github.io/",
   "dependencies": {
+    "@supabase/supabase-js": "^2.98.0",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
