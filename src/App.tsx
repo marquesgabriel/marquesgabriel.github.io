@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import { Container, LanguageSelect, Timeline } from "./components";
 
-import { LanguageObj, Resume, Link, Skill, Study, Work, StyleSwitchVerbiage } from "./types";
+import { LanguageObj, Resume, Link, Skill, Study, Work } from "./types";
 import { supabase } from './utils';
 
 function App() {

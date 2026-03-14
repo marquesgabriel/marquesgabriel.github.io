@@ -1,21 +1,29 @@
 body.cyberpunk {
   /* neon palette */
-  --cp-bg-1: #05060a;
-  --cp-bg-2: #0b0f1a;
-  --neon-pink: #ff2dd4;
-  --neon-cyan: #00f0ff;
+  --cp-bg-1: #090d18;
+  --cp-bg-2: #06252a;
+  --neon-white: #fff9fa;
+  --neon-white-accent: #4a4d52;
+  --neon-orange: #ff6c0e;
+  --neon-orange-accent: #ff0015;
+  --neon-cyan: #18d3d8;
+  --neon-cyan-accent: #0f4350;
   --neon-purple: #9b6bff;
+  --neon-purple-accent: #473a63;
   --neon-green: #5cff9e;
   --glass: rgba(255, 255, 255, 0.06);
   --panel-alpha: 0.14;
   /* translucency for floating HUD panels */
 
   min-height: 100vh;
-  color: #e6f7ff;
+
+  // base text specs
+  color: var(--neon-white);
+  font-family: 'Anta', sans-serif;
+  text-shadow: .25em .25em 1em var(--neon-white);
+
   background:
-    radial-gradient(800px 300px at 10% 10%, rgba(155, 107, 255, 0.06), transparent 10%),
     linear-gradient(180deg, var(--cp-bg-1) 0%, var(--cp-bg-2) 100%);
-  font-family: "Inter", "Segoe UI", system-ui, sans-serif;
   position: relative;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
@@ -68,24 +76,22 @@ body.cyberpunk {
   /* language select as small HUD control */
   .lang-select {
     z-index: 5;
-    display: inline-flex;
-    gap: .5rem;
+    // display: inline-flex;
+    // gap: .5rem;
     align-items: center;
     padding: .35rem;
-    border-radius: 8px;
-    background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(0, 0, 0, 0.06));
-    border: 1px solid rgba(255, 255, 255, 0.04);
-    box-shadow:
-      0 6px 30px rgba(0, 0, 0, 0.7),
-      0 0 28px rgba(0, 240, 255, 0.03) inset;
+    background: none;
+    border: 1px solid var(--neon-cyan);
+    box-shadow: .25em .25em 0 var(--neon-cyan-accent);
+    font-family: 'Anta', 'Segoe UI', system-ui, sans-serif;
 
     select {
       background: rgba(0, 0, 0, 0.36);
       color: #eafcff;
       padding: 6px 10px;
-      border-radius: 6px;
       border: 1px solid rgba(255, 255, 255, 0.04);
       outline: none;
+      font-family: 'Anta', 'Segoe UI', system-ui, sans-serif;
       box-shadow: 0 6px 18px rgba(0, 0, 0, 0.6);
       backdrop-filter: blur(6px);
       -webkit-appearance: none;
@@ -93,7 +99,7 @@ body.cyberpunk {
 
     .change-style a,
     .change-style span {
-      color: var(--neon-pink);
+      color: var(--neon-orange);
       font-weight: 700;
       text-shadow: 0 0 12px rgba(255, 45, 212, 0.18);
     }
@@ -107,6 +113,7 @@ body.cyberpunk {
     h1,
     h2,
     h3 {
+      font-family: "Audiowide", "Segoe UI", system-ui, sans-serif;
       color: #eafcff;
       text-shadow:
         0 0 6px rgba(0, 240, 255, 0.06),
@@ -133,23 +140,24 @@ body.cyberpunk {
   /* container wrappers styled as HUD cards (less opaque) */
   div.container-wrapper {
     margin: 1em .5em;
-    border-radius: 10px;
     background: linear-gradient(180deg, rgba(0, 0, 0, 0.32), rgba(8, 6, 18, 0.28));
-    border: 1px solid rgba(0, 255, 255, 0.08);
+    border: 1px solid var(--neon-cyan);
     box-shadow:
       0 8px 30px rgba(0, 0, 0, 0.6),
       0 0 18px rgba(155, 107, 255, 0.04) inset;
     padding: .8rem;
+    font-family: 'Anta', 'Segoe UI', system-ui, sans-serif;
 
     &>.title {
       padding: .5rem;
       font-weight: 800;
       color: #eafcff;
+      font-family: "Audiowide", "Segoe UI", system-ui, sans-serif;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      border-bottom: 1px dashed rgba(255, 255, 255, 0.03);
-      background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), transparent);
+      border-bottom: 1px solid var(--neon-cyan);
+      background: none;
       text-shadow: 0 0 8px rgba(155, 107, 255, 0.05);
     }
 
@@ -159,7 +167,6 @@ body.cyberpunk {
       height: auto;
       position: relative;
       overflow: hidden;
-      border-radius: 5px;
       padding: 0;
 
       .c-container {
@@ -206,7 +213,7 @@ body.cyberpunk {
 
     .role {
       font-weight: 700;
-      color: var(--neon-pink);
+      color: var(--neon-orange);
       text-shadow: 0 0 10px rgba(255, 45, 212, 0.06);
     }
 
@@ -246,7 +253,7 @@ body.cyberpunk {
     transition: color .12s ease, text-shadow .12s ease;
 
     &:hover {
-      color: var(--neon-pink);
+      color: var(--neon-orange);
       text-shadow: 0 0 18px rgba(255, 45, 212, 0.14);
     }
 
@@ -257,7 +264,7 @@ body.cyberpunk {
       bottom: -3px;
       width: 100%;
       height: 2px;
-      background: linear-gradient(90deg, var(--neon-cyan), var(--neon-pink));
+      background: linear-gradient(90deg, var(--neon-cyan), var(--neon-orange));
       box-shadow: 0 0 12px rgba(0, 240, 255, 0.08), 0 0 22px rgba(255, 45, 212, 0.06);
       transform-origin: left center;
       transform: scaleX(0);
@@ -276,7 +283,6 @@ body.cyberpunk {
     top: 12%;
     width: 280px;
     padding: .8rem;
-    border-radius: 10px;
     background: linear-gradient(180deg, rgba(0, 0, 0, 0.28), rgba(0, 0, 0, 0.2));
     border: 1px solid rgba(0, 255, 255, 0.12);
     box-shadow: 0 30px 80px rgba(0, 0, 0, 0.75), 0 0 40px rgba(0, 240, 255, 0.06);
@@ -299,7 +305,7 @@ body.cyberpunk {
       border-bottom: 1px dashed rgba(255, 255, 255, 0.02);
 
       .val {
-        color: var(--neon-pink);
+        color: var(--neon-orange);
         text-shadow: 0 0 8px rgba(255, 45, 212, 0.06);
         font-weight: 700;
       }
@@ -312,7 +318,6 @@ body.cyberpunk {
     align-items: center;
     gap: .5rem;
     padding: .45rem .8rem;
-    border-radius: 8px;
     background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(0, 0, 0, 0.14));
     border: 1px solid rgba(0, 240, 255, 0.16);
     color: #eafcff;
@@ -325,7 +330,11 @@ body.cyberpunk {
       transform: translateY(-4px);
       box-shadow: 0 30px 90px rgba(0, 0, 0, 0.75), 0 0 60px rgba(255, 45, 212, 0.08);
       border-color: rgba(255, 45, 212, 0.28);
-      color: var(--neon-pink);
+      color: var(--neon-orange);
     }
+  }
+
+  ul {
+    list-style-type: '⥋   ';
   }
 }
