@@ -26,6 +26,7 @@
     "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "commit": "git-cz",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -49,6 +50,7 @@
   },
   "devDependencies": {
     "@types/bootstrap": "^5.2.6",
-    "gh-pages": "^5.0.0"
+    "gh-pages": "^5.0.0",
+    "git-cz": "^4.9.0"
   }
 }

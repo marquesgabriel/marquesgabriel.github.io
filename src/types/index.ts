@@ -34,12 +34,20 @@ export type Work = {
   description: string | null | string[]
 }
 
+export type StyleSwitchVerbiage = {
+  id: number
+  lang_id: number
+  verbiage: string
+  button_verbiage: string
+}
+
 export type Resume = {
   aboutMe: AboutMe;
   links: Link[];
   skills: Skill[];
   study: Study[];
   work: Work[];
+  styleSwitchVerbiages: StyleSwitchVerbiage;
   titles: {
     aboutMe: string;
     links: string;

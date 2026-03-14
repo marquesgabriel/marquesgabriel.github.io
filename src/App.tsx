@@ -2,14 +2,14 @@
 import { useState, useEffect } from "react";
 import { Container, LanguageSelect, Timeline } from "./components";
 
-import { LanguageObj, Resume, Link, Skill, Study, Work } from "./types";
+import { LanguageObj, Resume, Link, Skill, Study, Work, StyleSwitchVerbiage } from "./types";
 import { supabase } from './utils';
 
 function App() {
   const [languages, setLanguages] = useState<LanguageObj[]>([]);
   const [styles, setStyles] = useState<any[]>([]);
   const [activeStyle, setActiveStyle] = useState<string>("");
-  const [language, setSelectedLanguage] = useState<string>("EN");
+  const [selectedLanguage, setSelectedLanguage] = useState<string>("EN");
   const [verbiages, setVerbiages] = useState<Resume>()
 
   useEffect(() => {
@@ -50,8 +50,6 @@ function App() {
 
   useEffect(() => {
     const lang = navigator.languages[0].split("-")[0].toUpperCase();
-    console.log(lang);
-    console.log(languages);
     const selLang = languages.filter((l => l.name === lang))[0]
     setSelectedLanguage(selLang?.name || "EN");
 
@@ -62,6 +60,7 @@ function App() {
       const { data: skillsXp } = await supabase.from('skills').select().eq('lang_id', lang)
       const { data: studyXp } = await supabase.from('study_experience').select().eq('lang_id', lang)
       const { data: workXp } = await supabase.from('work_experience').select().eq('lang_id', lang)
+      const { data: styleSwitchVb } = await supabase.from('style_switch_verbiage').select().eq('lang_id', lang)
 
       setVerbiages({
         titles: resTitles && resTitles[0],
@@ -69,30 +68,37 @@ function App() {
         links: resLinks as Link[],
         skills: skillsXp as Skill[],
         study: studyXp as Study[],
-        work: workXp as Work[]
+        work: workXp as Work[],
+        styleSwitchVerbiages: styleSwitchVb && styleSwitchVb[0]
       })
     }
-    getVerbiages(languages.filter((l => l.name === language))[0]?.id || 2)
-  }, [language, languages])
+    getVerbiages(languages.filter((l => l.name === selectedLanguage))[0]?.id || 2)
+  }, [languages])
 
   const switchLanguage = async (event: any) => {
-    setSelectedLanguage(event.target.value);
-    const lang = languages.filter((l => l.name === event.target.value))[0]
-    const { data: resTitles } = await supabase.from('titles').select().eq('lang_id', lang.id)
-    const { data: abtMe } = await supabase.from('about_me').select().eq('lang_id', lang.id)
-    const { data: resLinks } = await supabase.from('links').select().eq('lang_id', lang.id)
-    const { data: skillsXp } = await supabase.from('skills').select().eq('lang_id', lang.id)
-    const { data: studyXp } = await supabase.from('study_experience').select().eq('lang_id', lang.id)
-    const { data: workXp } = await supabase.from('work_experience').select().eq('lang_id', lang.id)
+    console.log("e.val", event.target.value);
+    console.log("selLang", selectedLanguage);
+    if (selectedLanguage !== event.target.value) {
+      setSelectedLanguage(event.target.value);
+      const lang = languages.filter((l => l.name === event.target.value))[0]
+      const { data: resTitles } = await supabase.from('titles').select().eq('lang_id', lang.id)
+      const { data: abtMe } = await supabase.from('about_me').select().eq('lang_id', lang.id)
+      const { data: resLinks } = await supabase.from('links').select().eq('lang_id', lang.id)
+      const { data: skillsXp } = await supabase.from('skills').select().eq('lang_id', lang.id)
+      const { data: studyXp } = await supabase.from('study_experience').select().eq('lang_id', lang.id)
+      const { data: workXp } = await supabase.from('work_experience').select().eq('lang_id', lang.id)
+      const { data: styleSwitchVb } = await supabase.from('style_switch_verbiage').select().eq('lang_id', lang.id)
 
-    setVerbiages({
-      titles: resTitles && resTitles[0],
-      aboutMe: abtMe && abtMe[0],
-      links: resLinks as Link[],
-      skills: skillsXp as Skill[],
-      study: studyXp as Study[],
-      work: workXp as Work[]
-    })
+      setVerbiages({
+        titles: resTitles && resTitles[0],
+        aboutMe: abtMe && abtMe[0],
+        links: resLinks as Link[],
+        skills: skillsXp as Skill[],
+        study: studyXp as Study[],
+        work: workXp as Work[],
+        styleSwitchVerbiages: styleSwitchVb && styleSwitchVb[0]
+      })
+    }
   }
 
   const switchStyle = () => {
@@ -123,14 +129,14 @@ function App() {
 
   return (<>
     {verbiages && <div className="portfolio-content">
-      <LanguageSelect languages={languages} value={language} switchLanguage={switchLanguage} switchStyle={switchStyle} />
+      <LanguageSelect languages={languages} value={selectedLanguage} switchLanguage={switchLanguage} switchStyle={switchStyle} styleVerbiages={verbiages.styleSwitchVerbiages} />
       <div className="container">
         <div className="row align-items-center justify-content-center">
           <div className="col align-self-center p-0 col-12 col-sm-12 col-md-9 col-lg-8 col-xl-8">
             <div className="heading-section">
-              <Container classes="abt-me" title={verbiages.titles.aboutMe}>
+              <Container activeStyle={activeStyle} classes="abt-me" title={verbiages.titles.aboutMe}>
                 <>
-                  <Container classes="image" title="portrait.jpg" barButtons="close-only">
+                  <Container activeStyle={activeStyle} classes="image" title="portrait.jpg" barButtons="close-only">
                     <img src={`/data/img/styles/${activeStyle}/profile.png`} alt="portrait of Gabriel" />
                   </Container>
                   {verbiages?.aboutMe.content.map((paragraph: string) => (
@@ -145,21 +151,21 @@ function App() {
         </div>
         <div className="row align-items-center justify-content-center">
           <div className="col align-self-center p-0 col-12 col-sm-12 col-md-9 col-lg-8 col-xl-8">
-            <Container classes="list-ctnr" title={verbiages.titles.work}>
+            <Container activeStyle={activeStyle} classes="list-ctnr" title={verbiages.titles.work}>
               <Timeline list={verbiages?.work} sortingProp="startDate" />
             </Container>
           </div>
         </div>
         <div className="row align-items-center justify-content-center">
           <div className="col align-self-center p-0 col-12 col-sm-12 col-md-9 col-lg-8 col-xl-8">
-            <Container classes="text-ctnr" title={verbiages.titles.study}>
+            <Container activeStyle={activeStyle} classes="text-ctnr" title={verbiages.titles.study}>
               <Timeline list={verbiages?.study} sortingProp="startDate" dateFormat="YYYY" />
             </Container>
           </div>
         </div>
         <div className="row align-items-center justify-content-center">
           <div className="col align-self-center p-0 col-12 col-sm-12 col-md-9 col-lg-8 col-xl-8">
-            <Container classes="text-ctnr skill-list" title={verbiages.titles.skills}>
+            <Container activeStyle={activeStyle} classes="text-ctnr skill-list" title={verbiages.titles.skills}>
               <dl>
                 {verbiages?.skills.map((skill: Skill) => {
                   const subItem = typeof skill.description === "object" ? skill.description.map((subSkill) => (<dd>{subSkill}</dd>)) : <dd>{skill.description}</dd>
@@ -173,7 +179,7 @@ function App() {
         </div>
         <div className="row align-items-center justify-content-center">
           <div className="col align-self-center p-0 col-12 col-sm-12 col-md-9 col-lg-8 col-xl-8">
-            <Container classes="text-ctnr" title={verbiages.titles.links}>
+            <Container activeStyle={activeStyle} classes="text-ctnr" title={verbiages.titles.links}>
               <ul>
                 {verbiages?.links.map((link: Link) => (
                   <li>

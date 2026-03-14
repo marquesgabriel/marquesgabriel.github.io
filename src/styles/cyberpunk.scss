@@ -151,32 +151,24 @@ body.cyberpunk {
       border-bottom: 1px dashed rgba(255, 255, 255, 0.03);
       background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), transparent);
       text-shadow: 0 0 8px rgba(155, 107, 255, 0.05);
-
-      .minimize-btn,
-      .maximize-btn,
-      .close-btn {
-        height: 28px;
-        width: 28px;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 6px;
-        color: #06060a;
-        background: linear-gradient(180deg, rgba(0, 255, 255, 0.85), rgba(155, 107, 255, 0.85));
-        box-shadow: 0 8px 28px rgba(0, 0, 0, 0.6), 0 0 18px rgba(0, 240, 255, 0.12);
-        border: 1px solid rgba(255, 255, 255, 0.06);
-        font-weight: 800;
-      }
     }
 
     &.image {
-      float: left;
       display: block;
       width: 220px;
       height: auto;
       position: relative;
       overflow: hidden;
-      border-radius: 8px;
+      border-radius: 5px;
+      padding: 0;
+
+      .c-container {
+        padding: 0;
+      }
+
+      .title {
+        display: none;
+      }
 
       img {
         width: 100%;
@@ -334,21 +326,6 @@ body.cyberpunk {
       box-shadow: 0 30px 90px rgba(0, 0, 0, 0.75), 0 0 60px rgba(255, 45, 212, 0.08);
       border-color: rgba(255, 45, 212, 0.28);
       color: var(--neon-pink);
-    }
-  }
-
-  /* small utility: neon outline helper */
-  .neon-outline {
-    position: relative;
-
-    &:after {
-      content: "";
-      position: absolute;
-      inset: -4px;
-      border-radius: inherit;
-      border: 2px solid rgba(0, 240, 255, 0.06);
-      box-shadow: 0 0 20px rgba(0, 240, 255, 0.06), 0 0 40px rgba(155, 107, 255, 0.04);
-      pointer-events: none;
     }
   }
 }
