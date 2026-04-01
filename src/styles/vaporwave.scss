@@ -1,208 +1,364 @@
 body.vaporwave {
-  /* pastel vaporwave palette */
-  --pv-pink: #ffd0ea;
-  --pv-rose: #ffb3d9;
-  --pv-lilac: #e6d9ff;
-  --pv-lilac-dark: #c3a2ff;
-  --pv-cyan: #cff9ff;
-  --pv-cream: #fff7f9;
-  --pv-sky: #e8f7ff;
+  /* ── palette ─────────────────────────────────── */
+  --vw-sky-top: #a8d8f0;
+  --vw-sky-mid: #e8a0d0;
+  --vw-sky-bottom: #c070c0;
+  --vw-sun-outer: #f5c0e0;
+  --vw-sun-inner: #fff0f8;
+  --vw-floor-light: #e8d0f0;
+  --vw-floor-dark: #6030a0;
+  --vw-col-light: #f0d8f0;
+  --vw-col-dark: #d090c8;
+  --vw-pink: #f060b0;
+  --vw-lavender: #b090e8;
+  --vw-text: #3a1060;
+  --vw-text-light: #f8e8ff;
+  --vw-accent: #ff60c8;
+  --vw-panel-bg: rgba(255, 220, 245, 0.55);
+  --vw-panel-border: rgba(200, 120, 210, 0.6);
+
+  min-height: 100vh;
+  color: var(--vw-text);
+  font-family: 'Outfit', 'Nunito', sans-serif;
+  -webkit-font-smoothing: antialiased;
   position: relative;
+  overflow-x: hidden;
 
-  /* main layered background: soft gradient + subtle noise */
-  background:
-    linear-gradient(180deg, var(--pv-cream) 0%, var(--pv-pink) 35%, var(--pv-lilac) 70%, var(--pv-sky) 100%);
+  /* ══════════════════════════════════════════════
+     BACKGROUND — full SVG scene:
+     sky gradient · sun · horizontal scan bands ·
+     perspective checkerboard floor · columns
+  ══════════════════════════════════════════════ */
+  background-color: var(--vw-sky-mid);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='700' viewBox='0 0 1200 700'%3E%3Cdefs%3E%3C!-- Sky gradient --%3E%3ClinearGradient id='sky' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0%25' stop-color='%23a8d8f0'/%3E%3Cstop offset='45%25' stop-color='%23e8a0d0'/%3E%3Cstop offset='100%25' stop-color='%23b060c0'/%3E%3C/linearGradient%3E%3C!-- Sun gradient --%3E%3CradialGradient id='sun' cx='50%25' cy='50%25' r='50%25'%3E%3Cstop offset='0%25' stop-color='%23fff4fc'/%3E%3Cstop offset='38%25' stop-color='%23ffd0ee'/%3E%3Cstop offset='70%25' stop-color='%23f090c8'/%3E%3Cstop offset='100%25' stop-color='%23c060a8' stop-opacity='0'/%3E%3C/radialGradient%3E%3C!-- Floor left column shadow --%3E%3ClinearGradient id='col-grad' x1='0' y1='0' x2='1' y2='0'%3E%3Cstop offset='0%25' stop-color='%23d090c8'/%3E%3Cstop offset='40%25' stop-color='%23f0d8f0'/%3E%3Cstop offset='100%25' stop-color='%23d090c8'/%3E%3C/linearGradient%3E%3C!-- Floor gradient overlay --%3E%3ClinearGradient id='floor-fade' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0%25' stop-color='%23c070c0' stop-opacity='0.35'/%3E%3Cstop offset='100%25' stop-color='%234020a0' stop-opacity='0.15'/%3E%3C/linearGradient%3E%3C/defs%3E%3C!-- ① SKY --%3E%3Crect width='1200' height='700' fill='url(%23sky)'/%3E%3C!-- ② SUN --%3E%3Cellipse cx='600' cy='320' rx='210' ry='210' fill='url(%23sun)'/%3E%3C!-- ③ SUN SCAN LINES (horizontal strips cut from sun) --%3E%3Crect x='390' y='370' width='420' height='8'  fill='%23b060c0'/%3E%3Crect x='390' y='388' width='420' height='10' fill='%23b060c0'/%3E%3Crect x='390' y='410' width='420' height='13' fill='%23b060c0'/%3E%3Crect x='390' y='436' width='420' height='16' fill='%23b060c0'/%3E%3Crect x='390' y='466' width='420' height='20' fill='%23b060c0'/%3E%3C!-- ④ HORIZON LINE --%3E%3Crect x='0' y='455' width='1200' height='2' fill='%23d060c0' opacity='0.7'/%3E%3C!-- ⑤ CHECKERBOARD FLOOR (perspective lines converge at vp 600,455) --%3E%3C!-- Floor base --%3E%3Crect x='0' y='455' width='1200' height='245' fill='%236030a0'/%3E%3C!-- Vertical perspective lines from vanishing point --%3E%3Cline x1='600' y1='455' x2='-60'  y2='700' stroke='%23e0d0f8' stroke-width='1.2' opacity='0.55'/%3E%3Cline x1='600' y1='455' x2='100'  y2='700' stroke='%23e0d0f8' stroke-width='1.2' opacity='0.55'/%3E%3Cline x1='600' y1='455' x2='250'  y2='700' stroke='%23e0d0f8' stroke-width='1.2' opacity='0.55'/%3E%3Cline x1='600' y1='455' x2='400'  y2='700' stroke='%23e0d0f8' stroke-width='1.2' opacity='0.55'/%3E%3Cline x1='600' y1='455' x2='530'  y2='700' stroke='%23e0d0f8' stroke-width='1.2' opacity='0.55'/%3E%3Cline x1='600' y1='455' x2='600'  y2='700' stroke='%23e0d0f8' stroke-width='1.2' opacity='0.55'/%3E%3Cline x1='600' y1='455' x2='670'  y2='700' stroke='%23e0d0f8' stroke-width='1.2' opacity='0.55'/%3E%3Cline x1='600' y1='455' x2='800'  y2='700' stroke='%23e0d0f8' stroke-width='1.2' opacity='0.55'/%3E%3Cline x1='600' y1='455' x2='950'  y2='700' stroke='%23e0d0f8' stroke-width='1.2' opacity='0.55'/%3E%3Cline x1='600' y1='455' x2='1100' y2='700' stroke='%23e0d0f8' stroke-width='1.2' opacity='0.55'/%3E%3Cline x1='600' y1='455' x2='1260' y2='700' stroke='%23e0d0f8' stroke-width='1.2' opacity='0.55'/%3E%3C!-- Horizontal floor lines (foreshortening) --%3E%3Cline x1='0' y1='480' x2='1200' y2='480' stroke='%23e0d0f8' stroke-width='1'   opacity='0.45'/%3E%3Cline x1='0' y1='505' x2='1200' y2='505' stroke='%23e0d0f8' stroke-width='1.2' opacity='0.45'/%3E%3Cline x1='0' y1='535' x2='1200' y2='535' stroke='%23e0d0f8' stroke-width='1.5' opacity='0.45'/%3E%3Cline x1='0' y1='572' x2='1200' y2='572' stroke='%23e0d0f8' stroke-width='1.8' opacity='0.45'/%3E%3Cline x1='0' y1='618' x2='1200' y2='618' stroke='%23e0d0f8' stroke-width='2.2' opacity='0.45'/%3E%3Cline x1='0' y1='660' x2='1200' y2='660' stroke='%23e0d0f8' stroke-width='2.8' opacity='0.45'/%3E%3C!-- Floor colour overlay --%3E%3Crect x='0' y='455' width='1200' height='245' fill='url(%23floor-fade)'/%3E%3C!-- ⑥ COLUMNS — left side (4 columns receding) --%3E%3C!-- col L4 (furthest) --%3E%3Crect x='188' y='230' width='14' height='228' fill='url(%23col-grad)' opacity='0.7'/%3E%3Cellipse cx='195' cy='230' rx='22' ry='8' fill='%23f0d8f0' opacity='0.7'/%3E%3Cellipse cx='195' cy='230' rx='22' ry='8' fill='none' stroke='%23d090c8' stroke-width='1' opacity='0.7'/%3E%3Crect x='173' y='452' width='44' height='8' fill='%23f0d8f0' rx='1' opacity='0.7'/%3E%3C!-- col L3 --%3E%3Crect x='118' y='195' width='20' height='263' fill='url(%23col-grad)' opacity='0.8'/%3E%3Cellipse cx='128' cy='195' rx='30' ry='10' fill='%23f0d8f0' opacity='0.8'/%3E%3Cellipse cx='128' cy='195' rx='30' ry='10' fill='none' stroke='%23d090c8' stroke-width='1.2' opacity='0.8'/%3E%3Crect x='98'  y='452' width='60' height='10' fill='%23f0d8f0' rx='1' opacity='0.8'/%3E%3C!-- col L2 --%3E%3Crect x='40'  y='148' width='28' height='310' fill='url(%23col-grad)' opacity='0.9'/%3E%3Cellipse cx='54'  cy='148' rx='42' ry='14' fill='%23f0d8f0' opacity='0.9'/%3E%3Cellipse cx='54'  cy='148' rx='42' ry='14' fill='none' stroke='%23d090c8' stroke-width='1.5' opacity='0.9'/%3E%3Crect x='12'  y='450' width='84' height='14' fill='%23f0d8f0' rx='2' opacity='0.9'/%3E%3C!-- col L1 (closest, partly offscreen) --%3E%3Crect x='-28' y='88'  width='40' height='370' fill='url(%23col-grad)'/%3E%3Cellipse cx='-8'  cy='88'  rx='58' ry='18' fill='%23f0d8f0'/%3E%3Cellipse cx='-8'  cy='88'  rx='58' ry='18' fill='none' stroke='%23d090c8' stroke-width='2'/%3E%3Crect x='-66' y='448' width='116' height='18' fill='%23f0d8f0' rx='2'/%3E%3C!-- ⑥ COLUMNS — right side (mirrored) --%3E%3C!-- col R4 --%3E%3Crect x='998' y='230' width='14' height='228' fill='url(%23col-grad)' opacity='0.7'/%3E%3Cellipse cx='1005' cy='230' rx='22' ry='8' fill='%23f0d8f0' opacity='0.7'/%3E%3Cellipse cx='1005' cy='230' rx='22' ry='8' fill='none' stroke='%23d090c8' stroke-width='1' opacity='0.7'/%3E%3Crect x='983' y='452' width='44' height='8' fill='%23f0d8f0' rx='1' opacity='0.7'/%3E%3C!-- col R3 --%3E%3Crect x='1062' y='195' width='20' height='263' fill='url(%23col-grad)' opacity='0.8'/%3E%3Cellipse cx='1072' cy='195' rx='30' ry='10' fill='%23f0d8f0' opacity='0.8'/%3E%3Cellipse cx='1072' cy='195' rx='30' ry='10' fill='none' stroke='%23d090c8' stroke-width='1.2' opacity='0.8'/%3E%3Crect x='1042' y='452' width='60' height='10' fill='%23f0d8f0' rx='1' opacity='0.8'/%3E%3C!-- col R2 --%3E%3Crect x='1132' y='148' width='28' height='310' fill='url(%23col-grad)' opacity='0.9'/%3E%3Cellipse cx='1146' cy='148' rx='42' ry='14' fill='%23f0d8f0' opacity='0.9'/%3E%3Cellipse cx='1146' cy='148' rx='42' ry='14' fill='none' stroke='%23d090c8' stroke-width='1.5' opacity='0.9'/%3E%3Crect x='1104' y='450' width='84' height='14' fill='%23f0d8f0' rx='2' opacity='0.9'/%3E%3C!-- col R1 --%3E%3Crect x='1188' y='88'  width='40' height='370' fill='url(%23col-grad)'/%3E%3Cellipse cx='1208' cy='88'  rx='58' ry='18' fill='%23f0d8f0'/%3E%3Cellipse cx='1208' cy='88'  rx='58' ry='18' fill='none' stroke='%23d090c8' stroke-width='2'/%3E%3Crect x='1150' y='448' width='116' height='18' fill='%23f0d8f0' rx='2'/%3E%3C/svg%3E");
+  background-size: cover;
+  background-position: center top;
+  background-attachment: fixed;
 
-  /* square grid (soft, low-contrast) */
+  /* ── vignette overlay ── */
   &::before {
     content: "";
     position: fixed;
     inset: 0;
     z-index: 0;
     pointer-events: none;
-
-    /* soft tiled square grid */
-    background-image:
-      linear-gradient(rgba(0, 0, 0, 0.03) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
-    background-size: 80px 80px, 80px 80px;
-    opacity: 0.06;
-    mix-blend-mode: screen;
+    background:
+      radial-gradient(ellipse 80% 60% at 50% 70%, transparent 40%, rgba(80, 20, 100, 0.35) 100%),
+      linear-gradient(180deg, rgba(160, 100, 200, 0.08) 0%, transparent 30%);
   }
 
+  /* ── soft scanline shimmer ── */
   &::after {
     content: "";
     position: fixed;
-    left: 50%;
-    bottom: -6vh;
-    transform: translateX(-50%);
-    width: 150vmin;
-    height: 70vmin;
+    inset: 0;
     z-index: 0;
     pointer-events: none;
-
-    background-image:
-      radial-gradient(circle at 50% 20%, rgba(255, 215, 235, 0.45) 0%, rgba(255, 183, 217, 0.18) 20%, transparent 40%);
-    opacity: 0.95;
-    filter: blur(.6px);
-    mix-blend-mode: screen;
+    background-image: repeating-linear-gradient(180deg,
+        rgba(255, 200, 240, 0.03) 0px,
+        rgba(255, 200, 240, 0.03) 1px,
+        transparent 1px,
+        transparent 4px);
+    animation: vw-scan 8s linear infinite;
+    opacity: 0.6;
   }
 
+  @keyframes vw-scan {
+    from {
+      transform: translateY(0);
+    }
+
+    to {
+      transform: translateY(16px);
+    }
+  }
+
+  >* {
+    position: relative;
+    z-index: 2;
+  }
+
+  /* ════════════════════════════════════════
+     LANGUAGE / STYLE CONTROLS
+  ════════════════════════════════════════ */
   .lang-select {
     z-index: 5;
-    // display: inline-block;
-    padding: 6px;
-    border-radius: 8px;
-    background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.00));
-    border: 1px solid rgba(255, 255, 255, 0.04);
+    background: rgba(255, 220, 248, 0.72);
+    backdrop-filter: blur(10px);
+    border-bottom: 2px solid var(--vw-accent);
+    box-shadow: 0 2px 18px rgba(200, 80, 180, 0.18);
 
     select {
-      background: var(--pv-cream);
-      color: #221;
-      padding: 6px 10px;
-      border-radius: 6px;
-      border: 1px solid rgba(0, 0, 0, 0.06);
-      font-weight: 600;
+      background: rgba(255, 240, 252, 0.8);
+      color: var(--vw-text);
+      padding: 5px 12px;
+      border: 1.5px solid var(--vw-col-dark);
+      border-radius: 20px;
       outline: none;
-      box-shadow: none;
+      font-family: 'Outfit', 'Nunito', sans-serif;
+      font-weight: 600;
+      -webkit-appearance: none;
+      box-shadow: 0 2px 10px rgba(200, 80, 180, 0.15);
+      transition: border-color .15s ease, box-shadow .15s ease;
+
+      &:focus {
+        border-color: var(--vw-pink);
+        box-shadow: 0 0 0 3px rgba(240, 96, 176, 0.2);
+      }
     }
 
-    .change-style {
-      span {
-        color: #221;
-        font-size: 0.9rem;
-      }
+    .change-style a,
+    .change-style span {
+      color: var(--vw-pink);
+      font-weight: 700;
+      text-shadow: 0 0 10px rgba(240, 96, 176, 0.35);
+      transition: color .12s ease;
+    }
 
-      a {
-        color: var(--pv-rose);
-        text-decoration: underline;
-        transition: color .12s ease;
-
-        &:hover {
-          color: var(--pv-lilac-dark);
-        }
-      }
+    .change-style a:hover {
+      color: var(--vw-lavender);
     }
   }
 
+  /* ════════════════════════════════════════
+     HEADING SECTION
+  ════════════════════════════════════════ */
   .heading-section {
     position: relative;
-    z-index: 5;
+    z-index: 3;
 
     h1,
     h2,
     h3 {
-      color: var(--pv-rose);
-      letter-spacing: 0.4px;
-      font-weight: 700;
-      text-shadow: none;
+      font-family: 'Pacifico', 'Outfit', cursive;
+      color: var(--vw-text);
+      text-shadow:
+        2px 2px 0 rgba(255, 180, 230, 0.8),
+        0 0 20px rgba(200, 80, 180, 0.25);
+      letter-spacing: .03em;
     }
   }
 
+  /* ════════════════════════════════════════
+     PORTFOLIO CONTENT
+  ════════════════════════════════════════ */
   .portfolio-content {
     position: relative;
-    z-index: 5;
-    backdrop-filter: blur(2px);
+    z-index: 3;
   }
 
+  /* ════════════════════════════════════════
+     CONTAINER WRAPPERS — frosted pastel cards
+  ════════════════════════════════════════ */
   div.container-wrapper {
-    margin: 1em .5em;
-    border-radius: 0;
-    background: linear-gradient(0deg, var(--pv-sky), var(--pv-cream), var(--pv-sky));
+    margin: 1.1em .5em;
+    background: var(--vw-panel-bg);
+    border: 1.5px solid var(--vw-panel-border);
+    border-radius: 16px 16px 16px 4px;
+    box-shadow:
+      0 8px 32px rgba(180, 80, 180, 0.18),
+      0 2px 0 rgba(255, 255, 255, 0.6) inset,
+      0 -1px 0 rgba(200, 100, 200, 0.15) inset;
+    backdrop-filter: blur(14px) saturate(140%);
+    -webkit-backdrop-filter: blur(14px) saturate(140%);
+    transition: box-shadow .2s ease, transform .2s ease;
+    overflow: hidden;
 
-    &>.title {
-      padding: .6em;
-      font-weight: 700;
-      background: linear-gradient(0deg, var(--pv-cyan), var(--pv-lilac));
-      color: #120617;
-      position: relative;
-      text-align: center;
+    &:hover {
+      box-shadow:
+        0 14px 44px rgba(180, 80, 180, 0.28),
+        0 2px 0 rgba(255, 255, 255, 0.6) inset;
+      transform: translateY(-2px);
     }
 
+    /* ── title bar ── */
+    &>.title {
+      padding: .5rem .9rem;
+      font-weight: 800;
+      font-family: 'Outfit', sans-serif;
+      font-size: .88rem;
+      letter-spacing: .05em;
+      text-transform: uppercase;
+      color: var(--vw-text);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: linear-gradient(90deg,
+          rgba(240, 96, 176, 0.18) 0%,
+          rgba(176, 144, 232, 0.12) 100%);
+      border-bottom: 1.5px solid rgba(200, 120, 210, 0.35);
+      position: relative;
 
+      /* left colour stripe */
+      &::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 4px;
+        background: linear-gradient(180deg, var(--vw-pink), var(--vw-lavender));
+        border-radius: 4px 0 0 0;
+      }
+
+      /* decorative star */
+      &::after {
+        content: "✦";
+        font-size: .75rem;
+        color: var(--vw-pink);
+        opacity: .7;
+      }
+    }
+
+    /* ── profile image ── */
     &.image {
       float: right;
-      display: block;
-      width: 220px;
-      height: auto;
-      position: relative;
-      border-radius: 0;
+      width: 210px;
+      margin-left: 1rem;
+      padding: 0;
       overflow: hidden;
+      border-radius: 50% 16px 16px 16px;
 
       .title {
         display: none;
       }
 
+      .c-container {
+        padding: 0;
+      }
+
       img {
         width: 100%;
         display: block;
-        border-radius: 0;
+        filter: saturate(1.1) contrast(1.04) brightness(1.02);
+        transition: filter .2s ease, transform .2s ease;
+      }
+
+      &:hover img {
+        filter: saturate(1.25) contrast(1.06);
+        transform: scale(1.03);
       }
     }
 
+    /* ── content area ── */
     .c-container {
-      padding: .8em;
+      padding: .9rem 1rem;
     }
   }
 
+  /* ════════════════════════════════════════
+     TIMELINE ITEMS
+  ════════════════════════════════════════ */
   .timeline-item {
-    border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+    border-bottom: 1.5px dashed rgba(200, 120, 210, 0.3);
     margin-top: .6em;
-    padding: .35em .6em;
+    padding: .4em .6em .5em 1.1em;
+    position: relative;
+
+    &::before {
+      content: "✿";
+      position: absolute;
+      left: -.05rem;
+      top: .35rem;
+      font-size: .75rem;
+      color: var(--vw-pink);
+      line-height: 1;
+    }
+
+    &:last-child {
+      border-bottom: none;
+    }
 
     .title {
-      text-align: left;
       font-weight: 800;
-      font-size: 1.02rem;
-      color: var(--pv-rose);
+      font-size: 1rem;
+      color: var(--vw-text);
     }
 
     .date-range {
-      font-size: small;
-      color: var(--pv-lilac-dark);
-      opacity: 0.85;
+      font-size: .8rem;
+      color: var(--vw-lavender);
+      font-style: italic;
     }
 
     .role {
       font-weight: 700;
-      color: #111;
+      color: var(--vw-pink);
     }
 
     .description {
       margin: .2em 0;
-      text-align: left;
-      color: rgba(17, 17, 17, 0.9);
+      color: rgba(58, 16, 96, 0.82);
+      line-height: 1.55;
     }
   }
 
+  /* ════════════════════════════════════════
+     ABOUT ME
+  ════════════════════════════════════════ */
   .abt-me {
     p {
       padding: 0 .6em;
       margin-top: 0;
-      color: rgba(17, 17, 17, 0.95);
+      color: rgba(58, 16, 96, 0.85);
+      line-height: 1.6;
     }
   }
 
+  /* ════════════════════════════════════════
+     SKILLS
+  ════════════════════════════════════════ */
   .skill-list {
     dt {
       margin-left: 1em;
       font-weight: 700;
-      color: var(--pv-lilac-dark);
+      color: var(--vw-pink);
+      text-shadow: 0 0 8px rgba(240, 96, 176, 0.25);
     }
 
     dd {
-      margin-left: 1.4em;
-      color: rgba(17, 17, 17, 0.9);
+      margin-left: 1.5em;
+      color: rgba(80, 20, 120, 0.8);
     }
   }
 
+  /* ════════════════════════════════════════
+     LINKS
+  ════════════════════════════════════════ */
   a {
-    color: var(--pv-rose);
-    text-decoration: underline;
-    transition: color .12s ease;
+    color: var(--vw-pink);
+    text-decoration: none;
+    font-weight: 600;
+    position: relative;
+    transition: color .14s ease;
+
+    &::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -2px;
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(90deg, var(--vw-pink), var(--vw-lavender));
+      transform-origin: left center;
+      transform: scaleX(0);
+      transition: transform .2s cubic-bezier(.2, .9, .2, 1);
+      border-radius: 2px;
+    }
 
     &:hover {
-      color: var(--pv-lilac-dark);
+      color: var(--vw-lavender);
     }
+
+    &:hover::after {
+      transform: scaleX(1);
+    }
+  }
+
+  /* ════════════════════════════════════════
+     LIST MARKERS
+  ════════════════════════════════════════ */
+  ul {
+    list-style-type: '✦   ';
   }
 }
