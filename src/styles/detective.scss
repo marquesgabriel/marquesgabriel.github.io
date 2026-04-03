@@ -1,0 +1,363 @@
+body.detective {
+  /* ── palette ─────────────────────────────────── */
+  --det-wood-1: #2a1f14;
+  --det-wood-2: #1c1409;
+  --det-paper: #f5f0e0;
+  --det-paper-aged: #ede4c8;
+  --det-paper-dark: #d9cea8;
+  --det-ink: #1e1a12;
+  --det-ink-faded: #4a4030;
+  --det-ink-muted: #7a6e58;
+  --det-red: #8b1a1a;
+  --det-red-string: #c0392b;
+  --det-yellow: #d4a017;
+  --det-pin-metal: #aaa9a0;
+  --det-clip: #b0a898;
+  --det-stamp: rgba(139, 26, 26, 0);
+
+  min-height: 100vh;
+  color: var(--det-ink);
+  font-family: 'Special Elite', 'Courier New', monospace;
+  font-size: 15px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  position: relative;
+  overflow-x: hidden;
+
+  /* ══════════════════════════════════════════════
+     BACKGROUND — mesa de madeira escura
+     com marcas de caneca, fios, alfinetes — SVG inline
+  ══════════════════════════════════════════════ */
+  background-color: var(--det-wood-2);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='800' viewBox='0 0 1200 800'%3E%3Cdefs%3E%3ClinearGradient id='wood' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0%25' stop-color='%232a1f14'/%3E%3Cstop offset='100%25' stop-color='%231a1008'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='1200' height='800' fill='url(%23wood)'/%3E%3C!-- wood grain lines --%3E%3Cline x1='0' y1='60'  x2='1200' y2='75'  stroke='%23221508' stroke-width='2.5' opacity='0.7'/%3E%3Cline x1='0' y1='140' x2='1200' y2='128' stroke='%23221508' stroke-width='1.5' opacity='0.5'/%3E%3Cline x1='0' y1='210' x2='1200' y2='225' stroke='%23221508' stroke-width='3'   opacity='0.6'/%3E%3Cline x1='0' y1='290' x2='1200' y2='278' stroke='%23221508' stroke-width='1.5' opacity='0.4'/%3E%3Cline x1='0' y1='370' x2='1200' y2='385' stroke='%23221508' stroke-width='2'   opacity='0.55'/%3E%3Cline x1='0' y1='455' x2='1200' y2='442' stroke='%23221508' stroke-width='1.5' opacity='0.4'/%3E%3Cline x1='0' y1='530' x2='1200' y2='545' stroke='%23221508' stroke-width='2.5' opacity='0.6'/%3E%3Cline x1='0' y1='620' x2='1200' y2='608' stroke='%23221508' stroke-width='1.5' opacity='0.45'/%3E%3Cline x1='0' y1='700' x2='1200' y2='715' stroke='%23221508' stroke-width='2'   opacity='0.5'/%3E%3Cline x1='0' y1='775' x2='1200' y2='762' stroke='%23221508' stroke-width='1.5' opacity='0.4'/%3E%3C!-- coffee stain 1 (top-left area) --%3E%3Cellipse cx='155' cy='190' rx='58' ry='55' fill='none' stroke='%23100a04' stroke-width='10' opacity='0.55'/%3E%3Cellipse cx='155' cy='190' rx='52' ry='49' fill='none' stroke='%23100a04' stroke-width='4'  opacity='0.25'/%3E%3Cellipse cx='158' cy='193' rx='28' ry='26' fill='%23100a04' opacity='0.08'/%3E%3C!-- coffee stain 2 (bottom-right) --%3E%3Cellipse cx='1060' cy='640' rx='46' ry='44' fill='none' stroke='%23100a04' stroke-width='8'  opacity='0.45'/%3E%3Cellipse cx='1060' cy='640' rx='40' ry='38' fill='none' stroke='%23100a04' stroke-width='3'  opacity='0.2'/%3E%3Cellipse cx='1063' cy='643' rx='22' ry='21' fill='%23100a04' opacity='0.06'/%3E%3C!-- red string / fio de investigação --%3E%3Cline x1='80'  y1='120' x2='340' y2='280' stroke='%23c0392b' stroke-width='1.2' opacity='0.55'/%3E%3Cline x1='340' y1='280' x2='620' y2='210' stroke='%23c0392b' stroke-width='1.2' opacity='0.55'/%3E%3Cline x1='620' y1='210' x2='900' y2='350' stroke='%23c0392b' stroke-width='1.2' opacity='0.55'/%3E%3Cline x1='900' y1='350' x2='1100' y2='240' stroke='%23c0392b' stroke-width='1.2' opacity='0.5'/%3E%3C!-- segundo fio --%3E%3Cline x1='200' y1='500' x2='500' y2='380' stroke='%23c0392b' stroke-width='1'   opacity='0.4'/%3E%3Cline x1='500' y1='380' x2='780' y2='520' stroke='%23c0392b' stroke-width='1'   opacity='0.4'/%3E%3Cline x1='780' y1='520' x2='1050' y2='440' stroke='%23c0392b' stroke-width='1'   opacity='0.35'/%3E%3C!-- alfinetes (pin = círculo pequeno + ponta) --%3E%3Ccircle cx='80'   cy='120' r='6' fill='%23c0392b' opacity='0.9'/%3E%3Ccircle cx='80'   cy='120' r='3' fill='%23fff'    opacity='0.5'/%3E%3Ccircle cx='340'  cy='280' r='6' fill='%23c0392b' opacity='0.9'/%3E%3Ccircle cx='340'  cy='280' r='3' fill='%23fff'    opacity='0.5'/%3E%3Ccircle cx='620'  cy='210' r='6' fill='%23d4a017' opacity='0.9'/%3E%3Ccircle cx='620'  cy='210' r='3' fill='%23fff'    opacity='0.5'/%3E%3Ccircle cx='900'  cy='350' r='6' fill='%23c0392b' opacity='0.9'/%3E%3Ccircle cx='900'  cy='350' r='3' fill='%23fff'    opacity='0.5'/%3E%3Ccircle cx='1100' cy='240' r='6' fill='%23d4a017' opacity='0.9'/%3E%3Ccircle cx='1100' cy='240' r='3' fill='%23fff'    opacity='0.5'/%3E%3Ccircle cx='200'  cy='500' r='5' fill='%23c0392b' opacity='0.8'/%3E%3Ccircle cx='200'  cy='500' r='2.5' fill='%23fff' opacity='0.5'/%3E%3Ccircle cx='500'  cy='380' r='5' fill='%23d4a017' opacity='0.85'/%3E%3Ccircle cx='500'  cy='380' r='2.5' fill='%23fff' opacity='0.5'/%3E%3Ccircle cx='780'  cy='520' r='5' fill='%23c0392b' opacity='0.8'/%3E%3Ccircle cx='780'  cy='520' r='2.5' fill='%23fff' opacity='0.5'/%3E%3Ccircle cx='1050' cy='440' r='5' fill='%23d4a017' opacity='0.8'/%3E%3Ccircle cx='1050' cy='440' r='2.5' fill='%23fff' opacity='0.5'/%3E%3C!-- vignette escuro nas bordas --%3E%3Crect width='1200' height='800' fill='url(%23wood)' opacity='0'/%3E%3Cellipse cx='600' cy='400' rx='700' ry='500' fill='none' stroke='%23000' stroke-width='220' opacity='0.45'/%3E%3C/svg%3E");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+
+  /* ── grain de papel sobre tudo ── */
+  &::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background-image:
+      repeating-linear-gradient(
+        0deg,
+        rgba(0, 0, 0, 0.04) 0px,
+        rgba(0, 0, 0, 0.04) 1px,
+        transparent 1px,
+        transparent 3px
+      ),
+      repeating-linear-gradient(
+        90deg,
+        rgba(255, 255, 255, 0.012) 0px,
+        rgba(255, 255, 255, 0.012) 1px,
+        transparent 1px,
+        transparent 40px
+      );
+    opacity: 1;
+  }
+
+  > * {
+    position: relative;
+    z-index: 2;
+  }
+
+  /* ════════════════════════════════════════
+     LANGUAGE / STYLE CONTROLS
+  ════════════════════════════════════════ */
+  .lang-select {
+    z-index: 5;
+    background: rgba(26, 16, 8, 0.88);
+    border-bottom: 2px solid rgba(180, 140, 80, 0.3);
+    backdrop-filter: blur(4px);
+
+    select {
+      background: var(--det-paper-aged);
+      color: var(--det-ink);
+      padding: 4px 10px;
+      border: 1px solid var(--det-paper-dark);
+      border-radius: 0;
+      outline: none;
+      font-family: 'Special Elite', 'Courier New', monospace;
+      font-size: 0.85rem;
+      -webkit-appearance: none;
+      box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
+    }
+
+    .change-style a,
+    .change-style span {
+      color: var(--det-paper-aged);
+      font-size: 0.85rem;
+      font-family: 'Special Elite', monospace;
+      letter-spacing: 0.04em;
+    }
+
+    .change-style a:hover {
+      color: var(--det-yellow);
+      text-decoration: underline;
+    }
+  }
+
+  /* ════════════════════════════════════════
+     HEADING SECTION
+  ════════════════════════════════════════ */
+  .heading-section {
+    h1,
+    h2,
+    h3 {
+      font-family: 'Special Elite', monospace;
+      color: var(--det-ink);
+      letter-spacing: 0.04em;
+    }
+  }
+
+  /* ════════════════════════════════════════
+     PORTFOLIO CONTENT
+  ════════════════════════════════════════ */
+  .portfolio-content {
+    position: relative;
+    z-index: 3;
+  }
+
+  /* ════════════════════════════════════════
+     CONTAINER WRAPPERS — folhas de papel
+  ════════════════════════════════════════ */
+  div.container-wrapper {
+    margin: 1.4em 0.6em;
+    background:
+      /* grain do papel */
+      repeating-linear-gradient(
+        -30deg,
+        rgba(180, 160, 100, 0.04) 0px,
+        rgba(180, 160, 100, 0.04) 1px,
+        transparent 1px,
+        transparent 6px
+      ),
+      /* linhas pautadas horizontais */
+      repeating-linear-gradient(
+          180deg,
+          transparent 0px,
+          transparent 27px,
+          rgba(100, 120, 180, 0.12) 27px,
+          rgba(100, 120, 180, 0.12) 28px
+        ),
+      var(--det-paper);
+    border: 1px solid var(--det-paper-dark);
+    border-radius: 1px;
+    box-shadow:
+      /* sombra principal da folha na mesa */
+      4px 6px 18px rgba(0, 0, 0, 0.55),
+      /* borda interna clara (efeito de espessura do papel) */ 0 0 0 1px rgba(255, 255, 255, 0.5) inset,
+      /* leve sombra inferior para profundidade */ 0 1px 0 rgba(200, 180, 120, 0.4) inset;
+    position: relative;
+
+    /* linha vertical vermelha da margem (estilo caderno/dossier) */
+    &::before {
+      content: '';
+      position: absolute;
+      left: 2.4rem;
+      top: 0;
+      bottom: 0;
+      width: 1.5px;
+      background: rgba(180, 40, 40, 0.35);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* ── title bar — cabeçalho datilografado ── */
+    & > .title {
+      padding: 0.5rem 0.8rem 0.45rem 2.8rem;
+      font-weight: 400;
+      font-family: 'Special Elite', monospace;
+      font-size: 0.95rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--det-ink-faded);
+      background: none;
+      border-bottom: 1.5px solid var(--det-paper-dark);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: relative;
+    }
+
+    /* ── imagem — foto em ângulo com clip ── */
+    &.image {
+      float: right;
+      width: 200px;
+      /* puxa para cima para o clip cruzar a borda da seção anterior */
+      margin-top: -3.5rem;
+      margin-right: -0.4rem;
+      margin-left: 1.2rem;
+      padding: 0;
+      transform: rotate(4deg);
+      background: transparent;
+      border: none;
+      box-shadow: 3px 5px 14px rgba(0, 0, 0, 0.5);
+      position: relative;
+      z-index: 10;
+
+      /* clip metálico no topo */
+      &::before {
+        content: '';
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        top: -12px;
+        width: 24px;
+        height: 42px;
+        border: 3.5px solid var(--det-clip);
+        border-radius: 12px 12px 0 0;
+        border-bottom: none;
+        box-shadow:
+          inset 0 2px 0 rgba(255, 255, 255, 0.5),
+          2px 2px 5px rgba(0, 0, 0, 0.4);
+        z-index: 11;
+      }
+
+      .title {
+        display: none;
+      }
+
+      .c-container {
+        padding: 0;
+      }
+
+      img {
+        width: 100%;
+        display: block;
+        filter: grayscale(35%) sepia(20%) contrast(1.08);
+      }
+    }
+
+    /* ── content area ── */
+    .c-container {
+      padding: 0.8rem 1rem 0.8rem 3rem;
+    }
+  }
+
+  /* ════════════════════════════════════════
+     TIMELINE ITEMS
+  ════════════════════════════════════════ */
+  .timeline-item {
+    border-bottom: 1px dashed rgba(100, 90, 60, 0.3);
+    margin-top: 0.5em;
+    padding: 0.4em 0.4em 0.5em 0;
+    position: relative;
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    .title {
+      font-weight: 400;
+      font-size: 0.98rem;
+      color: var(--det-ink);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .date-range {
+      font-size: 0.8rem;
+      color: var(--det-ink-muted);
+      font-style: italic;
+      letter-spacing: 0.03em;
+    }
+
+    .role {
+      font-weight: 400;
+      color: var(--det-red);
+      letter-spacing: 0.05em;
+    }
+
+    .description {
+      margin: 0.2em 0;
+      color: var(--det-ink-faded);
+      font-size: 0.9rem;
+    }
+  }
+
+  /* ════════════════════════════════════════
+     ABOUT ME
+  ════════════════════════════════════════ */
+  .abt-me {
+    p {
+      padding: 0;
+      margin-top: 0;
+      margin-bottom: 0.6rem;
+      color: var(--det-ink-faded);
+      font-size: 0.95rem;
+      text-align: justify;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  /* ════════════════════════════════════════
+     SKILLS
+  ════════════════════════════════════════ */
+  .skill-list {
+    dt {
+      margin-left: 0;
+      margin-top: 0.55rem;
+      font-weight: 400;
+      font-size: 0.9rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--det-ink);
+
+      &:first-child {
+        margin-top: 0;
+      }
+    }
+
+    dd {
+      margin-left: 1.2rem;
+      color: var(--det-ink-faded);
+      font-size: 0.88rem;
+    }
+  }
+
+  /* ════════════════════════════════════════
+     LINKS
+  ════════════════════════════════════════ */
+  a {
+    color: var(--det-red);
+    text-decoration: underline;
+    text-decoration-style: dotted;
+    text-underline-offset: 3px;
+    font-weight: 400;
+    transition: color 0.12s ease;
+
+    &:hover {
+      color: var(--det-ink);
+      text-decoration-style: solid;
+    }
+  }
+
+  /* ════════════════════════════════════════
+     LIST MARKERS
+  ════════════════════════════════════════ */
+  ul {
+    list-style-type: '—   ';
+  }
+
+  /* ── loading spinner ── */
+  .loading-spinner {
+    background-color: var(--det-wood-2);
+
+    &::after {
+      border-color: rgba(245, 240, 224, 0.12);
+      border-top-color: var(--det-paper-aged);
+      border-radius: 0;
+      border-width: 3px;
+      width: 40px;
+      height: 40px;
+      animation-timing-function: steps(8);
+    }
+  }
+}

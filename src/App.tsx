@@ -1,112 +1,247 @@
 
-import {useState, useEffect} from "react";
-import { Container, LanguageSelect, Timeline } from "./components";
-import { LANGUAGES } from './i18n';
+import { useState, useEffect, Suspense, useMemo, ChangeEvent } from 'react';
+import { Container, LanguageSelect, Timeline } from './components';
 
-import profilePic from "./data/styles/win98/profile.jpg"
-import { getVerbiages } from "./i18n/babel";
-import { Link, Skill } from "./types";
+import { LanguageObj, Resume, Link, Skill, Study, Work } from './types';
+import { supabase } from './utils';
+
+const getCached = (key: string) => {
+  const item = localStorage.getItem(key);
+  return item ? JSON.parse(item) : null;
+};
+
+const setCached = (key: string, data: any) => {
+  localStorage.setItem(key, JSON.stringify(data));
+};
+
+async function getVerbiages(langId: number) {
+  const cached = getCached(`verbiages_${langId}`);
+  if (cached) return cached;
+
+  const [
+    { data: resTitles },
+    { data: abtMe },
+    { data: resLinks },
+    { data: skillsXp },
+    { data: studyXp },
+    { data: workXp },
+    { data: styleSwitchVb },
+  ] = await Promise.all([
+    supabase.from('titles').select().eq('lang_id', langId),
+    supabase.from('about_me').select().eq('lang_id', langId),
+    supabase.from('links').select().eq('lang_id', langId),
+    supabase.from('skills').select().eq('lang_id', langId),
+    supabase.from('study_experience').select().eq('lang_id', langId),
+    supabase.from('work_experience').select().eq('lang_id', langId),
+    supabase.from('style_switch_verbiage').select().eq('lang_id', langId),
+  ]);
+
+  const verbiagesData = {
+    titles: resTitles && resTitles[0],
+    aboutMe: abtMe && abtMe[0],
+    links: resLinks as Link[],
+    skills: skillsXp as Skill[],
+    study: studyXp as Study[],
+    work: workXp as Work[],
+    styleSwitchVerbiages: styleSwitchVb && styleSwitchVb[0],
+  };
+  setCached(`verbiages_${langId}`, verbiagesData);
+  return verbiagesData;
+}
 
 function App() {
-  const [language, setSelectedLanguage] = useState("EN")
-  const [verbiages, setVerbiages] = useState(getVerbiages("EN"))
-
-  useEffect(()=>{
-    const lang = navigator.languages[0].split("-")[0].toUpperCase()
-    setSelectedLanguage(lang);
-    setVerbiages(getVerbiages(lang));
-  },[])
+  const [languages, setLanguages] = useState<LanguageObj[]>([]);
+  const [styles, setStyles] = useState<any[]>([]);
+  const [activeStyle, setActiveStyle] = useState<string>('');
+  const [verbiages, setVerbiages] = useState<Resume>();
+  const [isLoading, setIsLoading] = useState(true);
+  const [isLoadingVerbiages, setIsLoadingVerbiages] = useState(true);
+  const [isSwitchingLanguage, setIsSwitchingLanguage] = useState(false);
   
-  const switchLanguage = (event: any)=>{
-    setSelectedLanguage(event.target.value);
-    setVerbiages(getVerbiages(event.target.value));
+  const [languageOverride, setLanguageOverride] = useState<string | null>(null);
+
+  const selectedLanguage = useMemo(() => {
+    if (languageOverride) return languageOverride;
+    if (languages.length === 0) return "EN";
+    const browserLang = navigator.languages[0].split("-")[0].toUpperCase();
+    return languages.find((l) => l.name === browserLang)?.name ?? "EN";
+  }, [languages, languageOverride]);
+
+  async function loadLanguages() {
+    const cached = getCached('languages');
+    if (cached) return cached;
+    const { data: langs } = await supabase.from('languages').select().eq('active', 'true');
+    if (langs && langs.length > 0) {
+      setCached('languages', langs);
+      return langs;
+    }
+    return [];
   }
 
-  return (<>
-    <LanguageSelect languages={LANGUAGES} value={language} switchLanguage={switchLanguage}/>
-    {verbiages && <div className="portfolio-content">
-      <div className="container">
-        <div className="row align-items-center justify-content-center">
-          <div className="col align-self-center p-0 col-12 col-sm-12 col-md-9 col-lg-8 col-xl-8">
-            <div className="heading-section">
-              <Container classes="abt-me" title={verbiages.aboutMe.title}>
-                <>
-                <Container classes="image" title="portrait.jpg" barButtons="close-only">
-                <img src={profilePic} alt="portrait of Gabriel"/>
-              </Container>
-                  {verbiages.aboutMe.data.map((paragraph: string)=>(
-                    <p>
-                      {paragraph}
-                    </p>
-                  ))}
-                </>
-              </Container>
+  async function loadStyles() {
+    const cached = getCached('styles');
+    if (cached) return cached;
+    const { data: styleList } = await supabase.from('styles').select().eq('isActive', 'true');
+    if (styleList && styleList.length > 0) {
+      setCached('styles', styleList);
+      return styleList;
+    }
+    return [];
+  }
+
+  useEffect(() => {
+    async function loadInitialData() {
+      const [langs, styleList] = await Promise.all([loadLanguages(), loadStyles()]);
+      setLanguages(langs);
+      setStyles(styleList);
+      if (styleList.length > 0) {
+        const chosen = styleList[Math.floor(Math.random() * styleList.length)];
+        setActiveStyle(chosen.name);
+      }
+      setIsLoading(false);
+    }
+    loadInitialData();
+  }, []);
+
+  useEffect(() => {
+    if (!activeStyle || styles.length === 0) return;
+    const possible = styles.map((s) => s.name || s.class || s.cssClass || `style-${s.id}`);
+    document.body.classList.remove(...possible);
+    document.body.classList.add(activeStyle);
+    return () => {
+      document.body.classList.remove(activeStyle);
+    };
+  }, [activeStyle, styles]);
+
+  useEffect(() => {
+    if (languages.length === 0) return;
+    const langObj = languages.find((l) => l.name === selectedLanguage);
+    if (langObj) {
+      getVerbiages(langObj.id)
+        .then(setVerbiages)
+        .finally(() => setIsLoadingVerbiages(false));
+    } else {
+      Promise.resolve().then(() => setIsLoadingVerbiages(false));
+    }
+  }, [languages, selectedLanguage]);
+
+  const switchLanguage = async (event: ChangeEvent<HTMLSelectElement>) => {
+    const newLang = event.target.value;
+    if (selectedLanguage === newLang) return;
+    setLanguageOverride(newLang);                    // dispara o useMemo
+    const lang = languages.find((l) => l.name === newLang);
+    if (!lang) return;
+    setIsSwitchingLanguage(true);
+    const verbiagesData = await getVerbiages(lang.id);
+    setVerbiages(verbiagesData);
+    setIsSwitchingLanguage(false);
+  };
+
+  const switchStyle = () => {
+    if (!styles || styles.length === 0) return;
+    const deriveName = (s: any) => s.name || s.class || s.cssClass || `style-${s.id}`;
+    const possible = styles.map(deriveName);
+    const candidates = styles.filter((s) => deriveName(s) !== activeStyle);
+    const chosen =
+      candidates.length > 0
+        ? candidates[Math.floor(Math.random() * candidates.length)]
+        : styles[Math.floor(Math.random() * styles.length)];
+    const className = deriveName(chosen);
+    document.body.classList.remove(...possible);
+    document.body.classList.add(className);
+    setActiveStyle(className);
+  };
+
+  const isReady = !isLoading && !isLoadingVerbiages && !isSwitchingLanguage && !!verbiages;
+
+  return (
+    <Suspense fallback={<div className="loading-spinner" />}>
+      {isReady && (
+        <div className="portfolio-content">
+          <LanguageSelect
+            languages={languages}
+            value={selectedLanguage}
+            switchLanguage={switchLanguage}
+            switchStyle={switchStyle}
+            styleVerbiages={verbiages!.styleSwitchVerbiages}
+          />
+          <div className="container">
+            <div className="row align-items-center justify-content-center">
+              <div className="col align-self-center p-0 col-12 col-sm-12 col-md-9 col-lg-8 col-xl-8">
+                <div className="heading-section">
+                  <Container activeStyle={activeStyle} classes="abt-me" title={verbiages!.titles.aboutMe}>
+                    <>
+                      <Container activeStyle={activeStyle} classes="image" title="portrait.jpg" barButtons="close-only">
+                        <img src={`/data/img/styles/${activeStyle}/profile.png`} alt="portrait of Gabriel" />
+                      </Container>
+                      {verbiages!.aboutMe.content.map((paragraph: string, i: number) => (
+                        <p key={i}>{paragraph}</p>
+                      ))}
+                    </>
+                  </Container>
+                </div>
+              </div>
+            </div>
+            <div className="row align-items-center justify-content-center">
+              <div className="col align-self-center p-0 col-12 col-sm-12 col-md-9 col-lg-8 col-xl-8">
+                <Container activeStyle={activeStyle} classes="list-ctnr" title={verbiages!.titles.work}>
+                  <Timeline list={verbiages!.work} sortingProp="startDate" />
+                </Container>
+              </div>
+            </div>
+            <div className="row align-items-center justify-content-center">
+              <div className="col align-self-center p-0 col-12 col-sm-12 col-md-9 col-lg-8 col-xl-8">
+                <Container activeStyle={activeStyle} classes="text-ctnr" title={verbiages!.titles.study}>
+                  <Timeline list={verbiages!.study} sortingProp="startDate" dateFormat="YYYY" />
+                </Container>
+              </div>
+            </div>
+            <div className="row align-items-center justify-content-center">
+              <div className="col align-self-center p-0 col-12 col-sm-12 col-md-9 col-lg-8 col-xl-8">
+                <Container activeStyle={activeStyle} classes="text-ctnr skill-list" title={verbiages!.titles.skills}>
+                  <dl>
+                    {verbiages!.skills.map((skill: Skill, i: number) => {
+                      const subItem =
+                        typeof skill.description === 'object' ? (
+                          skill.description.map((s, j) => <dd key={j}>{s}</dd>)
+                        ) : (
+                          <dd>{skill.description}</dd>
+                        );
+                      return (
+                        <div key={i}>
+                          <dt>{skill.name}</dt>
+                          {subItem}
+                        </div>
+                      );
+                    })}
+                  </dl>
+                </Container>
+              </div>
+            </div>
+            <div className="row align-items-center justify-content-center">
+              <div className="col align-self-center p-0 col-12 col-sm-12 col-md-9 col-lg-8 col-xl-8">
+                <Container activeStyle={activeStyle} classes="text-ctnr" title={verbiages!.titles.links}>
+                  <ul>
+                    {verbiages!.links.map((link: Link, i: number) => (
+                      <li key={i}>
+                        <a
+                          href={link.type === 'email' ? `mailto:${link.url}` : link.url}
+                          target="_blank"
+                          rel="noreferrer"
+                        >
+                          {link.description}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </Container>
+              </div>
             </div>
           </div>
         </div>
-        <div className="row align-items-center justify-content-center">
-          <div className="col align-self-center p-0 col-12 col-sm-12 col-md-9 col-lg-8 col-xl-8">
-            <Container classes="list-ctnr" title={verbiages.work.title}>
-              <Timeline lang={language} list={verbiages.work.data} sortingProp="startDate"/>
-            </Container>
-          </div>
-        </div>
-        <div className="row align-items-center justify-content-center">
-          <div className="col align-self-center p-0 col-12 col-sm-12 col-md-9 col-lg-8 col-xl-8">
-            <Container classes="text-ctnr" title={verbiages.study.title}>
-              <Timeline lang={language} list={verbiages.study.data} sortingProp="startDate" dateFormat="YYYY" />
-            </Container>
-          </div>
-        </div>
-        <div className="row align-items-center justify-content-center">
-          <div className="col align-self-center p-0 col-12 col-sm-12 col-md-9 col-lg-8 col-xl-8">
-            <Container classes="text-ctnr skill-list" title={verbiages.skills.title}>
-              <dl>
-                {verbiages.skills.data.map((skill: Skill)=>{
-                  const subItem = typeof skill.description === "object"? skill.description.map((subSkill)=> (<dd>{subSkill}</dd>)): <dd>{skill.description}</dd>
-                  return (<><dt>
-                    {skill.name}
-                  </dt>{subItem}</>)
-                })}
-              </dl>
-            </Container>
-          </div>
-        </div>
-        <div className="row align-items-center justify-content-center">
-          <div className="col align-self-center p-0 col-12 col-sm-12 col-md-9 col-lg-8 col-xl-8">
-            <Container classes="text-ctnr" title={verbiages.links.title}>
-              <ul>
-                {verbiages.links.data.map((link: Link)=>(
-                  <li>
-                    <a href={link.type === "email" ? `mailto:${link.url}`: link.url} target="_blank" rel="noreferrer">{link.description}</a>
-                  </li>
-                ))}
-              </ul>
-            </Container>
-          </div>
-        </div>
-      </div>
-    </div>}
-        {/* <Container classes="text-ctnr gamer" title="Gamer">
-          <ul>
-            <li>
-              Steam: naturallis
-            </li>
-            <li>
-              Origin/ EA: NaturallisCambe
-            </li>
-            <li>
-              Magic Arena: Naturallis#666
-            </li>
-            <li>
-              League of Legends: NaturallisS
-            </li>
-            <li>
-              Join our discord: Pipinha
-            </li>
-          </ul>
-        </Container> */}
-  </>);
+      )}
+    </Suspense>
+  );
 }
 
 export default App;
