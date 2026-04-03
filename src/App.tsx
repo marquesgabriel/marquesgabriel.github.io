@@ -1,27 +1,71 @@
-import { useState, useEffect, Suspense } from 'react';
+
+import { useState, useEffect, Suspense, useMemo, ChangeEvent } from 'react';
 import { Container, LanguageSelect, Timeline } from './components';
 
 import { LanguageObj, Resume, Link, Skill, Study, Work } from './types';
 import { supabase } from './utils';
 
+const getCached = (key: string) => {
+  const item = localStorage.getItem(key);
+  return item ? JSON.parse(item) : null;
+};
+
+const setCached = (key: string, data: any) => {
+  localStorage.setItem(key, JSON.stringify(data));
+};
+
+async function getVerbiages(langId: number) {
+  const cached = getCached(`verbiages_${langId}`);
+  if (cached) return cached;
+
+  const [
+    { data: resTitles },
+    { data: abtMe },
+    { data: resLinks },
+    { data: skillsXp },
+    { data: studyXp },
+    { data: workXp },
+    { data: styleSwitchVb },
+  ] = await Promise.all([
+    supabase.from('titles').select().eq('lang_id', langId),
+    supabase.from('about_me').select().eq('lang_id', langId),
+    supabase.from('links').select().eq('lang_id', langId),
+    supabase.from('skills').select().eq('lang_id', langId),
+    supabase.from('study_experience').select().eq('lang_id', langId),
+    supabase.from('work_experience').select().eq('lang_id', langId),
+    supabase.from('style_switch_verbiage').select().eq('lang_id', langId),
+  ]);
+
+  const verbiagesData = {
+    titles: resTitles && resTitles[0],
+    aboutMe: abtMe && abtMe[0],
+    links: resLinks as Link[],
+    skills: skillsXp as Skill[],
+    study: studyXp as Study[],
+    work: workXp as Work[],
+    styleSwitchVerbiages: styleSwitchVb && styleSwitchVb[0],
+  };
+  setCached(`verbiages_${langId}`, verbiagesData);
+  return verbiagesData;
+}
+
 function App() {
   const [languages, setLanguages] = useState<LanguageObj[]>([]);
   const [styles, setStyles] = useState<any[]>([]);
   const [activeStyle, setActiveStyle] = useState<string>('');
-  const [selectedLanguage, setSelectedLanguage] = useState<string>('EN');
   const [verbiages, setVerbiages] = useState<Resume>();
   const [isLoading, setIsLoading] = useState(true);
   const [isLoadingVerbiages, setIsLoadingVerbiages] = useState(true);
   const [isSwitchingLanguage, setIsSwitchingLanguage] = useState(false);
+  
+  const [languageOverride, setLanguageOverride] = useState<string | null>(null);
 
-  const getCached = (key: string) => {
-    const item = localStorage.getItem(key);
-    return item ? JSON.parse(item) : null;
-  };
-
-  const setCached = (key: string, data: any) => {
-    localStorage.setItem(key, JSON.stringify(data));
-  };
+  const selectedLanguage = useMemo(() => {
+    if (languageOverride) return languageOverride;
+    if (languages.length === 0) return "EN";
+    const browserLang = navigator.languages[0].split("-")[0].toUpperCase();
+    return languages.find((l) => l.name === browserLang)?.name ?? "EN";
+  }, [languages, languageOverride]);
 
   async function loadLanguages() {
     const cached = getCached('languages');
@@ -43,41 +87,6 @@ function App() {
       return styleList;
     }
     return [];
-  }
-
-  async function getVerbiages(langId: number) {
-    const cached = getCached(`verbiages_${langId}`);
-    if (cached) return cached;
-
-    const [
-      { data: resTitles },
-      { data: abtMe },
-      { data: resLinks },
-      { data: skillsXp },
-      { data: studyXp },
-      { data: workXp },
-      { data: styleSwitchVb },
-    ] = await Promise.all([
-      supabase.from('titles').select().eq('lang_id', langId),
-      supabase.from('about_me').select().eq('lang_id', langId),
-      supabase.from('links').select().eq('lang_id', langId),
-      supabase.from('skills').select().eq('lang_id', langId),
-      supabase.from('study_experience').select().eq('lang_id', langId),
-      supabase.from('work_experience').select().eq('lang_id', langId),
-      supabase.from('style_switch_verbiage').select().eq('lang_id', langId),
-    ]);
-
-    const verbiagesData = {
-      titles: resTitles && resTitles[0],
-      aboutMe: abtMe && abtMe[0],
-      links: resLinks as Link[],
-      skills: skillsXp as Skill[],
-      study: studyXp as Study[],
-      work: workXp as Work[],
-      styleSwitchVerbiages: styleSwitchVb && styleSwitchVb[0],
-    };
-    setCached(`verbiages_${langId}`, verbiagesData);
-    return verbiagesData;
   }
 
   useEffect(() => {
@@ -106,28 +115,20 @@ function App() {
 
   useEffect(() => {
     if (languages.length === 0) return;
-    setIsLoadingVerbiages(true);
-
-    const browserLang = navigator.languages[0].split('-')[0].toUpperCase();
-    const matched = languages.find((l) => l.name === browserLang);
-    const resolvedLang = matched?.name ?? 'EN';
-
-    setSelectedLanguage(resolvedLang);
-
-    const langObj = languages.find((l) => l.name === resolvedLang);
+    const langObj = languages.find((l) => l.name === selectedLanguage);
     if (langObj) {
       getVerbiages(langObj.id)
         .then(setVerbiages)
         .finally(() => setIsLoadingVerbiages(false));
     } else {
-      setIsLoadingVerbiages(false);
+      Promise.resolve().then(() => setIsLoadingVerbiages(false));
     }
-  }, [languages]);
+  }, [languages, selectedLanguage]);
 
-  const switchLanguage = async (event: any) => {
+  const switchLanguage = async (event: ChangeEvent<HTMLSelectElement>) => {
     const newLang = event.target.value;
     if (selectedLanguage === newLang) return;
-    setSelectedLanguage(newLang);
+    setLanguageOverride(newLang);                    // dispara o useMemo
     const lang = languages.find((l) => l.name === newLang);
     if (!lang) return;
     setIsSwitchingLanguage(true);

@@ -14,96 +14,160 @@ const styleVerbiages = {
   button_verbiage: 'change',
 };
 
+const defaultProps = {
+  languages,
+  value: 'EN' as string,
+  switchLanguage: vi.fn(),
+  switchStyle: vi.fn(),
+  styleVerbiages,
+};
+
 describe('LanguageSelect', () => {
-  const switchLanguage = vi.fn();
-  const switchStyle = vi.fn();
-
   beforeEach(() => {
-    switchLanguage.mockClear();
-    switchStyle.mockClear();
+    defaultProps.switchLanguage.mockClear();
+    defaultProps.switchStyle.mockClear();
   });
 
-  it('renders language options', () => {
-    render(
-      <LanguageSelect
-        languages={languages}
-        value="EN"
-        switchLanguage={switchLanguage}
-        switchStyle={switchStyle}
-        styleVerbiages={styleVerbiages}
-      />
-    );
-    expect(screen.getByText('English')).toBeInTheDocument();
-    expect(screen.getByText('Português')).toBeInTheDocument();
-  });
-
-  it('renders verbiage and button text', () => {
-    render(
-      <LanguageSelect
-        languages={languages}
-        value="EN"
-        switchLanguage={switchLanguage}
-        switchStyle={switchStyle}
-        styleVerbiages={styleVerbiages}
-      />
-    );
-    expect(screen.getByText('Switch style:')).toBeInTheDocument();
-    expect(screen.getByText('change')).toBeInTheDocument();
-  });
-
-  it('calls switchLanguage on select change', () => {
-    render(
-      <LanguageSelect
-        languages={languages}
-        value="EN"
-        switchLanguage={switchLanguage}
-        switchStyle={switchStyle}
-        styleVerbiages={styleVerbiages}
-      />
-    );
-    fireEvent.change(screen.getByRole('combobox'), { target: { value: 'PT' } });
-    expect(switchLanguage).toHaveBeenCalledTimes(1);
-  });
-
-  it('calls switchStyle and prevents default on link click', () => {
-    render(
-      <LanguageSelect
-        languages={languages}
-        value="EN"
-        switchLanguage={switchLanguage}
-        switchStyle={switchStyle}
-        styleVerbiages={styleVerbiages}
-      />
-    );
-    const link = screen.getByText('change');
-    fireEvent.click(link);
-    expect(switchStyle).toHaveBeenCalledTimes(1);
-  });
+  // ─── guard ────────────────────────────────────────────────────────────────
 
   it('returns null when styleVerbiages is falsy', () => {
     const { container } = render(
-      <LanguageSelect
-        languages={languages}
-        value="EN"
-        switchLanguage={switchLanguage}
-        switchStyle={switchStyle}
-        styleVerbiages={undefined as any}
-      />
+      <LanguageSelect {...defaultProps} styleVerbiages={undefined as any} />
     );
     expect(container.firstChild).toBeNull();
   });
 
-  it('reflects the current selected language value', () => {
-    render(
-      <LanguageSelect
-        languages={languages}
-        value="PT"
-        switchLanguage={switchLanguage}
-        switchStyle={switchStyle}
-        styleVerbiages={styleVerbiages}
-      />
-    );
-    const select = screen.getByRole('combobox') as HTMLSelectElement;
-    expect(select.value).toBe('PT');
+  // ─── desktop bar ──────────────────────────────────────────────────────────
+
+  describe('desktop bar', () => {
+    it('renders language options', () => {
+      render(<LanguageSelect {...defaultProps} />);
+      // both desktop and mobile render options — getAllByText to avoid multiple match error
+      expect(screen.getAllByText('English').length).toBeGreaterThan(0);
+      expect(screen.getAllByText('Português').length).toBeGreaterThan(0);
+    });
+
+    it('renders verbiage and button text', () => {
+      render(<LanguageSelect {...defaultProps} />);
+      expect(screen.getAllByText('Switch style:').length).toBeGreaterThan(0);
+      expect(screen.getAllByText('change').length).toBeGreaterThan(0);
+    });
+
+    it('reflects the current selected language value on desktop select', () => {
+      render(<LanguageSelect {...defaultProps} value="PT" />);
+      // desktop select is the first combobox in the DOM
+      const selects = screen.getAllByRole('combobox') as HTMLSelectElement[];
+      expect(selects[0].value).toBe('PT');
+    });
+
+    it('calls switchLanguage when desktop select changes', () => {
+      render(<LanguageSelect {...defaultProps} />);
+      const selects = screen.getAllByRole('combobox');
+      fireEvent.change(selects[0], { target: { value: 'PT' } });
+      expect(defaultProps.switchLanguage).toHaveBeenCalledTimes(1);
+    });
+
+    it('calls switchStyle when desktop link is clicked', () => {
+      render(<LanguageSelect {...defaultProps} />);
+      // desktop link is inside .d-none.d-sm-block — pick the first anchor
+      const links = screen.getAllByRole('link', { name: 'change' });
+      fireEvent.click(links[0]);
+      expect(defaultProps.switchStyle).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  // ─── mobile hamburger + drawer ────────────────────────────────────────────
+
+  describe('mobile menu', () => {
+    it('renders the hamburger button', () => {
+      render(<LanguageSelect {...defaultProps} />);
+      expect(screen.getByRole('button', { name: 'Open menu' })).toBeInTheDocument();
+    });
+
+    it('drawer is closed by default (no is-open class)', () => {
+      const { container } = render(<LanguageSelect {...defaultProps} />);
+      const drawer = container.querySelector('.mobile-menu-drawer');
+      expect(drawer).not.toHaveClass('is-open');
+    });
+
+    it('overlay is not rendered when drawer is closed', () => {
+      const { container } = render(<LanguageSelect {...defaultProps} />);
+      expect(container.querySelector('.mobile-menu-overlay')).toBeNull();
+    });
+
+    it('opens the drawer when hamburger is clicked', () => {
+      const { container } = render(<LanguageSelect {...defaultProps} />);
+      fireEvent.click(screen.getByRole('button', { name: 'Open menu' }));
+      expect(container.querySelector('.mobile-menu-drawer')).toHaveClass('is-open');
+    });
+
+    it('renders overlay when drawer is open', () => {
+      const { container } = render(<LanguageSelect {...defaultProps} />);
+      fireEvent.click(screen.getByRole('button', { name: 'Open menu' }));
+      expect(container.querySelector('.mobile-menu-overlay')).toBeInTheDocument();
+    });
+
+    it('hamburger has aria-expanded=false when closed', () => {
+      render(<LanguageSelect {...defaultProps} />);
+      expect(screen.getByRole('button', { name: 'Open menu' })).toHaveAttribute(
+        'aria-expanded',
+        'false'
+      );
+    });
+
+    it('hamburger has aria-expanded=true when open', () => {
+      render(<LanguageSelect {...defaultProps} />);
+      fireEvent.click(screen.getByRole('button', { name: 'Open menu' }));
+      expect(screen.getByRole('button', { name: 'Open menu' })).toHaveAttribute(
+        'aria-expanded',
+        'true'
+      );
+    });
+
+    it('closes the drawer when close button is clicked', () => {
+      const { container } = render(<LanguageSelect {...defaultProps} />);
+      fireEvent.click(screen.getByRole('button', { name: 'Open menu' }));
+      fireEvent.click(screen.getByRole('button', { name: 'Close menu' }));
+      expect(container.querySelector('.mobile-menu-drawer')).not.toHaveClass('is-open');
+    });
+
+    it('closes the drawer when overlay is clicked', () => {
+      const { container } = render(<LanguageSelect {...defaultProps} />);
+      fireEvent.click(screen.getByRole('button', { name: 'Open menu' }));
+      fireEvent.click(container.querySelector('.mobile-menu-overlay')!);
+      expect(container.querySelector('.mobile-menu-drawer')).not.toHaveClass('is-open');
+    });
+
+    it('calls switchLanguage and closes drawer when mobile select changes', () => {
+      const { container } = render(<LanguageSelect {...defaultProps} />);
+      fireEvent.click(screen.getByRole('button', { name: 'Open menu' }));
+      const mobileSelect = screen.getByLabelText('Language') as HTMLSelectElement;
+      fireEvent.change(mobileSelect, { target: { value: 'PT' } });
+      expect(defaultProps.switchLanguage).toHaveBeenCalledTimes(1);
+      expect(container.querySelector('.mobile-menu-drawer')).not.toHaveClass('is-open');
+    });
+
+    it('reflects the current value on the mobile select', () => {
+      render(<LanguageSelect {...defaultProps} value="PT" />);
+      const mobileSelect = screen.getByLabelText('Language') as HTMLSelectElement;
+      expect(mobileSelect.value).toBe('PT');
+    });
+
+    it('calls switchStyle and closes drawer when mobile style link is clicked', () => {
+      const { container } = render(<LanguageSelect {...defaultProps} />);
+      fireEvent.click(screen.getByRole('button', { name: 'Open menu' }));
+      const drawer = container.querySelector('.mobile-menu-drawer')!;
+      const mobileLink = drawer.querySelector('.mobile-menu-action')!;
+      fireEvent.click(mobileLink);
+      expect(defaultProps.switchStyle).toHaveBeenCalledTimes(1);
+      expect(container.querySelector('.mobile-menu-drawer')).not.toHaveClass('is-open');
+    });
+
+    it('renders the style verbiage label inside the drawer', () => {
+      const { container } = render(<LanguageSelect {...defaultProps} />);
+      fireEvent.click(screen.getByRole('button', { name: 'Open menu' }));
+      const drawer = container.querySelector('.mobile-menu-drawer')!;
+      expect(drawer.textContent).toContain('Switch style:');
+    });
   });
 });

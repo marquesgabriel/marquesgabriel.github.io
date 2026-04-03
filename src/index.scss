@@ -1,12 +1,12 @@
-@import './styles/base';
+@use 'styles/base';
 // Dynamic style list
-@import './styles/cyberpunk';
-@import './styles/detective';
-@import './styles/flat';
-@import './styles/gothic';
-@import './styles/synthwave';
-@import './styles/vaporwave';
-@import './styles/win98';
+@use 'styles/cyberpunk';
+@use 'styles/detective';
+@use 'styles/flat';
+@use 'styles/gothic';
+@use 'styles/synthwave';
+@use 'styles/vaporwave';
+@use 'styles/win98';
 
 body {
   margin: 0;
