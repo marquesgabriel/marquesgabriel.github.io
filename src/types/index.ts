@@ -1,45 +1,45 @@
 export type AboutMe = {
-  id: number,
-  lang_id: number
-  content: string[]
-}
+  id: number;
+  lang_id: number;
+  content: string[];
+};
 
 export type Skill = {
-  name: string
-  description: string | string[]
-}
+  name: string;
+  description: string | string[];
+};
 
 export type Link = {
-  description: string
-  type: string
-  url: string
-}
+  description: string;
+  type: string;
+  url: string;
+};
 
 export type Study = {
-  _id: string
-  title: string
-  course: string
-  startDate: string
-  endDate: string
-  description: string
-}
+  _id: string;
+  title: string;
+  course: string;
+  startDate: string;
+  endDate: string;
+  description: string;
+};
 
 export type Work = {
-  _id: string
-  title: string
-  subTitle: string
-  location: string
-  startDate: string
-  endDate: string | null,
-  description: string | null | string[]
-}
+  _id: string;
+  title: string;
+  subTitle: string;
+  location: string;
+  startDate: string;
+  endDate: string | null;
+  description: string | null | string[];
+};
 
 export type StyleSwitchVerbiage = {
-  id: number
-  lang_id: number
-  verbiage: string
-  button_verbiage: string
-}
+  id: number;
+  lang_id: number;
+  verbiage: string;
+  button_verbiage: string;
+};
 
 export type Resume = {
   aboutMe: AboutMe;
@@ -55,11 +55,11 @@ export type Resume = {
     study: string;
     work: string;
   };
-}
+};
 
 export type LanguageObj = {
-  id: number
+  id: number;
   name: string;
   description: string;
-  active:boolean;
-}
+  active: boolean;
+};

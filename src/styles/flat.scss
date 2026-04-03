@@ -34,9 +34,9 @@ body.flat {
       border-radius: 4px;
       outline: none;
       font-family: inherit;
-      font-size: .85rem;
+      font-size: 0.85rem;
       -webkit-appearance: none;
-      transition: border-color .12s ease;
+      transition: border-color 0.12s ease;
 
       &:focus {
         border-color: var(--co-accent);
@@ -46,10 +46,10 @@ body.flat {
     .change-style a,
     .change-style span {
       color: var(--co-accent);
-      font-size: .85rem;
+      font-size: 0.85rem;
       font-weight: 500;
       text-decoration: none;
-      transition: color .12s ease;
+      transition: color 0.12s ease;
     }
 
     .change-style a:hover {
@@ -62,14 +62,13 @@ body.flat {
      HEADING SECTION
   ════════════════════════════════════════ */
   .heading-section {
-
     h1,
     h2,
     h3 {
       font-family: 'DM Sans', system-ui, sans-serif;
       font-weight: 700;
       color: var(--co-text);
-      letter-spacing: -.01em;
+      letter-spacing: -0.01em;
     }
   }
 
@@ -84,29 +83,29 @@ body.flat {
      CONTAINER WRAPPERS
   ════════════════════════════════════════ */
   div.container-wrapper {
-    margin: 1rem .5rem;
+    margin: 1rem 0.5rem;
     background: var(--co-surface);
     border: 1px solid var(--co-border);
     border-radius: 6px;
     overflow: hidden;
 
     /* ── title bar ── */
-    &>.title {
-      padding: .6rem 1rem;
-      font-size: .75rem;
+    & > .title {
+      padding: 0.6rem 1rem;
+      font-size: 0.75rem;
       font-weight: 700;
-      letter-spacing: .08em;
+      letter-spacing: 0.08em;
       text-transform: uppercase;
       color: var(--co-text-muted);
       background: var(--co-bg);
       border-bottom: 1px solid var(--co-rule);
       display: flex;
       align-items: center;
-      gap: .5rem;
+      gap: 0.5rem;
 
       /* left rule */
       &::before {
-        content: "";
+        content: '';
         display: inline-block;
         width: 3px;
         height: 14px;
@@ -150,7 +149,7 @@ body.flat {
      TIMELINE ITEMS
   ════════════════════════════════════════ */
   .timeline-item {
-    padding: .75rem 0;
+    padding: 0.75rem 0;
     border-bottom: 1px solid var(--co-rule);
     position: relative;
 
@@ -160,27 +159,27 @@ body.flat {
 
     .title {
       font-weight: 600;
-      font-size: .97rem;
+      font-size: 0.97rem;
       color: var(--co-text);
     }
 
     .date-range {
-      font-size: .78rem;
+      font-size: 0.78rem;
       color: var(--co-text-muted);
-      margin-top: .1rem;
+      margin-top: 0.1rem;
     }
 
     .role {
       font-weight: 600;
-      font-size: .88rem;
+      font-size: 0.88rem;
       color: var(--co-accent);
-      margin-top: .15rem;
+      margin-top: 0.15rem;
     }
 
     .description {
-      margin-top: .35rem;
+      margin-top: 0.35rem;
       color: var(--co-text-muted);
-      font-size: .9rem;
+      font-size: 0.9rem;
     }
   }
 
@@ -191,9 +190,9 @@ body.flat {
     p {
       padding: 0;
       margin-top: 0;
-      margin-bottom: .75rem;
+      margin-bottom: 0.75rem;
       color: var(--co-text);
-      font-size: .95rem;
+      font-size: 0.95rem;
 
       &:last-child {
         margin-bottom: 0;
@@ -211,9 +210,9 @@ body.flat {
 
     dt {
       margin-left: 0;
-      margin-top: .6rem;
+      margin-top: 0.6rem;
       font-weight: 600;
-      font-size: .9rem;
+      font-size: 0.9rem;
       color: var(--co-tag);
 
       &:first-child {
@@ -224,7 +223,7 @@ body.flat {
     dd {
       margin-left: 1rem;
       color: var(--co-text-muted);
-      font-size: .88rem;
+      font-size: 0.88rem;
     }
   }
 
@@ -235,7 +234,7 @@ body.flat {
     color: var(--co-accent);
     text-decoration: none;
     font-weight: 500;
-    transition: color .12s ease;
+    transition: color 0.12s ease;
 
     &:hover {
       color: var(--co-accent-dark);
@@ -248,5 +247,15 @@ body.flat {
   ════════════════════════════════════════ */
   ul {
     list-style-type: '–   ';
+  }
+
+  /* ── loading spinner ── */
+  .loading-spinner {
+    background-color: var(--co-bg);
+
+    &::after {
+      border-color: var(--co-border);
+      border-top-color: var(--co-accent);
+    }
   }
 }

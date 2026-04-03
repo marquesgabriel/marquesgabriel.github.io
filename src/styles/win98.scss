@@ -37,15 +37,15 @@ body.win98 {
   }
 
   div.container-wrapper {
-    margin: 1em .5em;
+    margin: 1em 0.5em;
     border: outset 3px gray;
     border-top: outset 3px white;
     border-left: outset 3px white;
     background: lightgray;
     box-shadow: 1px 1px #535050;
 
-    &>.title {
-      padding: .25em;
+    & > .title {
+      padding: 0.25em;
       font-weight: bold;
       background: linear-gradient(90deg, navy, skyblue);
       color: white;
@@ -93,7 +93,7 @@ body.win98 {
 
       .close-btn {
         position: absolute;
-        right: .25em;
+        right: 0.25em;
         top: 2px;
         background: lightgray;
         border: outset 2px gray;
@@ -115,7 +115,7 @@ body.win98 {
     &.image {
       float: left;
       margin-top: -2em;
-      margin-left: -.25em;
+      margin-left: -0.25em;
       display: block;
       width: 200px;
       height: auto;
@@ -127,7 +127,7 @@ body.win98 {
     }
 
     .c-container {
-      padding: .5em;
+      padding: 0.5em;
     }
   }
 
@@ -142,7 +142,7 @@ body.win98 {
       margin-top: 0em;
     }
 
-    margin-top: .5em;
+    margin-top: 0.5em;
     padding: 0px 1em 0px 0.5em;
 
     .title {
@@ -163,14 +163,14 @@ body.win98 {
     }
 
     .description {
-      margin: .15em 0;
+      margin: 0.15em 0;
       text-align: justify;
     }
   }
 
   .abt-me {
     p {
-      padding: 0 .5em;
+      padding: 0 0.5em;
       margin-top: 0;
     }
   }
@@ -179,6 +179,32 @@ body.win98 {
     dt {
       margin-left: 1em;
       font-weight: 600;
+    }
+  }
+
+  /* ── loading spinner ── */
+  .loading-spinner {
+    background-color: #008689;
+
+    &::after {
+      content: '';
+      width: 40px;
+      height: 40px;
+      border: none;
+      border-radius: 0;
+      animation: none;
+      background: repeating-linear-gradient(90deg, navy 0px, navy 8px, #008080 8px, #008080 10px);
+      animation: win98-load 0.8s steps(4) infinite;
+    }
+
+    @keyframes win98-load {
+      from {
+        transform: translateX(-40px);
+      }
+
+      to {
+        transform: translateX(0px);
+      }
     }
   }
 }

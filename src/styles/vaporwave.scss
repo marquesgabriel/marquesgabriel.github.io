@@ -37,7 +37,7 @@ body.vaporwave {
 
   /* ── vignette overlay ── */
   &::before {
-    content: "";
+    content: '';
     position: fixed;
     inset: 0;
     z-index: 0;
@@ -49,16 +49,18 @@ body.vaporwave {
 
   /* ── soft scanline shimmer ── */
   &::after {
-    content: "";
+    content: '';
     position: fixed;
     inset: 0;
     z-index: 0;
     pointer-events: none;
-    background-image: repeating-linear-gradient(180deg,
-        rgba(255, 200, 240, 0.03) 0px,
-        rgba(255, 200, 240, 0.03) 1px,
-        transparent 1px,
-        transparent 4px);
+    background-image: repeating-linear-gradient(
+      180deg,
+      rgba(255, 200, 240, 0.03) 0px,
+      rgba(255, 200, 240, 0.03) 1px,
+      transparent 1px,
+      transparent 4px
+    );
     animation: vw-scan 8s linear infinite;
     opacity: 0.6;
   }
@@ -73,7 +75,7 @@ body.vaporwave {
     }
   }
 
-  >* {
+  > * {
     position: relative;
     z-index: 2;
   }
@@ -99,7 +101,9 @@ body.vaporwave {
       font-weight: 600;
       -webkit-appearance: none;
       box-shadow: 0 2px 10px rgba(200, 80, 180, 0.15);
-      transition: border-color .15s ease, box-shadow .15s ease;
+      transition:
+        border-color 0.15s ease,
+        box-shadow 0.15s ease;
 
       &:focus {
         border-color: var(--vw-pink);
@@ -112,7 +116,7 @@ body.vaporwave {
       color: var(--vw-pink);
       font-weight: 700;
       text-shadow: 0 0 10px rgba(240, 96, 176, 0.35);
-      transition: color .12s ease;
+      transition: color 0.12s ease;
     }
 
     .change-style a:hover {
@@ -135,7 +139,7 @@ body.vaporwave {
       text-shadow:
         2px 2px 0 rgba(255, 180, 230, 0.8),
         0 0 20px rgba(200, 80, 180, 0.25);
-      letter-spacing: .03em;
+      letter-spacing: 0.03em;
     }
   }
 
@@ -151,7 +155,7 @@ body.vaporwave {
      CONTAINER WRAPPERS — frosted pastel cards
   ════════════════════════════════════════ */
   div.container-wrapper {
-    margin: 1.1em .5em;
+    margin: 1.1em 0.5em;
     background: var(--vw-panel-bg);
     border: 1.5px solid var(--vw-panel-border);
     border-radius: 16px 16px 16px 4px;
@@ -161,7 +165,9 @@ body.vaporwave {
       0 -1px 0 rgba(200, 100, 200, 0.15) inset;
     backdrop-filter: blur(14px) saturate(140%);
     -webkit-backdrop-filter: blur(14px) saturate(140%);
-    transition: box-shadow .2s ease, transform .2s ease;
+    transition:
+      box-shadow 0.2s ease,
+      transform 0.2s ease;
     overflow: hidden;
 
     &:hover {
@@ -172,26 +178,24 @@ body.vaporwave {
     }
 
     /* ── title bar ── */
-    &>.title {
-      padding: .5rem .9rem;
+    & > .title {
+      padding: 0.5rem 0.9rem;
       font-weight: 800;
       font-family: 'Outfit', sans-serif;
-      font-size: .88rem;
-      letter-spacing: .05em;
+      font-size: 0.88rem;
+      letter-spacing: 0.05em;
       text-transform: uppercase;
       color: var(--vw-text);
       display: flex;
       align-items: center;
       justify-content: space-between;
-      background: linear-gradient(90deg,
-          rgba(240, 96, 176, 0.18) 0%,
-          rgba(176, 144, 232, 0.12) 100%);
+      background: linear-gradient(90deg, rgba(240, 96, 176, 0.18) 0%, rgba(176, 144, 232, 0.12) 100%);
       border-bottom: 1.5px solid rgba(200, 120, 210, 0.35);
       position: relative;
 
       /* left colour stripe */
       &::before {
-        content: "";
+        content: '';
         position: absolute;
         left: 0;
         top: 0;
@@ -203,10 +207,10 @@ body.vaporwave {
 
       /* decorative star */
       &::after {
-        content: "✦";
-        font-size: .75rem;
+        content: '✦';
+        font-size: 0.75rem;
         color: var(--vw-pink);
-        opacity: .7;
+        opacity: 0.7;
       }
     }
 
@@ -231,7 +235,9 @@ body.vaporwave {
         width: 100%;
         display: block;
         filter: saturate(1.1) contrast(1.04) brightness(1.02);
-        transition: filter .2s ease, transform .2s ease;
+        transition:
+          filter 0.2s ease,
+          transform 0.2s ease;
       }
 
       &:hover img {
@@ -242,7 +248,7 @@ body.vaporwave {
 
     /* ── content area ── */
     .c-container {
-      padding: .9rem 1rem;
+      padding: 0.9rem 1rem;
     }
   }
 
@@ -251,16 +257,16 @@ body.vaporwave {
   ════════════════════════════════════════ */
   .timeline-item {
     border-bottom: 1.5px dashed rgba(200, 120, 210, 0.3);
-    margin-top: .6em;
-    padding: .4em .6em .5em 1.1em;
+    margin-top: 0.6em;
+    padding: 0.4em 0.6em 0.5em 1.1em;
     position: relative;
 
     &::before {
-      content: "✿";
+      content: '✿';
       position: absolute;
-      left: -.05rem;
-      top: .35rem;
-      font-size: .75rem;
+      left: -0.05rem;
+      top: 0.35rem;
+      font-size: 0.75rem;
       color: var(--vw-pink);
       line-height: 1;
     }
@@ -276,7 +282,7 @@ body.vaporwave {
     }
 
     .date-range {
-      font-size: .8rem;
+      font-size: 0.8rem;
       color: var(--vw-lavender);
       font-style: italic;
     }
@@ -287,7 +293,7 @@ body.vaporwave {
     }
 
     .description {
-      margin: .2em 0;
+      margin: 0.2em 0;
       color: rgba(58, 16, 96, 0.82);
       line-height: 1.55;
     }
@@ -298,7 +304,7 @@ body.vaporwave {
   ════════════════════════════════════════ */
   .abt-me {
     p {
-      padding: 0 .6em;
+      padding: 0 0.6em;
       margin-top: 0;
       color: rgba(58, 16, 96, 0.85);
       line-height: 1.6;
@@ -330,10 +336,10 @@ body.vaporwave {
     text-decoration: none;
     font-weight: 600;
     position: relative;
-    transition: color .14s ease;
+    transition: color 0.14s ease;
 
     &::after {
-      content: "";
+      content: '';
       position: absolute;
       left: 0;
       bottom: -2px;
@@ -342,7 +348,7 @@ body.vaporwave {
       background: linear-gradient(90deg, var(--vw-pink), var(--vw-lavender));
       transform-origin: left center;
       transform: scaleX(0);
-      transition: transform .2s cubic-bezier(.2, .9, .2, 1);
+      transition: transform 0.2s cubic-bezier(0.2, 0.9, 0.2, 1);
       border-radius: 2px;
     }
 
@@ -360,5 +366,19 @@ body.vaporwave {
   ════════════════════════════════════════ */
   ul {
     list-style-type: '✦   ';
+  }
+
+  /* ── loading spinner ── */
+  .loading-spinner {
+    background: linear-gradient(160deg, #a8d8f0, #c070c0);
+
+    &::after {
+      border-color: rgba(255, 255, 255, 0.25);
+      border-top-color: var(--vw-pink);
+      box-shadow: 0 0 16px rgba(240, 96, 176, 0.5);
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+    }
   }
 }

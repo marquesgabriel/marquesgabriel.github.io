@@ -1,4 +1,4 @@
-import { LanguageObj, StyleSwitchVerbiage } from "../types";
+import { LanguageObj, StyleSwitchVerbiage } from '../types';
 
 interface PropTypes {
   languages: LanguageObj[];
@@ -9,33 +9,39 @@ interface PropTypes {
 }
 
 export const LanguageSelect = ({ value, languages, switchLanguage, switchStyle, styleVerbiages }: PropTypes) => {
-  return styleVerbiages && (
-    <>
-      <div className="lang-select container-fluid control-wrapper p-0 m-0">
-        <div className="row align-items-center justify-content-between">
-          <div className="col col-6 col-md-4 col-lg-4 mt-2 mb-2 ms-3">
-            <div className="lang">
-              <select className="selector" name="select-language" onChange={switchLanguage} value={value}>
-                {languages.map((language: LanguageObj) => (
-                  <option value={language.name}>
-                    {language.description}
-                  </option>
-                ))}
-              </select>
-            </div>
+  return styleVerbiages ? (
+    <div className="lang-select container-fluid control-wrapper p-0 m-0">
+      <div className="row align-items-center justify-content-between">
+        <div className="col-auto mt-2 mb-2 ms-3">
+          <div className="lang">
+            <select className="selector" name="select-language" onChange={switchLanguage} value={value}>
+              {languages.map((language: LanguageObj) => (
+                <option key={language.id} value={language.name}>
+                  {language.description}
+                </option>
+              ))}
+            </select>
           </div>
-          <div className="col col-6 col-md-4 col-lg-4 mt-2 mb-2 me-3">
-            <div className="change-style text-end">
-              <span>
-                {styleVerbiages.verbiage}
-                <a className="pl-1" href="#" onClick={(e) => { e.preventDefault(); e.stopPropagation(); switchStyle() }}>
-                  {styleVerbiages.button_verbiage}
-                </a>
-              </span>
-            </div>
+        </div>
+        <div className="col-auto mt-2 mb-2 me-3">
+          <div className="change-style">
+            <span>
+              {styleVerbiages.verbiage}
+              <a
+                className="ps-1"
+                href="#"
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  switchStyle();
+                }}
+              >
+                {styleVerbiages.button_verbiage}
+              </a>
+            </span>
           </div>
         </div>
       </div>
-    </>
-  )
-}
+    </div>
+  ) : null;
+};

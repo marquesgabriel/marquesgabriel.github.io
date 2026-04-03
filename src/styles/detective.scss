@@ -36,22 +36,30 @@ body.detective {
 
   /* ── grain de papel sobre tudo ── */
   &::before {
-    content: "";
+    content: '';
     position: fixed;
     inset: 0;
     z-index: 0;
     pointer-events: none;
     background-image:
-      repeating-linear-gradient(0deg,
-        rgba(0, 0, 0, 0.04) 0px, rgba(0, 0, 0, 0.04) 1px,
-        transparent 1px, transparent 3px),
-      repeating-linear-gradient(90deg,
-        rgba(255, 255, 255, 0.012) 0px, rgba(255, 255, 255, 0.012) 1px,
-        transparent 1px, transparent 40px);
+      repeating-linear-gradient(
+        0deg,
+        rgba(0, 0, 0, 0.04) 0px,
+        rgba(0, 0, 0, 0.04) 1px,
+        transparent 1px,
+        transparent 3px
+      ),
+      repeating-linear-gradient(
+        90deg,
+        rgba(255, 255, 255, 0.012) 0px,
+        rgba(255, 255, 255, 0.012) 1px,
+        transparent 1px,
+        transparent 40px
+      );
     opacity: 1;
   }
 
-  >* {
+  > * {
     position: relative;
     z-index: 2;
   }
@@ -73,7 +81,7 @@ body.detective {
       border-radius: 0;
       outline: none;
       font-family: 'Special Elite', 'Courier New', monospace;
-      font-size: .85rem;
+      font-size: 0.85rem;
       -webkit-appearance: none;
       box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
     }
@@ -81,9 +89,9 @@ body.detective {
     .change-style a,
     .change-style span {
       color: var(--det-paper-aged);
-      font-size: .85rem;
+      font-size: 0.85rem;
       font-family: 'Special Elite', monospace;
-      letter-spacing: .04em;
+      letter-spacing: 0.04em;
     }
 
     .change-style a:hover {
@@ -96,13 +104,12 @@ body.detective {
      HEADING SECTION
   ════════════════════════════════════════ */
   .heading-section {
-
     h1,
     h2,
     h3 {
       font-family: 'Special Elite', monospace;
       color: var(--det-ink);
-      letter-spacing: .04em;
+      letter-spacing: 0.04em;
     }
   }
 
@@ -118,32 +125,37 @@ body.detective {
      CONTAINER WRAPPERS — folhas de papel
   ════════════════════════════════════════ */
   div.container-wrapper {
-    margin: 1.4em .6em;
+    margin: 1.4em 0.6em;
     background:
       /* grain do papel */
-      repeating-linear-gradient(-30deg,
-        rgba(180, 160, 100, 0.04) 0px, rgba(180, 160, 100, 0.04) 1px,
-        transparent 1px, transparent 6px),
+      repeating-linear-gradient(
+        -30deg,
+        rgba(180, 160, 100, 0.04) 0px,
+        rgba(180, 160, 100, 0.04) 1px,
+        transparent 1px,
+        transparent 6px
+      ),
       /* linhas pautadas horizontais */
-      repeating-linear-gradient(180deg,
-        transparent 0px, transparent 27px,
-        rgba(100, 120, 180, 0.12) 27px, rgba(100, 120, 180, 0.12) 28px),
+      repeating-linear-gradient(
+          180deg,
+          transparent 0px,
+          transparent 27px,
+          rgba(100, 120, 180, 0.12) 27px,
+          rgba(100, 120, 180, 0.12) 28px
+        ),
       var(--det-paper);
     border: 1px solid var(--det-paper-dark);
     border-radius: 1px;
     box-shadow:
       /* sombra principal da folha na mesa */
       4px 6px 18px rgba(0, 0, 0, 0.55),
-      /* borda interna clara (efeito de espessura do papel) */
-      0 0 0 1px rgba(255, 255, 255, 0.5) inset,
-      /* leve sombra inferior para profundidade */
-      0 1px 0 rgba(200, 180, 120, 0.4) inset;
+      /* borda interna clara (efeito de espessura do papel) */ 0 0 0 1px rgba(255, 255, 255, 0.5) inset,
+      /* leve sombra inferior para profundidade */ 0 1px 0 rgba(200, 180, 120, 0.4) inset;
     position: relative;
-
 
     /* linha vertical vermelha da margem (estilo caderno/dossier) */
     &::before {
-      content: "";
+      content: '';
       position: absolute;
       left: 2.4rem;
       top: 0;
@@ -155,12 +167,12 @@ body.detective {
     }
 
     /* ── title bar — cabeçalho datilografado ── */
-    &>.title {
-      padding: .5rem .8rem .45rem 2.8rem;
+    & > .title {
+      padding: 0.5rem 0.8rem 0.45rem 2.8rem;
       font-weight: 400;
       font-family: 'Special Elite', monospace;
-      font-size: .95rem;
-      letter-spacing: .1em;
+      font-size: 0.95rem;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
       color: var(--det-ink-faded);
       background: none;
@@ -169,8 +181,6 @@ body.detective {
       align-items: center;
       justify-content: space-between;
       position: relative;
-
-
     }
 
     /* ── imagem — foto em ângulo com clip ── */
@@ -179,7 +189,7 @@ body.detective {
       width: 200px;
       /* puxa para cima para o clip cruzar a borda da seção anterior */
       margin-top: -3.5rem;
-      margin-right: -.4rem;
+      margin-right: -0.4rem;
       margin-left: 1.2rem;
       padding: 0;
       transform: rotate(4deg);
@@ -191,7 +201,7 @@ body.detective {
 
       /* clip metálico no topo */
       &::before {
-        content: "";
+        content: '';
         position: absolute;
         left: 50%;
         transform: translateX(-50%);
@@ -224,7 +234,7 @@ body.detective {
 
     /* ── content area ── */
     .c-container {
-      padding: .8rem 1rem .8rem 3rem;
+      padding: 0.8rem 1rem 0.8rem 3rem;
     }
   }
 
@@ -233,8 +243,8 @@ body.detective {
   ════════════════════════════════════════ */
   .timeline-item {
     border-bottom: 1px dashed rgba(100, 90, 60, 0.3);
-    margin-top: .5em;
-    padding: .4em .4em .5em 0;
+    margin-top: 0.5em;
+    padding: 0.4em 0.4em 0.5em 0;
     position: relative;
 
     &:last-child {
@@ -243,29 +253,29 @@ body.detective {
 
     .title {
       font-weight: 400;
-      font-size: .98rem;
+      font-size: 0.98rem;
       color: var(--det-ink);
-      letter-spacing: .04em;
+      letter-spacing: 0.04em;
       text-transform: uppercase;
     }
 
     .date-range {
-      font-size: .8rem;
+      font-size: 0.8rem;
       color: var(--det-ink-muted);
       font-style: italic;
-      letter-spacing: .03em;
+      letter-spacing: 0.03em;
     }
 
     .role {
       font-weight: 400;
       color: var(--det-red);
-      letter-spacing: .05em;
+      letter-spacing: 0.05em;
     }
 
     .description {
-      margin: .2em 0;
+      margin: 0.2em 0;
       color: var(--det-ink-faded);
-      font-size: .9rem;
+      font-size: 0.9rem;
     }
   }
 
@@ -276,9 +286,9 @@ body.detective {
     p {
       padding: 0;
       margin-top: 0;
-      margin-bottom: .6rem;
+      margin-bottom: 0.6rem;
       color: var(--det-ink-faded);
-      font-size: .95rem;
+      font-size: 0.95rem;
       text-align: justify;
 
       &:last-child {
@@ -293,10 +303,10 @@ body.detective {
   .skill-list {
     dt {
       margin-left: 0;
-      margin-top: .55rem;
+      margin-top: 0.55rem;
       font-weight: 400;
-      font-size: .9rem;
-      letter-spacing: .06em;
+      font-size: 0.9rem;
+      letter-spacing: 0.06em;
       text-transform: uppercase;
       color: var(--det-ink);
 
@@ -308,7 +318,7 @@ body.detective {
     dd {
       margin-left: 1.2rem;
       color: var(--det-ink-faded);
-      font-size: .88rem;
+      font-size: 0.88rem;
     }
   }
 
@@ -321,7 +331,7 @@ body.detective {
     text-decoration-style: dotted;
     text-underline-offset: 3px;
     font-weight: 400;
-    transition: color .12s ease;
+    transition: color 0.12s ease;
 
     &:hover {
       color: var(--det-ink);
@@ -334,5 +344,20 @@ body.detective {
   ════════════════════════════════════════ */
   ul {
     list-style-type: '—   ';
+  }
+
+  /* ── loading spinner ── */
+  .loading-spinner {
+    background-color: var(--det-wood-2);
+
+    &::after {
+      border-color: rgba(245, 240, 224, 0.12);
+      border-top-color: var(--det-paper-aged);
+      border-radius: 0;
+      border-width: 3px;
+      width: 40px;
+      height: 40px;
+      animation-timing-function: steps(8);
+    }
   }
 }

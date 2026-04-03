@@ -1,23 +1,22 @@
-@import "./styles/base";
+@import './styles/base';
 // Dynamic style list
-@import "./styles/cyberpunk";
-@import "./styles/detective";
-@import "./styles/flat";
-@import "./styles/gothic";
-@import "./styles/synthwave";
-@import "./styles/vaporwave";
-@import "./styles/win98";
+@import './styles/cyberpunk';
+@import './styles/detective';
+@import './styles/flat';
+@import './styles/gothic';
+@import './styles/synthwave';
+@import './styles/vaporwave';
+@import './styles/win98';
 
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family:
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans',
+    'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }

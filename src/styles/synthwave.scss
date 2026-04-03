@@ -39,16 +39,18 @@ body.synthwave {
 
   /* ── scanline overlay animado ── */
   &::before {
-    content: "";
+    content: '';
     position: fixed;
     inset: 0;
     z-index: 0;
     pointer-events: none;
-    background-image: repeating-linear-gradient(180deg,
-        rgba(0, 0, 0, 0.12) 0px,
-        rgba(0, 0, 0, 0.12) 1px,
-        transparent 1px,
-        transparent 3px);
+    background-image: repeating-linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0.12) 0px,
+      rgba(0, 0, 0, 0.12) 1px,
+      transparent 1px,
+      transparent 3px
+    );
     animation: sw-scan 6s linear infinite;
     opacity: 0.6;
   }
@@ -65,17 +67,15 @@ body.synthwave {
 
   /* ── vignette ── */
   &::after {
-    content: "";
+    content: '';
     position: fixed;
     inset: 0;
     z-index: 0;
     pointer-events: none;
-    background: radial-gradient(ellipse 90% 70% at 50% 50%,
-        transparent 40%,
-        rgba(5, 0, 20, 0.6) 100%);
+    background: radial-gradient(ellipse 90% 70% at 50% 50%, transparent 40%, rgba(5, 0, 20, 0.6) 100%);
   }
 
-  >* {
+  > * {
     position: relative;
     z-index: 2;
   }
@@ -98,10 +98,10 @@ body.synthwave {
       border-radius: 0;
       outline: none;
       font-family: 'Exo 2', sans-serif;
-      font-size: .85rem;
+      font-size: 0.85rem;
       -webkit-appearance: none;
       box-shadow: 0 0 8px rgba(255, 45, 120, 0.3);
-      transition: box-shadow .15s ease;
+      transition: box-shadow 0.15s ease;
 
       &:focus {
         box-shadow: 0 0 14px rgba(255, 45, 120, 0.6);
@@ -112,11 +112,11 @@ body.synthwave {
     .change-style span {
       color: var(--sw-yellow);
       font-family: 'Orbitron', 'Exo 2', sans-serif;
-      font-size: .78rem;
+      font-size: 0.78rem;
       font-weight: 700;
-      letter-spacing: .08em;
+      letter-spacing: 0.08em;
       text-shadow: 0 0 10px rgba(255, 211, 25, 0.6);
-      transition: color .12s ease;
+      transition: color 0.12s ease;
     }
 
     .change-style a:hover {
@@ -129,13 +129,12 @@ body.synthwave {
      HEADING SECTION
   ════════════════════════════════════════ */
   .heading-section {
-
     h1,
     h2,
     h3 {
       font-family: 'Orbitron', sans-serif;
       color: var(--sw-pink);
-      letter-spacing: .08em;
+      letter-spacing: 0.08em;
       text-shadow:
         0 0 10px var(--sw-glow-pink),
         0 0 30px rgba(255, 45, 120, 0.3),
@@ -155,7 +154,7 @@ body.synthwave {
      CONTAINER WRAPPERS
   ════════════════════════════════════════ */
   div.container-wrapper {
-    margin: 1.2em .5em;
+    margin: 1.2em 0.5em;
     background: var(--sw-panel-bg);
     border: 1px solid var(--sw-magenta);
     border-radius: 0;
@@ -173,27 +172,23 @@ body.synthwave {
 
     /* linha de scan decorativa no topo do card */
     &::after {
-      content: "";
+      content: '';
       position: absolute;
       top: 0;
       left: 0;
       right: 0;
       height: 1px;
-      background: linear-gradient(90deg,
-          transparent,
-          var(--sw-cyan) 30%,
-          var(--sw-magenta) 70%,
-          transparent);
+      background: linear-gradient(90deg, transparent, var(--sw-cyan) 30%, var(--sw-magenta) 70%, transparent);
       opacity: 0.7;
     }
 
     /* ── title bar ── */
-    &>.title {
-      padding: .45rem .9rem;
+    & > .title {
+      padding: 0.45rem 0.9rem;
       font-family: 'Orbitron', sans-serif;
       font-weight: 700;
-      font-size: .72rem;
-      letter-spacing: .14em;
+      font-size: 0.72rem;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
       color: var(--sw-yellow);
       text-shadow:
@@ -208,7 +203,7 @@ body.synthwave {
 
       /* left accent bar */
       &::before {
-        content: "";
+        content: '';
         position: absolute;
         left: 0;
         top: 0;
@@ -220,11 +215,11 @@ body.synthwave {
 
       /* right chevron ornament */
       &::after {
-        content: "▶";
-        font-size: .6rem;
+        content: '▶';
+        font-size: 0.6rem;
         color: var(--sw-magenta);
         text-shadow: 0 0 8px var(--sw-glow-pink);
-        opacity: .8;
+        opacity: 0.8;
       }
     }
 
@@ -252,7 +247,7 @@ body.synthwave {
 
       /* neon frame lines nos cantos */
       &::before {
-        content: "";
+        content: '';
         position: absolute;
         inset: 0;
         border: 2px solid transparent;
@@ -268,7 +263,7 @@ body.synthwave {
 
     /* ── content area ── */
     .c-container {
-      padding: .9rem 1rem;
+      padding: 0.9rem 1rem;
     }
   }
 
@@ -277,16 +272,16 @@ body.synthwave {
   ════════════════════════════════════════ */
   .timeline-item {
     border-bottom: 1px solid rgba(255, 45, 120, 0.2);
-    margin-top: .65em;
-    padding: .4em .4em .5em .9em;
+    margin-top: 0.65em;
+    padding: 0.4em 0.4em 0.5em 0.9em;
     position: relative;
 
     &::before {
-      content: "";
+      content: '';
       position: absolute;
       left: 0;
-      top: .4rem;
-      bottom: .4rem;
+      top: 0.4rem;
+      bottom: 0.4rem;
       width: 2px;
       background: linear-gradient(180deg, var(--sw-cyan), var(--sw-magenta));
       box-shadow: 0 0 6px var(--sw-glow-cyan);
@@ -299,17 +294,17 @@ body.synthwave {
     .title {
       font-family: 'Orbitron', sans-serif;
       font-weight: 700;
-      font-size: .88rem;
-      letter-spacing: .06em;
+      font-size: 0.88rem;
+      letter-spacing: 0.06em;
       color: var(--sw-text);
       text-shadow: 0 0 6px rgba(255, 214, 240, 0.3);
     }
 
     .date-range {
-      font-size: .78rem;
+      font-size: 0.78rem;
       color: var(--sw-cyan);
       text-shadow: 0 0 8px var(--sw-glow-cyan);
-      letter-spacing: .04em;
+      letter-spacing: 0.04em;
     }
 
     .role {
@@ -319,9 +314,9 @@ body.synthwave {
     }
 
     .description {
-      margin: .25em 0;
+      margin: 0.25em 0;
       color: var(--sw-text-muted);
-      font-size: .9rem;
+      font-size: 0.9rem;
     }
   }
 
@@ -330,11 +325,11 @@ body.synthwave {
   ════════════════════════════════════════ */
   .abt-me {
     p {
-      padding: 0 .4em;
+      padding: 0 0.4em;
       margin-top: 0;
-      margin-bottom: .6rem;
+      margin-bottom: 0.6rem;
       color: var(--sw-text-muted);
-      font-size: .95rem;
+      font-size: 0.95rem;
       line-height: 1.65;
 
       &:last-child {
@@ -348,12 +343,12 @@ body.synthwave {
   ════════════════════════════════════════ */
   .skill-list {
     dt {
-      margin-left: .5em;
-      margin-top: .5rem;
+      margin-left: 0.5em;
+      margin-top: 0.5rem;
       font-family: 'Orbitron', sans-serif;
       font-weight: 700;
-      font-size: .78rem;
-      letter-spacing: .1em;
+      font-size: 0.78rem;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
       color: var(--sw-pink);
       text-shadow: 0 0 8px var(--sw-glow-pink);
@@ -366,7 +361,7 @@ body.synthwave {
     dd {
       margin-left: 1.2em;
       color: var(--sw-text-muted);
-      font-size: .88rem;
+      font-size: 0.88rem;
     }
   }
 
@@ -379,10 +374,12 @@ body.synthwave {
     font-weight: 600;
     text-shadow: 0 0 8px var(--sw-glow-cyan);
     position: relative;
-    transition: color .12s ease, text-shadow .12s ease;
+    transition:
+      color 0.12s ease,
+      text-shadow 0.12s ease;
 
     &::after {
-      content: "";
+      content: '';
       position: absolute;
       left: 0;
       bottom: -2px;
@@ -392,7 +389,7 @@ body.synthwave {
       box-shadow: 0 0 6px var(--sw-glow-pink);
       transform-origin: left center;
       transform: scaleX(0);
-      transition: transform .18s ease;
+      transition: transform 0.18s ease;
     }
 
     &:hover {
@@ -410,5 +407,20 @@ body.synthwave {
   ════════════════════════════════════════ */
   ul {
     list-style-type: '▸   ';
+  }
+
+  /* ── loading spinner ── */
+  .loading-spinner {
+    background: var(--sw-bg-1);
+
+    &::after {
+      border-color: rgba(255, 45, 120, 0.15);
+      border-top-color: var(--sw-magenta);
+      box-shadow:
+        0 0 18px rgba(255, 45, 120, 0.6),
+        0 0 40px rgba(123, 47, 255, 0.25);
+      width: 48px;
+      height: 48px;
+    }
   }
 }

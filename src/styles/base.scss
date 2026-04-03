@@ -4,6 +4,7 @@ div.control-wrapper {
   background-color: #333532;
   padding-right: 1em !important;
   padding-left: 1em !important;
+  width: 100%;
 
   .row {
     width: inherit;
@@ -15,8 +16,39 @@ div.control-wrapper {
     text-align: right;
 
     a {
-      padding-left: .75em;
+      padding-left: 0.75em;
       color: white;
+    }
+  }
+
+  @media (max-width: 575px) {
+    padding-right: 0.75em !important;
+    padding-left: 0.75em !important;
+
+    .row {
+      flex-direction: column;
+      align-items: flex-start !important;
+      gap: 0.1rem;
+    }
+
+    .col-auto {
+      &.ms-3 {
+        margin-left: 0.5rem !important;
+      }
+
+      &.me-3 {
+        margin-right: 0.5rem !important;
+        margin-bottom: 0.35rem;
+      }
+    }
+
+    .change-style {
+      font-size: 0.82rem;
+    }
+
+    .selector {
+      font-size: 0.82rem;
+      padding: 3px 8px;
     }
   }
 }
@@ -25,5 +57,37 @@ div.control-wrapper {
   div.container {
     padding-top: 3.25em;
     width: fit-content;
+
+    @media (max-width: 575px) {
+      padding-top: 5.5em;
+    }
+  }
+}
+
+/* ════════════════════════════════════════
+   DEFAULT LOADING SPINNER
+════════════════════════════════════════ */
+.loading-spinner {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #1a1a1a;
+
+  &::after {
+    content: '';
+    width: 44px;
+    height: 44px;
+    border: 4px solid rgba(255, 255, 255, 0.15);
+    border-top-color: rgba(255, 255, 255, 0.8);
+    border-radius: 50%;
+    animation: base-spin 0.75s linear infinite;
+  }
+
+  @keyframes base-spin {
+    to {
+      transform: rotate(360deg);
+    }
   }
 }
