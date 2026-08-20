@@ -4,9 +4,10 @@
 # built-in project automation when it fires, so this makes the board update
 # explicit and works the same whether or not that automation is configured.
 #
-# Requires a PROJECT_TOKENS secret (classic PAT with `repo` + `project`
-# scopes) since the default GITHUB_TOKEN can't write to user-owned
-# Projects v2.
+# Requires the ACTIONS_DEPLOY_ACCESS_TOKEN secret (classic PAT with `repo`
+# + `project` scopes) since the default GITHUB_TOKEN can't write to
+# user-owned Projects v2. Reuses the same PAT as deploy.yml rather than a
+# separate PROJECT_TOKENS secret.
 
 name: Sync project status
 
@@ -22,7 +23,7 @@ jobs:
       - name: Move linked issues on the board
         uses: actions/github-script@v7
         with:
-          github-token: ${{ secrets.PROJECT_TOKENS }}
+          github-token: ${{ secrets.ACTIONS_DEPLOY_ACCESS_TOKEN }}
           script: |
             const PROJECT_OWNER = "marquesgabriel";
             const PROJECT_NUMBER = 2;
