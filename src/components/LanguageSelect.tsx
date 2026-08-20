@@ -1,9 +1,9 @@
-import { useState } from 'react';
+import { useState, type ChangeEvent } from 'react';
 import { LanguageObj, StyleSwitchVerbiage } from '../types';
 
 interface PropTypes {
   languages: LanguageObj[];
-  switchLanguage: (event: React.ChangeEvent<HTMLSelectElement>) => void;
+  switchLanguage: (event: ChangeEvent<HTMLSelectElement>) => void;
   value?: string;
   switchStyle: () => void;
   styleVerbiages: StyleSwitchVerbiage;
