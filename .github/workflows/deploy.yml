@@ -1,0 +1,37 @@
+# Runs only on push to master (i.e. after a PR merges): installs
+# dependencies, builds, and deploys to GitHub Pages. Never runs on
+# pull_request — see ci.yml for the PR-time build+test check.
+
+name: Deploy
+
+on:
+  push:
+    branches: [ "master" ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Use Node.js 20.x
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20.x
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build and deploy
+        run: |
+          git config --global user.name "$user_name"
+          git config --global user.email "$user_email"
+          git remote set-url origin "https://${github_token}@github.com/${repository}"
+          npm run deploy
+        env:
+          REACT_APP_ADSENSE_PUBLISHER_ID: ${{ vars.REACT_APP_ADSENSE_PUBLISHER_ID }}
+          user_name: 'github-actions[bot]'
+          user_email: 'github-actions[bot]@users.noreply.github.com'
+          github_token: ${{ secrets.ACTIONS_DEPLOY_ACCESS_TOKEN }}
+          repository: ${{ github.repository }}
