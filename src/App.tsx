@@ -1,5 +1,5 @@
 import { useState, useEffect, Suspense, type ChangeEvent } from 'react';
-import { Container, LanguageSelect, Timeline } from './components';
+import { Container, LanguageSelect, SupportSidebar, Timeline } from './components';
 import { LanguageObj, Resume, Link, Skill, Study, Work } from './types';
 import { supabase } from './utils';
 
@@ -255,6 +255,11 @@ function App() {
                     ))}
                   </ul>
                 </Container>
+              </div>
+            </div>
+            <div className="row align-items-center justify-content-center">
+              <div className="col align-self-center p-0 col-12 col-sm-12 col-md-9 col-lg-8 col-xl-8">
+                <SupportSidebar />
               </div>
             </div>
           </div>
