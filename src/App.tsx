@@ -1,4 +1,4 @@
-import { useState, useEffect, Suspense } from 'react';
+import { useState, useEffect, Suspense, type ChangeEvent } from 'react';
 import { Container, LanguageSelect, Timeline } from './components';
 import { LanguageObj, Resume, Link, Skill, Study, Work } from './types';
 import { supabase } from './utils';
@@ -130,6 +130,10 @@ function App() {
     const matched = languages.find((l) => l.name === browserLang);
     const resolvedLang = matched?.name ?? 'EN';
 
+    // Must run in an effect: navigator.languages is only available client-side,
+    // and this depends on `languages` having loaded from Supabase first — it's
+    // a one-time init on mount/data-ready, not a cascading-render pattern.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setSelectedLanguage(resolvedLang);
 
     const langObj = languages.find((l) => l.name === resolvedLang);
@@ -142,7 +146,7 @@ function App() {
     }
   }, [languages]);
 
-  const switchLanguage = async (event: React.ChangeEvent<HTMLSelectElement>) => {
+  const switchLanguage = async (event: ChangeEvent<HTMLSelectElement>) => {
     const newLang = event.target.value;
     if (selectedLanguage === newLang) return;
     setSelectedLanguage(newLang);

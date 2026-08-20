@@ -1,0 +1,37 @@
+# Runs on every Pull Request targeting master: installs dependencies,
+# lints, tests (with coverage), and builds. Never deploys — deployment
+# only happens on push to master (see deploy.yml).
+
+name: CI
+
+on:
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [20.x]
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Test (with coverage)
+        run: npm run test:coverage
+
+      - name: Build App
+        run: npm run build
