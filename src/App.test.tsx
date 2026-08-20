@@ -34,6 +34,7 @@ vi.mock('./components', () => ({
       ))}
     </ul>
   ),
+  SupportSidebar: () => <div data-testid="support-sidebar" />,
 }));
 
 // ── helpers ───────────────────────────────────────────────────────────────
