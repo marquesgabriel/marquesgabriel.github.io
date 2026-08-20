@@ -1,5 +1,8 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
+import { readFileSync } from 'fs';
+
+const pkg = JSON.parse(readFileSync(new URL('./package.json', import.meta.url), 'utf-8'));
 
 export default defineConfig({
   plugins: [react()],
@@ -8,6 +11,12 @@ export default defineConfig({
     open: true,
   },
   envPrefix: 'REACT_APP_',
+  // Exposes package.json's version as a build-time constant (see
+  // src/index.tsx, which sets it on window.APP_VERSION) - the app-version-
+  // as-global-console-variable convention, standardized across projects.
+  define: {
+    __APP_VERSION__: JSON.stringify(pkg.version),
+  },
   build: {
     outDir: 'build', // CRA's default build output
   },

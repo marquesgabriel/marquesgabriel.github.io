@@ -7,6 +7,9 @@ import './index.scss';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+(window as any).APP_VERSION = __APP_VERSION__;
+console.log(`App version: ${__APP_VERSION__} (also available as window.APP_VERSION)`);
+
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
   <React.StrictMode>
