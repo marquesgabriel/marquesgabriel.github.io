@@ -1,12 +1,13 @@
-# Runs on every Pull Request targeting master: installs dependencies,
-# lints, tests (with coverage), and builds. Never deploys — deployment
-# only happens on push to master (see deploy.yml).
+# Runs on every Pull Request targeting master or an active release
+# branch: installs dependencies, lints, tests (with coverage), and
+# builds. Never deploys — deployment only happens on push to master
+# (see deploy.yml).
 
 name: CI
 
 on:
   pull_request:
-    branches: [ "master" ]
+    branches: [ "master", "release/**" ]
 
 jobs:
   build:
