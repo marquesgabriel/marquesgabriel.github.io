@@ -76,7 +76,11 @@ export const SupportSidebar = () => {
             <button type="button" className="btn btn-sm btn-primary" onClick={() => handleConsent('accepted')}>
               Accept
             </button>
-            <button type="button" className="btn btn-sm btn-outline-secondary" onClick={() => handleConsent('declined')}>
+            <button
+              type="button"
+              className="btn btn-sm btn-outline-secondary"
+              onClick={() => handleConsent('declined')}
+            >
               Decline
             </button>
           </div>

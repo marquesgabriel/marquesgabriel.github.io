@@ -31,9 +31,7 @@ describe('LanguageSelect', () => {
   // ─── guard ────────────────────────────────────────────────────────────────
 
   it('returns null when styleVerbiages is falsy', () => {
-    const { container } = render(
-      <LanguageSelect {...defaultProps} styleVerbiages={undefined as any} />
-    );
+    const { container } = render(<LanguageSelect {...defaultProps} styleVerbiages={undefined as any} />);
     expect(container.firstChild).toBeNull();
   });
 
@@ -109,19 +107,13 @@ describe('LanguageSelect', () => {
 
     it('hamburger has aria-expanded=false when closed', () => {
       render(<LanguageSelect {...defaultProps} />);
-      expect(screen.getByRole('button', { name: 'Open menu' })).toHaveAttribute(
-        'aria-expanded',
-        'false'
-      );
+      expect(screen.getByRole('button', { name: 'Open menu' })).toHaveAttribute('aria-expanded', 'false');
     });
 
     it('hamburger has aria-expanded=true when open', () => {
       render(<LanguageSelect {...defaultProps} />);
       fireEvent.click(screen.getByRole('button', { name: 'Open menu' }));
-      expect(screen.getByRole('button', { name: 'Open menu' })).toHaveAttribute(
-        'aria-expanded',
-        'true'
-      );
+      expect(screen.getByRole('button', { name: 'Open menu' })).toHaveAttribute('aria-expanded', 'true');
     });
 
     it('closes the drawer when close button is clicked', () => {

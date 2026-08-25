@@ -21,9 +21,7 @@ function getLocaleEntry(langCode?: string): LocaleEntry {
 }
 
 function toDateFnsFormat(momentFormat: string): string {
-  return momentFormat
-    .replace(/YYYY/g, 'yyyy')
-    .replace(/DD/g, 'dd');
+  return momentFormat.replace(/YYYY/g, 'yyyy').replace(/DD/g, 'dd');
 }
 
 interface PropTypes {
@@ -42,22 +40,26 @@ const TextOrList = ({ value }: { value: any }) => {
       </ul>
     );
   }
-  return value ? <ul><li>{value}</li></ul> : null;
+  return value ? (
+    <ul>
+      <li>{value}</li>
+    </ul>
+  ) : null;
 };
 
 export const TimelineItem = ({ item, dateFormat, locale }: PropTypes) => {
   const dateFnsFormat = toDateFnsFormat(dateFormat ?? 'MMM yyyy');
   const { dateFns: dateFnsLocale, today: todayLabel } = getLocaleEntry(locale);
 
-  const formatDate = (dateStr: string) =>
-    format(parseISO(dateStr), dateFnsFormat, { locale: dateFnsLocale });
+  const formatDate = (dateStr: string) => format(parseISO(dateStr), dateFnsFormat, { locale: dateFnsLocale });
 
   const endLabel = item.endDate ? formatDate(item.endDate) : todayLabel;
 
   return (
     <div className="timeline-item">
       <div className="title">
-        {item.subTitle ? `${item.subTitle}, ` : null}{item.title}
+        {item.subTitle ? `${item.subTitle}, ` : null}
+        {item.title}
       </div>
       <div className="date-range">
         {item.location || item.course}, {formatDate(item.startDate)} ~ {endLabel}

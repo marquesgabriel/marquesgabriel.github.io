@@ -1,0 +1,118 @@
+# Runs on every push to master (i.e. after a PR merges - master is
+# protected and requires the build check, so every push here already
+# passed the pipeline). Parses commit subjects since the last tag using
+# Conventional Commits (already this repo's commit convention - see the
+# existing history) to compute the next semver bump, then opens a PR
+# bumping package.json and merges it once its own required check passes.
+# That merge is itself a push to master, which re-triggers deploy.yml
+# (rebuild with the new version, already idempotent). Ported from mtg's
+# token-generator repo's version-bump.yml.
+
+name: Version Bump
+
+on:
+  push:
+    branches: ["master"]
+
+permissions:
+  contents: write
+
+jobs:
+  version-bump:
+    runs-on: ubuntu-latest
+    # This workflow's own bump commit is itself a push to master - skip
+    # re-running on it instead of relying only on the classifier finding
+    # nothing to bump (chore(release): commits don't match feat:/fix:
+    # below, but skipping outright avoids the wasted run).
+    if: "${{ !contains(github.event.head_commit.message, 'chore(release): bump version') }}"
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Determine last tag
+        id: last_tag
+        run: |
+          TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "v0.0.0")
+          echo "tag=$TAG" >> "$GITHUB_OUTPUT"
+
+      - name: Classify commits since last tag (Conventional Commits)
+        id: classify
+        run: |
+          RANGE="${{ steps.last_tag.outputs.tag }}..HEAD"
+          git rev-parse "${{ steps.last_tag.outputs.tag }}" >/dev/null 2>&1 || RANGE="HEAD"
+
+          LOG=$(git log $RANGE --pretty=format:%s)
+          BUMP="none"
+          if echo "$LOG" | grep -qE '^[a-zA-Z]+(\(.+\))?!:|BREAKING CHANGE'; then
+            BUMP="major"
+          elif echo "$LOG" | grep -qE '^feat(\(.+\))?:'; then
+            BUMP="minor"
+          elif echo "$LOG" | grep -qE '^(fix|perf)(\(.+\))?:'; then
+            BUMP="patch"
+          fi
+          echo "bump=$BUMP" >> "$GITHUB_OUTPUT"
+
+      - name: Compute next version
+        id: next_version
+        if: steps.classify.outputs.bump != 'none'
+        run: |
+          CURRENT=$(node -p "require('./package.json').version")
+          IFS='.' read -r MAJOR MINOR PATCH <<< "$CURRENT"
+          case "${{ steps.classify.outputs.bump }}" in
+            major) MAJOR=$((MAJOR + 1)); MINOR=0; PATCH=0 ;;
+            minor) MINOR=$((MINOR + 1)); PATCH=0 ;;
+            patch) PATCH=$((PATCH + 1)) ;;
+          esac
+          echo "next=$MAJOR.$MINOR.$PATCH" >> "$GITHUB_OUTPUT"
+
+      - name: Bump package.json, open a PR, and merge it
+        if: steps.classify.outputs.bump != 'none'
+        env:
+          # gh (pre-installed on the runner) needs a token with permission
+          # to create/merge PRs on this repo - reusing the same deploy PAT
+          # deploy.yml/project-status.yml already use, not the default
+          # GITHUB_TOKEN.
+          GH_TOKEN: ${{ secrets.ACTIONS_DEPLOY_ACCESS_TOKEN }}
+        run: |
+          NEXT="${{ steps.next_version.outputs.next }}"
+          BRANCH="chore/version-bump-v$NEXT"
+          node -e "
+            const fs = require('fs');
+            const pkg = require('./package.json');
+            pkg.version = '$NEXT';
+            fs.writeFileSync('package.json', JSON.stringify(pkg, null, 2) + '\n');
+          "
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git checkout -b "$BRANCH"
+          git add package.json
+          git commit -m "chore(release): bump version to v$NEXT"
+          # master is a protected branch requiring a passing check on the
+          # PR that changes it, so this can't push straight to master.
+          # Push the bump to its own branch, open a PR, wait for its
+          # required check to pass, then merge - same path every other
+          # change on this repo goes through.
+          git remote set-url origin "https://x-access-token:${{ secrets.ACTIONS_DEPLOY_ACCESS_TOKEN }}@github.com/${{ github.repository }}"
+          git push origin "$BRANCH"
+          PR_URL=$(gh pr create --base master --head "$BRANCH" --title "chore(release): bump version to v$NEXT" --body "Automated version bump - see .github/workflows/version-bump.yml.")
+          # gh pr checks --watch errors out immediately with "no checks
+          # reported" if called before GitHub has registered the new PR's
+          # check suite (a race, confirmed live in mtg's token-generator
+          # repo - the check run itself started and passed within a
+          # couple seconds of the "no checks reported" error). Poll until
+          # at least one check shows up, then watch it through to
+          # completion.
+          for _ in $(seq 1 12); do
+            COUNT=$(gh pr checks "$PR_URL" --json state --jq 'length' 2>/dev/null || echo 0)
+            [ "$COUNT" != "0" ] && break
+            sleep 5
+          done
+          gh pr checks "$PR_URL" --watch --interval 10 --fail-fast
+          # --subject explicit (rather than gh's default "Merge pull
+          # request #N from ..." wording) so the resulting merge commit's
+          # message still contains "chore(release): bump version" - the
+          # job-level `if:` above greps for that exact phrase to skip
+          # re-running on the push this merge itself produces.
+          gh pr merge "$PR_URL" --merge --delete-branch --subject "chore(release): bump version to v$NEXT"
