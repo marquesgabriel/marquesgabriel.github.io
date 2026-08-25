@@ -1,8 +1,14 @@
 # Moves the issues a PR closes (via "Closes #123" in the PR body) on the
-# project board: "In Progress" when the PR opens/reopens, "Done" when it
-# merges. GitHub's native "Closes #N" auto-close only moves issues on the
-# built-in project automation when it fires, so this makes the board update
-# explicit and works the same whether or not that automation is configured.
+# project board: "In Progress" when the PR opens/reopens, "Done" + archived
+# + the underlying issue closed when it merges. GitHub's native
+# "Closes #N" auto-close only fires for merges into the default branch -
+# this repo now reviews via PRs into release/* branches too (see ci.yml),
+# so closing the issue here directly (instead of relying on auto-close)
+# keeps it working the same regardless of merge target. Ported from mtg's
+# token-generator repo, which hit this same gap for real: an issue shipped
+# and marked "Done" on its board stayed open for weeks because the final
+# release-branch promotion PR into main didn't repeat every individual
+# "Closes #N" reference from the PRs merged into it along the way.
 #
 # Requires the ACTIONS_DEPLOY_ACCESS_TOKEN secret (classic PAT with `repo`
 # + `project` scopes) since the default GITHUB_TOKEN can't write to
@@ -30,8 +36,17 @@ jobs:
             const TARGET_STATUS = context.payload.action === "closed" ? "Done" : "In Progress";
 
             const body = context.payload.pull_request.body || "";
-            const closesRegex = /\b(close[sd]?|fix(?:es|ed)?|resolve[sd]?)\s*:?\s*#(\d+)/gi;
-            const issueNumbers = [...body.matchAll(closesRegex)].map(m => parseInt(m[2], 10));
+            // Matches a keyword followed by one or more #N references, so
+            // "Closes #12, #34" picks up both - not just the one
+            // immediately after "Closes" - since only requiring the
+            // keyword once per list (not once per number) is how PR
+            // bodies are naturally written. mtg shipped without this and
+            // silently dropped every issue after the first in a list for
+            // months before it was caught.
+            const closesRegex = /\b(?:close[sd]?|fix(?:es|ed)?|resolve[sd]?)\s*:?\s*((?:#\d+(?:\s*,\s*|\s+and\s+)?)+)/gi;
+            const issueNumbers = [...body.matchAll(closesRegex)].flatMap(
+              (m) => [...m[1].matchAll(/#(\d+)/g)].map((n) => parseInt(n[1], 10))
+            );
 
             if (issueNumbers.length === 0) {
               console.log("No 'Closes #N' references found in PR body — nothing to do.");
@@ -89,19 +104,60 @@ jobs:
               }
             `;
 
+            // Archiving is separate from Status - a project board can
+            // otherwise accumulate "Done" items indefinitely with no
+            // built-in cleanup, so items are archived right after landing
+            // on Done instead of leaving that as a manual chore.
+            const archiveMutation = `
+              mutation($projectId: ID!, $itemId: ID!) {
+                archiveProjectV2Item(input: { projectId: $projectId, itemId: $itemId }) {
+                  item { id }
+                }
+              }
+            `;
+
             for (const issueNumber of issueNumbers) {
               const item = project.items.nodes.find(
                 n => n.content && n.content.number === issueNumber
               );
               if (!item) {
-                console.log(`Issue #${issueNumber} not found on the project board — skipping.`);
-                continue;
+                console.log(`Issue #${issueNumber} not found on the project board — skipping board update.`);
+              } else {
+                await github.graphql(mutation, {
+                  projectId: project.id,
+                  itemId: item.id,
+                  fieldId: statusField.id,
+                  optionId: targetOption.id,
+                });
+                console.log(`Moved issue #${issueNumber} to "${TARGET_STATUS}".`);
+
+                if (TARGET_STATUS === "Done") {
+                  await github.graphql(archiveMutation, {
+                    projectId: project.id,
+                    itemId: item.id,
+                  });
+                  console.log(`Archived issue #${issueNumber}.`);
+                }
               }
-              await github.graphql(mutation, {
-                projectId: project.id,
-                itemId: item.id,
-                fieldId: statusField.id,
-                optionId: targetOption.id,
-              });
-              console.log(`Moved issue #${issueNumber} to "${TARGET_STATUS}".`);
+
+              // Closes the issue directly instead of relying on GitHub's
+              // native "Closes #N" auto-close - see the header comment for
+              // why that alone isn't enough once release branches are in
+              // play. Not gated on the item being found above: the issue
+              // should close regardless of whether it's tracked on the
+              // board. A no-op (not an error) if already closed.
+              if (TARGET_STATUS === "Done") {
+                try {
+                  await github.rest.issues.update({
+                    owner: context.repo.owner,
+                    repo: context.repo.repo,
+                    issue_number: issueNumber,
+                    state: "closed",
+                    state_reason: "completed",
+                  });
+                  console.log(`Closed issue #${issueNumber}.`);
+                } catch (err) {
+                  console.log(`Could not close issue #${issueNumber}: ${err.message}`);
+                }
+              }
             }
