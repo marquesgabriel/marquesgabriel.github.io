@@ -212,7 +212,12 @@ function App() {
             <div className="row align-items-center justify-content-center">
               <div className="col align-self-center p-0 col-12 col-sm-12 col-md-9 col-lg-8 col-xl-8">
                 <Container activeStyle={activeStyle} classes="text-ctnr" title={verbiages!.titles.study}>
-                  <Timeline list={verbiages!.study} sortingProp="startDate" dateFormat="YYYY" locale={selectedLanguage} />
+                  <Timeline
+                    list={verbiages!.study}
+                    sortingProp="startDate"
+                    dateFormat="YYYY"
+                    locale={selectedLanguage}
+                  />
                 </Container>
               </div>
             </div>
