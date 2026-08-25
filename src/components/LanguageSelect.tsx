@@ -9,13 +9,7 @@ interface PropTypes {
   styleVerbiages: StyleSwitchVerbiage;
 }
 
-export const LanguageSelect = ({
-  value,
-  languages,
-  switchLanguage,
-  switchStyle,
-  styleVerbiages,
-}: PropTypes) => {
+export const LanguageSelect = ({ value, languages, switchLanguage, switchStyle, styleVerbiages }: PropTypes) => {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   if (!styleVerbiages) return null;
@@ -32,12 +26,7 @@ export const LanguageSelect = ({
         <div className="row align-items-center justify-content-between">
           <div className="col-auto mt-2 mb-2 ms-3">
             <div className="lang">
-              <select
-                className="selector"
-                name="select-language"
-                onChange={switchLanguage}
-                value={value}
-              >
+              <select className="selector" name="select-language" onChange={switchLanguage} value={value}>
                 {languages.map((language: LanguageObj) => (
                   <option key={language.id} value={language.name}>
                     {language.description}
@@ -82,21 +71,11 @@ export const LanguageSelect = ({
         </button>
 
         {/* overlay escuro */}
-        {mobileOpen && (
-          <div
-            className="mobile-menu-overlay"
-            onClick={() => setMobileOpen(false)}
-            aria-hidden="true"
-          />
-        )}
+        {mobileOpen && <div className="mobile-menu-overlay" onClick={() => setMobileOpen(false)} aria-hidden="true" />}
 
         {/* drawer de baixo para cima */}
         <div className={`mobile-menu-drawer${mobileOpen ? ' is-open' : ''}`} role="dialog" aria-modal="true">
-          <button
-            className="mobile-menu-close"
-            aria-label="Close menu"
-            onClick={() => setMobileOpen(false)}
-          >
+          <button className="mobile-menu-close" aria-label="Close menu" onClick={() => setMobileOpen(false)}>
             ✕
           </button>
 

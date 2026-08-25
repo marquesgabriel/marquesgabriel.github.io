@@ -69,8 +69,10 @@
     ]
   },
   "lint-staged": {
+    "src/**/!(*.d|*.test).{ts,tsx}": [
+      "eslint --max-warnings 0 --fix"
+    ],
     "src/**/*.{ts,tsx}": [
-      "eslint --max-warnings 0 --fix",
       "prettier --write"
     ],
     "src/**/*.scss": [
