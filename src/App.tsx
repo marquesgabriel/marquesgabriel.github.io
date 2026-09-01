@@ -137,7 +137,6 @@ function App() {
     // isLoadingVerbiages stuck at `true` forever, so the page rendered
     // nothing but the loading spinner indefinitely. Always resolve it.
     if (languages.length === 0) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect
       setIsLoadingVerbiages(false);
       return;
     }
