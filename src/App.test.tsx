@@ -229,6 +229,24 @@ describe('App', () => {
     expect(mockFrom.mock.calls.length).toBe(callsBefore);
   });
 
+  it('shows the error fallback (not an infinite spinner) when languages come back empty', async () => {
+    mockFrom.mockImplementation((table: string) => {
+      const map: Record<string, any> = { languages: [], styles: STYLES };
+      return makeSupabaseChain(map[table] ?? []);
+    });
+    render(<App />);
+    await waitFor(() => expect(screen.getByRole('alert')).toBeInTheDocument());
+    expect(screen.queryByTestId('lang-select')).not.toBeInTheDocument();
+  });
+
+  it('shows the error fallback when the initial Supabase fetch throws', async () => {
+    mockFrom.mockImplementation(() => {
+      throw new Error('network down');
+    });
+    render(<App />);
+    await waitFor(() => expect(screen.getByRole('alert')).toBeInTheDocument());
+  });
+
   it('switchStyle does nothing when styles list is empty', async () => {
     mockFrom.mockImplementation((table: string) => {
       const map: Record<string, any> = {
