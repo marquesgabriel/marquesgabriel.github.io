@@ -98,17 +98,26 @@ function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [isLoadingVerbiages, setIsLoadingVerbiages] = useState(true);
   const [isSwitchingLanguage, setIsSwitchingLanguage] = useState(false);
+  const [loadError, setLoadError] = useState(false);
 
   useEffect(() => {
     async function loadInitialData() {
-      const [langs, styleList] = await Promise.all([loadLanguages(), loadStyles()]);
-      setLanguages(langs);
-      setStyles(styleList as typeof styles);
-      if (styleList.length > 0) {
-        const chosen = styleList[Math.floor(Math.random() * styleList.length)] as { name: string };
-        setActiveStyle(chosen.name);
+      try {
+        const [langs, styleList] = await Promise.all([loadLanguages(), loadStyles()]);
+        setLanguages(langs);
+        setStyles(styleList as typeof styles);
+        if (styleList.length > 0) {
+          const chosen = styleList[Math.floor(Math.random() * styleList.length)] as { name: string };
+          setActiveStyle(chosen.name);
+        }
+        // No languages means no content can ever load — surface it rather
+        // than leaving the page stuck on the spinner indefinitely.
+        if (langs.length === 0) setLoadError(true);
+      } catch {
+        setLoadError(true);
+      } finally {
+        setIsLoading(false);
       }
-      setIsLoading(false);
     }
     loadInitialData();
   }, []);
@@ -124,7 +133,13 @@ function App() {
   }, [activeStyle, styles]);
 
   useEffect(() => {
-    if (languages.length === 0) return;
+    // Empty languages (failed/empty Supabase fetch) previously left
+    // isLoadingVerbiages stuck at `true` forever, so the page rendered
+    // nothing but the loading spinner indefinitely. Always resolve it.
+    if (languages.length === 0) {
+      setIsLoadingVerbiages(false);
+      return;
+    }
 
     const browserLang = navigator.languages[0].split('-')[0].toUpperCase();
     const matched = languages.find((l) => l.name === browserLang);
@@ -133,13 +148,13 @@ function App() {
     // Must run in an effect: navigator.languages is only available client-side,
     // and this depends on `languages` having loaded from Supabase first — it's
     // a one-time init on mount/data-ready, not a cascading-render pattern.
-    // eslint-disable-next-line react-hooks/set-state-in-effect
     setSelectedLanguage(resolvedLang);
 
     const langObj = languages.find((l) => l.name === resolvedLang);
     if (langObj) {
       getVerbiages(langObj.id)
         .then(setVerbiages)
+        .catch(() => setLoadError(true))
         .finally(() => setIsLoadingVerbiages(false));
     } else {
       setIsLoadingVerbiages(false);
@@ -176,6 +191,18 @@ function App() {
 
   return (
     <Suspense fallback={<div className="loading-spinner" />}>
+      {!isReady && loadError && (
+        <div className="load-error" role="alert">
+          <p>Something went wrong loading this page. Please try refreshing.</p>
+        </div>
+      )}
+
+      {!isReady && !loadError && (
+        <div className="loading-spinner" role="status" aria-live="polite">
+          <span className="visually-hidden">Loading Gabriel Marques&apos;s portfolio…</span>
+        </div>
+      )}
+
       {isReady && (
         <div className="portfolio-content">
           <LanguageSelect
