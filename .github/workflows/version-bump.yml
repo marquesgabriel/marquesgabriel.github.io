@@ -3,10 +3,16 @@
 # passed the pipeline). Parses commit subjects since the last tag using
 # Conventional Commits (already this repo's commit convention - see the
 # existing history) to compute the next semver bump, then opens a PR
-# bumping package.json and merges it once its own required check passes.
-# That merge is itself a push to master, which re-triggers deploy.yml
-# (rebuild with the new version, already idempotent). Ported from mtg's
-# token-generator repo's version-bump.yml.
+# bumping package.json and merges it once its own required check passes,
+# then tags the merge commit and publishes a GitHub Release. That merge
+# is itself a push to master, which re-triggers deploy.yml (rebuild with
+# the new version, already idempotent). Ported from mtg's token-generator
+# repo's version-bump.yml.
+#
+# The tag is load-bearing, not just for the Releases page: "Determine
+# last tag" below only diffs commits since the last release when a tag
+# actually exists, otherwise it re-scans the entire commit history on
+# every run. v2.1.0 and v2.2.0 were backfilled by hand for this reason.
 
 name: Version Bump
 
@@ -67,7 +73,7 @@ jobs:
           esac
           echo "next=$MAJOR.$MINOR.$PATCH" >> "$GITHUB_OUTPUT"
 
-      - name: Bump package.json, open a PR, and merge it
+      - name: Bump package.json, open a PR, merge it, then tag + release
         if: steps.classify.outputs.bump != 'none'
         env:
           # gh (pre-installed on the runner) needs a token with permission
@@ -116,3 +122,16 @@ jobs:
           # job-level `if:` above greps for that exact phrase to skip
           # re-running on the push this merge itself produces.
           gh pr merge "$PR_URL" --merge --delete-branch --subject "chore(release): bump version to v$NEXT"
+
+          # Tag the merge commit and publish a Release. This is the step
+          # that was missing entirely before - without it, no tag ever
+          # existed, so "Determine last tag" above always fell back to
+          # v0.0.0 and re-scanned the *entire* history on every run,
+          # causing repeated/oversized bumps (see v2.2.0, which should
+          # have been a v2.1.1 patch - fixed by backfilling v2.1.0/v2.2.0
+          # tags once, this step keeps it from recurring).
+          MERGE_SHA=$(gh pr view "$PR_URL" --json mergeCommit --jq '.mergeCommit.oid')
+          git fetch origin master
+          git tag -a "v$NEXT" "$MERGE_SHA" -m "v$NEXT"
+          git push origin "v$NEXT"
+          gh release create "v$NEXT" --title "v$NEXT" --generate-notes
